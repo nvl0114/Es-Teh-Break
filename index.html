@@ -11,6 +11,77 @@
         name="description"
         content="Es Teh Break 是一個以日常生活口語為主的印尼文學習網站。"
     >
+
+    <style>
+        /* 這裡加上可愛框框與頁面排版的 CSS */
+        body {
+            background-color: #f7f9fc;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main {
+            width: 100%;
+            max-width: 680px;
+        }
+
+        /* 療癒可愛的歡迎卡片框 */
+        .intro-card {
+            background: #ffffff;
+            border: 3px solid #ffe082;
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 10px 25px rgba(255, 224, 130, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 裝飾性的小圓點背景 */
+        .intro-card::before {
+            content: "✨";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .intro-card h1 {
+            color: #333333;
+            font-size: 26px;
+            margin-top: 0;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .intro-card p {
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        /* 底部小語的可愛提示框 */
+        .intro-note {
+            background-color: #fff9e6;
+            border-left: 5px solid #ffb300;
+            padding: 16px 20px;
+            border-radius: 0 16px 16px 0;
+            color: #795548;
+            font-weight: 500;
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
 </head>
 
 <body>
