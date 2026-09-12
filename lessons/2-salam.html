@@ -215,6 +215,21 @@
         }
 
         /* =========================
+           SOUND PLAYING STATE
+        ========================= */
+
+        /*
+         * Saat suara sedang diputar,
+         * gambar yang ditap diberi highlight halus
+         * (tidak ada ikon terpisah — tap gambar = dengar suara).
+         */
+
+        .image-option.playing-sound {
+            box-shadow:
+                0 0 0 3px rgba(123, 155, 118, 0.35);
+        }
+
+        /* =========================
            ANSWER STATES
         ========================= */
 
@@ -538,7 +553,7 @@
                 </p>
 
                 <p>
-                    每一題有四張圖片，只有一張是正確答案。
+                    每一題有四張圖片，只有一張是正確答案。點一下圖片就會播放這張圖片的印尼文發音。
                 </p>
 
             </section>
@@ -661,6 +676,11 @@
          *
          * 程式會自動從 imageBank 裡找另外 3 張圖片
          * 當作錯誤選項。
+         *
+         * soundText (選填) = 這張圖片對應的印尼文發音文字。
+         * 如果沒有填寫，預設會唸 correctAnswer。
+         * 這個聲音代表「圖片本身的內容」，
+         * 不是圖片的中文說明 (caption)。
          */
 
         const quizData = [
@@ -674,6 +694,9 @@
 
                 correctAnswer:
                     'Hai / Halo',
+
+                soundText:
+                    'Hai',
 
                 explanation:
                     'Orang Indonesia bilang 你好 pakai Hai atau Halo.',
@@ -698,6 +721,9 @@
 
                 correctAnswer:
                     'Hai / Halo',
+
+                soundText:
+                    'Halo',
 
                 explanation:
                     'Orang Indonesia bilang 你好 pakai Hai atau Halo.',
@@ -1108,13 +1134,124 @@
          *
          * Semua gambar soal dikumpulkan otomatis dari
          * correctImage masing-masing soal.
+         *
+         * "sound" = suara yang mewakili ISI gambar itu sendiri
+         * (bukan caption/keterangan gambar).
+         * Diambil dari soundText, atau kalau kosong,
+         * fallback ke correctAnswer soal itu.
          */
 
         const imageBank = quizData.map((item, index) => ({
             url: item.correctImage,
             caption: item.correctCaption || `Situasi ${index + 1}`,
+            sound: item.soundText || item.correctAnswer,
             sourceQuestion: index
         }));
+
+
+        /*
+         * =====================================================
+         * TEXT TO SPEECH (SUARA GAMBAR)
+         * =====================================================
+         *
+         * Menggunakan Web Speech API bawaan browser
+         * (tidak perlu file audio terpisah).
+         *
+         * Suara yang dimainkan sesuai dengan ISI gambar
+         * (item.sound), bukan caption Zh yang ditampilkan
+         * di bawah gambar.
+         */
+
+        let currentUtterance = null;
+
+        function speakIndonesian(text, cardElement) {
+
+            if (!text) {
+                return;
+            }
+
+            if (!("speechSynthesis" in window)) {
+                return;
+            }
+
+
+            /*
+             * Hentikan suara yang sedang berjalan
+             * supaya tidak tumpang tindih.
+             */
+
+            window.speechSynthesis.cancel();
+
+
+            const utterance =
+                new SpeechSynthesisUtterance(text);
+
+            utterance.lang = "id-ID";
+
+            utterance.rate = 0.95;
+
+
+            /*
+             * Coba pakai voice Bahasa Indonesia
+             * kalau browser menyediakannya.
+             */
+
+            const voices =
+                window.speechSynthesis.getVoices();
+
+            const idVoice =
+                voices.find(
+                    voice =>
+                        voice.lang &&
+                        voice.lang.toLowerCase().startsWith("id")
+                );
+
+            if (idVoice) {
+                utterance.voice = idVoice;
+            }
+
+
+            /*
+             * Highlight halus di kartu gambar
+             * selama suara diputar (bukan ikon terpisah).
+             */
+
+            if (cardElement) {
+
+                utterance.onstart = () => {
+                    cardElement.classList.add("playing-sound");
+                };
+
+                utterance.onend = () => {
+                    cardElement.classList.remove("playing-sound");
+                };
+
+                utterance.onerror = () => {
+                    cardElement.classList.remove("playing-sound");
+                };
+            }
+
+
+            currentUtterance = utterance;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+
+        /*
+         * Sebagian browser memuat daftar voice
+         * secara asinkron. Panggil sekali di awal
+         * supaya voice id-ID siap saat dibutuhkan.
+         */
+
+        if ("speechSynthesis" in window) {
+
+            window.speechSynthesis.getVoices();
+
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
 
 
         /*
@@ -1276,6 +1413,10 @@
 
             clearCountdown();
 
+            if ("speechSynthesis" in window) {
+                window.speechSynthesis.cancel();
+            }
+
             answered = false;
 
             selectedOption = null;
@@ -1410,7 +1551,8 @@
                     "click",
                     () => handleAnswer(
                         button,
-                        option.isCorrect
+                        option.isCorrect,
+                        option.sound
                     )
                 );
 
@@ -1428,7 +1570,7 @@
          * =====================================================
          */
 
-        function handleAnswer(button, isCorrect) {
+        function handleAnswer(button, isCorrect, sound) {
 
             /*
              * Setelah soal dijawab,
@@ -1443,6 +1585,17 @@
             answered = true;
 
             selectedOption = button;
+
+
+            /*
+             * Mainkan suara sesuai isi gambar
+             * yang baru saja ditap.
+             */
+
+            speakIndonesian(
+                sound,
+                button
+            );
 
 
             /*
@@ -1775,6 +1928,10 @@
         function showFinished() {
 
             clearCountdown();
+
+            if ("speechSynthesis" in window) {
+                window.speechSynthesis.cancel();
+            }
 
 
             questionCounterElement.textContent =
