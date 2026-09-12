@@ -31,8 +31,10 @@
     <!-- 載入共用模板 / Sidebar -->
     <div id="app"></div>
 
-    <!-- About Content (Dipindah ke atas, tepat di bawah #app / sidebar) -->
-    <main class="about-container">
+    <!-- About Content -->
+    <!-- FIX: tambah id="page-source" supaya script.js bisa ambil konten ini
+         dan pindahkan ke #page-content di dalam template yang di-inject -->
+    <main id="page-source" class="about-container">
         <h1 class="about-title">關於 Es Teh Break</h1>
 
         <!-- Card 1 -->
