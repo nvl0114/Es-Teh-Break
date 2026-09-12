@@ -238,28 +238,36 @@
     <!-- 載入 script.js -->
     <script src="script.js"></script>
     <!-- Card Accordion Script -->
+    <!-- FIX: pakai event delegation di document, bukan pasang listener
+         langsung ke .about-card-header. Soalnya script.js membongkar dan
+         menyusun ulang elemen #page-source jadi HTML string baru, jadi
+         elemen aslinya (yang sempat dipasangi listener versi lama) sudah
+         diganti dengan elemen baru yang belum punya listener sama sekali. -->
     <script>
-        document.querySelectorAll(".about-card-header").forEach(header => {
-            header.addEventListener("click", () => {
-                const card = header.parentElement;
-                const content = card.querySelector(".about-card-content");
-                
-                // Tutup card lain
-                document.querySelectorAll(".about-card").forEach(otherCard => {
-                    if (otherCard !== card) {
-                        otherCard.classList.remove("active");
-                        otherCard.querySelector(".about-card-content").style.maxHeight = null;
-                    }
-                });
-                
-                // Toggle card yang diklik
-                card.classList.toggle("active");
-                if (card.classList.contains("active")) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                } else {
-                    content.style.maxHeight = null;
+        document.addEventListener("click", (event) => {
+
+            const header = event.target.closest(".about-card-header");
+            if (!header) return;
+
+            const card = header.closest(".about-card");
+            const content = card.querySelector(".about-card-content");
+
+            // Tutup card lain
+            document.querySelectorAll(".about-card").forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove("active");
+                    const otherContent = otherCard.querySelector(".about-card-content");
+                    if (otherContent) otherContent.style.maxHeight = null;
                 }
             });
+
+            // Toggle card yang diklik
+            card.classList.toggle("active");
+            if (card.classList.contains("active")) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
         });
     </script>
 </body>
