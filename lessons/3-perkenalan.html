@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Es Teh Break｜自我介紹</title>
+    <title>Es Teh Break｜Perkenalan</title>
 
     <style>
         :root {
@@ -16,6 +16,8 @@
             --white: #ffffff;
             --green: #7b9b76;
             --red: #c8756d;
+            --muted: #806b5d;
+            --border: #ead8c5;
         }
 
         * {
@@ -35,6 +37,10 @@
             line-height: 1.8;
         }
 
+        button {
+            font-family: inherit;
+        }
+
         .lesson-container {
             max-width: 850px;
             margin: 0 auto;
@@ -42,21 +48,19 @@
         }
 
         .hero,
-        .card,
         .conversation-card,
-        .game-card {
+        .game-card,
+        .summary-card {
             background: var(--white);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 20px;
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 22px;
             box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
         }
 
-        .hero {
-            border-radius: 22px;
-            padding: 28px 24px;
-            margin-bottom: 22px;
-        }
+        /* ================================
+           HERO
+        ================================= */
 
         .badge {
             display: inline-block;
@@ -75,47 +79,38 @@
         }
 
         h2 {
-            margin-top: 0;
-            font-size: 22px;
+            margin: 0 0 8px;
+            font-size: 23px;
         }
 
         h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
+            margin: 0 0 8px;
+            font-size: 17px;
         }
 
         p {
             margin: 8px 0;
         }
 
+        .hero-description {
+            color: var(--muted);
+        }
+
         .note {
             background: #fff4df;
             border-left: 5px solid var(--light-brown);
-            padding: 15px 17px;
+            padding: 14px 16px;
             border-radius: 12px;
-            margin-top: 15px;
+            margin-top: 16px;
         }
 
-        .practice {
-            background: #f3f7ef;
-            border-left: 5px solid var(--green);
-            padding: 16px 18px;
-            border-radius: 12px;
-            margin-top: 15px;
-        }
-
-        /* =========================
+        /* ================================
            CONVERSATION
-        ========================= */
-
-        .section-title {
-            margin: 0 0 6px;
-            font-size: 22px;
-        }
+        ================================= */
 
         .section-subtitle {
             margin: 0 0 20px;
-            color: #806b5d;
+            color: var(--muted);
             font-size: 14px;
         }
 
@@ -127,27 +122,27 @@
             border-radius: 999px;
             font-size: 13px;
             font-weight: 700;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .speaker-row {
             display: flex;
-            gap: 12px;
             align-items: flex-start;
+            gap: 12px;
         }
 
-        .speaker-label {
+        .speaker-name {
             flex: 0 0 auto;
-            min-width: 52px;
-            height: 38px;
-            padding: 0 10px;
+            min-width: 60px;
+            min-height: 38px;
+            padding: 5px 10px;
             border-radius: 12px;
             background: var(--soft-brown);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
             font-size: 14px;
+            font-weight: 800;
         }
 
         .speaker-content {
@@ -162,33 +157,40 @@
         }
 
         .indonesian-text {
+            flex: 1;
             font-size: 18px;
             font-weight: 700;
             line-height: 1.6;
-            flex: 1;
         }
 
         .mandarin-text {
             margin-top: 3px;
+            color: var(--muted);
             font-size: 14px;
-            color: #806b5d;
             line-height: 1.6;
         }
 
+        /* ================================
+           TTS BUTTON
+        ================================= */
+
         .audio-btn {
             flex: 0 0 auto;
-            width: 38px;
-            height: 38px;
-            border: 1px solid #ead8c5;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
             background: #fffaf4;
             color: var(--brown);
             border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s ease;
+
+            font-size: 17px;
+            transition: 0.18s ease;
+            touch-action: manipulation;
         }
 
         .audio-btn:hover {
@@ -203,13 +205,13 @@
 
         .dialogue-divider {
             height: 1px;
-            background: #ead8c5;
-            margin: 20px 0;
+            background: var(--border);
+            margin: 21px 0;
         }
 
-        /* =========================
-           EXPLANATION
-        ========================= */
+        /* ================================
+           CONVERSATION BUTTONS
+        ================================= */
 
         .conversation-actions {
             display: flex;
@@ -226,7 +228,7 @@
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s ease;
+            transition: 0.18s ease;
         }
 
         .explanation-btn {
@@ -234,7 +236,7 @@
             color: var(--brown);
         }
 
-        .next-conversation-btn {
+        .next-btn {
             background: var(--brown);
             color: white;
         }
@@ -244,15 +246,20 @@
         }
 
         .conversation-action-btn:disabled {
+            opacity: 0.55;
             cursor: default;
-            opacity: 0.6;
+            transform: none;
         }
+
+        /* ================================
+           EXPLANATION
+        ================================= */
 
         .explanation-panel {
             display: none;
             margin-top: 15px;
             background: #fffaf4;
-            border: 1px solid #ead8c5;
+            border: 1px solid var(--border);
             border-radius: 15px;
             padding: 18px;
         }
@@ -261,18 +268,21 @@
             display: block;
         }
 
-        .explanation-panel h3 {
-            margin: 0 0 8px;
-            font-size: 17px;
+        .explanation-section {
+            margin-bottom: 18px;
         }
 
-        .explanation-panel ul {
-            margin: 6px 0 18px;
-            padding-left: 20px;
+        .explanation-section:last-child {
+            margin-bottom: 0;
         }
 
-        .explanation-panel li {
-            margin-bottom: 7px;
+        .explanation-list {
+            margin: 6px 0 0;
+            padding-left: 21px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 6px;
         }
 
         .explanation-note {
@@ -280,18 +290,51 @@
             border-left: 4px solid var(--light-brown);
             padding: 12px 14px;
             border-radius: 10px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
-        /* =========================
-           SENTENCE GAME
-        ========================= */
+        .example-box {
+            background: #f3f7ef;
+            border-left: 4px solid var(--green);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .example-box strong {
+            font-size: 16px;
+        }
+
+        /* ================================
+           GAME
+        ================================= */
 
         .game-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
+        }
+
+        .progress-text {
             font-size: 13px;
-            color: #806b5d;
+            color: var(--muted);
             font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: var(--soft-brown);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--light-brown);
+            border-radius: 999px;
+            transition: width 0.25s ease;
         }
 
         .game-instruction {
@@ -309,9 +352,9 @@
         }
 
         .word-area-title {
+            color: var(--muted);
             font-size: 14px;
             font-weight: 700;
-            color: #806b5d;
             margin-bottom: 8px;
         }
 
@@ -319,7 +362,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 9px;
-            min-height: 50px;
+            min-height: 55px;
             padding: 12px;
             background: #fffaf4;
             border: 1px dashed #dbc4ad;
@@ -331,13 +374,13 @@
             background: white;
             color: var(--brown);
             border-radius: 10px;
-            padding: 9px 13px;
-            min-height: 42px;
+            padding: 9px 14px;
+            min-height: 43px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             touch-action: manipulation;
-            transition: 0.18s ease;
+            transition: 0.16s ease;
         }
 
         .word-chip:hover:not(:disabled) {
@@ -345,25 +388,38 @@
             transform: translateY(-1px);
         }
 
+        .word-chip:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
         .word-chip:disabled {
-            opacity: 0.35;
+            opacity: 0.3;
             cursor: default;
         }
+
+        /* ================================
+           ANSWER
+        ================================= */
 
         .answer-area {
             margin-top: 18px;
         }
 
         .answer-box {
-            min-height: 58px;
+            min-height: 60px;
+
             display: flex;
             flex-wrap: wrap;
             align-items: center;
+
             gap: 8px;
             padding: 10px;
+
             background: #fffdf9;
-            border: 2px solid #ead8c5;
+            border: 2px solid var(--border);
             border-radius: 13px;
+
+            transition: 0.2s ease;
         }
 
         .answer-box.correct {
@@ -383,6 +439,7 @@
             border-radius: 9px;
             padding: 8px 12px;
             font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
             touch-action: manipulation;
         }
@@ -396,15 +453,19 @@
             font-size: 14px;
         }
 
+        /* ================================
+           GAME BUTTONS
+        ================================= */
+
         .game-actions {
             display: flex;
             gap: 10px;
             margin-top: 16px;
         }
 
-        .check-answer-btn,
-        .reset-answer-btn {
-            min-height: 45px;
+        .check-btn,
+        .reset-btn {
+            min-height: 46px;
             border: 0;
             border-radius: 12px;
             padding: 10px 16px;
@@ -413,16 +474,20 @@
             cursor: pointer;
         }
 
-        .check-answer-btn {
+        .check-btn {
             flex: 1;
             background: var(--brown);
             color: white;
         }
 
-        .reset-answer-btn {
+        .reset-btn {
             background: var(--soft-brown);
             color: var(--brown);
         }
+
+        /* ================================
+           FEEDBACK
+        ================================= */
 
         .game-feedback {
             display: none;
@@ -451,29 +516,50 @@
 
         .correct-sentence {
             margin-top: 5px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 800;
         }
 
+        /* ================================
+           FINISHED
+        ================================= */
+
         .game-finished {
             text-align: center;
-            padding: 20px 10px;
+            padding: 25px 10px;
         }
 
-        .game-finished h3 {
+        .game-finished-icon {
+            font-size: 42px;
             margin-bottom: 5px;
         }
 
         .game-restart-btn {
-            margin-top: 12px;
+            margin-top: 13px;
             border: 0;
             background: var(--brown);
             color: white;
-            padding: 11px 18px;
+            padding: 11px 19px;
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
         }
+
+        /* ================================
+           SUMMARY
+        ================================= */
+
+        .summary-list {
+            padding-left: 21px;
+        }
+
+        .summary-list li {
+            margin-bottom: 7px;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
 
         @media (max-width: 650px) {
 
@@ -482,14 +568,18 @@
             }
 
             .hero,
-            .card,
             .conversation-card,
-            .game-card {
+            .game-card,
+            .summary-card {
                 padding: 20px 17px;
             }
 
             h1 {
                 font-size: 25px;
+            }
+
+            h2 {
+                font-size: 21px;
             }
 
             .indonesian-text {
@@ -509,21 +599,33 @@
                 font-size: 15px;
                 padding: 10px 13px;
             }
+
+            .speaker-name {
+                min-width: 53px;
+            }
         }
     </style>
 </head>
 
+
 <body>
 
+    <!--
+        Shared template akan memasukkan isi #page-source
+        ke dalam #app.
+    -->
+
     <div id="app"></div>
+
 
     <div id="page-source">
 
         <main class="lesson-container">
 
-            <!-- =========================
+
+            <!-- =============================================
                  HERO
-            ========================= -->
+            ============================================== -->
 
             <section class="hero">
 
@@ -535,29 +637,31 @@
                     👋 Perkenalan（自己介紹）
                 </h1>
 
-                <p>
-                    學習如何用印尼語打招呼，以及如何介紹自己的名字、國籍和基本資訊。
+                <p class="hero-description">
+                    學習如何用印尼語打招呼、介紹自己的名字和國籍，
+                    以及自然地向對方道別。
                 </p>
 
                 <div class="note">
-                    💡 本課程會使用日常生活中比較自然的印尼語表達。
+                    💡 點擊 🔊 可以使用手機或瀏覽器的語音功能，
+                    聽印尼語發音。
                 </div>
 
             </section>
 
 
-            <!-- =========================
+            <!-- =============================================
                  CONVERSATION
-            ========================= -->
+            ============================================== -->
 
             <section class="conversation-card">
 
-                <h2 class="section-title">
+                <h2>
                     💬 Conversation
                 </h2>
 
                 <p class="section-subtitle">
-                    聽聽看 David 和 Anna 的日常對話。
+                    跟著 David 和 Anna 的日常對話學習。
                 </p>
 
                 <div id="conversation-container"></div>
@@ -565,14 +669,14 @@
             </section>
 
 
-            <!-- =========================
+            <!-- =============================================
                  GAME
-            ========================= -->
+            ============================================== -->
 
             <section class="game-card">
 
-                <h2 class="section-title">
-                    🧩 Sambung Kata
+                <h2>
+                    🧩 Sambung Kata（接續單字）
                 </h2>
 
                 <p class="section-subtitle">
@@ -584,51 +688,53 @@
             </section>
 
 
-            <!-- =========================
+            <!-- =============================================
                  SUMMARY
-            ========================= -->
+            ============================================== -->
 
-            <section class="card">
+            <section class="summary-card">
 
                 <h2>
-                    ☕ Es Teh Break 小結
+                    ☕ 小結
                 </h2>
 
-                <ul>
+                <ul class="summary-list">
+
                     <li>
-                        👋 <strong>Hi / Halo</strong>
-                        = 你好
+                        <strong>Hi / Halo</strong>
+                        ＝ 你好
                     </li>
 
                     <li>
-                        👤 <strong>Nama kamu siapa?</strong>
-                        = 你叫什麼名字？
+                        <strong>Nama kamu siapa?</strong>
+                        ＝ 你叫什麼名字？
                     </li>
 
                     <li>
-                        🙋 <strong>Nama aku Anna.</strong>
-                        = 我叫 Anna。
+                        <strong>Nama aku Anna.</strong>
+                        ＝ 我叫 Anna。
                     </li>
 
                     <li>
-                        🌏 <strong>Kamu orang mana?</strong>
-                        = 你是哪裡人？
+                        <strong>Kamu orang mana?</strong>
+                        ＝ 你是哪裡人？
                     </li>
 
                     <li>
-                        🇹🇼 <strong>Aku orang Taiwan.</strong>
-                        = 我是台灣人。
+                        <strong>Aku orang Taiwan.</strong>
+                        ＝ 我是台灣人。
                     </li>
 
                     <li>
-                        👋 <strong>Duluan ya.</strong>
-                        = 我先走囉。
+                        <strong>Duluan ya.</strong>
+                        ＝ 我先走囉。
                     </li>
 
                     <li>
-                        🌱 <strong>Hati-hati.</strong>
-                        = 小心／路上小心。
+                        <strong>Hati-hati.</strong>
+                        ＝ 小心／路上小心。
                     </li>
+
                 </ul>
 
             </section>
@@ -641,7 +747,135 @@
     <script>
 
         /* =====================================================
-           DATA
+           TEXT TO SPEECH
+           使用手機 / 瀏覽器本身的語音
+        ===================================================== */
+
+        let currentSpeech = null;
+
+
+        function playAudio(text, button = null) {
+
+            if (!("speechSynthesis" in window)) {
+
+                alert(
+                    "這個瀏覽器不支援語音播放功能。"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * 停止上一個正在播放的聲音
+             */
+
+            speechSynthesis.cancel();
+
+
+            /*
+             * 清除所有 playing 狀態
+             */
+
+            document
+                .querySelectorAll(".playing")
+                .forEach(element => {
+
+                    element.classList.remove(
+                        "playing"
+                    );
+
+                });
+
+
+            /*
+             * 建立語音
+             */
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            /*
+             * 印尼語
+             */
+
+            utterance.lang =
+                "id-ID";
+
+
+            /*
+             * 稍微放慢速度
+             * 適合初學者
+             */
+
+            utterance.rate =
+                0.85;
+
+
+            utterance.pitch =
+                1;
+
+
+            currentSpeech =
+                utterance;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            utterance.onend =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            utterance.onerror =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION DATA
         ===================================================== */
 
         const conversations = [
@@ -650,15 +884,13 @@
                 speakerA: {
                     name: "David",
                     indonesian: "Hi",
-                    mandarin: "你好",
-                    audio: "AUDIO_URL_HI"
+                    mandarin: "你好"
                 },
 
                 speakerB: {
                     name: "Anna",
                     indonesian: "Halo",
-                    mandarin: "你好",
-                    audio: "AUDIO_URL_HALO"
+                    mandarin: "你好"
                 },
 
                 explanation: {
@@ -666,18 +898,23 @@
                     vocabulary: [],
 
                     phrases: [
+
                         {
                             phrase: "Hi",
-                            explanation: "很常見的輕鬆打招呼方式，相當於「你好」。"
+                            explanation:
+                                "很常見的輕鬆打招呼方式，相當於「你好」。"
                         },
+
                         {
                             phrase: "Halo",
-                            explanation: "印尼語中非常常見的打招呼方式，相當於「你好」。"
+                            explanation:
+                                "印尼語中非常常見的打招呼方式，相當於「你好」。"
                         }
+
                     ],
 
                     usage:
-                        "Hi 和 Halo 都可以在日常對話中使用。"
+                        "Hi 和 Halo 都可以在日常生活中用來打招呼。"
 
                 }
             },
@@ -687,43 +924,50 @@
                 speakerA: {
                     name: "David",
                     indonesian: "Nama kamu siapa?",
-                    mandarin: "你叫什麼名字？",
-                    audio: "AUDIO_URL_NAMA_KAMU_SIAPA"
+                    mandarin: "你叫什麼名字？"
                 },
 
                 speakerB: {
                     name: "Anna",
                     indonesian: "Nama aku Anna",
-                    mandarin: "我叫 Anna。",
-                    audio: "AUDIO_URL_NAMA_AKU_ANNA"
+                    mandarin: "我叫 Anna。"
                 },
 
                 explanation: {
 
                     vocabulary: [
+
                         {
                             word: "Nama",
                             meaning: "名字"
                         },
+
                         {
                             word: "Kamu",
                             meaning: "你／妳"
                         },
+
                         {
                             word: "Aku",
                             meaning: "我"
                         }
+
                     ],
 
                     phrases: [
+
                         {
                             phrase: "Nama kamu siapa?",
-                            explanation: "你叫什麼名字？用來詢問對方的名字。"
+                            explanation:
+                                "你叫什麼名字？用來詢問對方的名字。"
                         },
+
                         {
                             phrase: "Nama aku",
-                            explanation: "我的名字是……／我叫……"
+                            explanation:
+                                "我的名字是……／我叫……"
                         }
+
                     ],
 
                     usage:
@@ -737,80 +981,101 @@
                 speakerA: {
                     name: "David",
                     indonesian: "Aku David, kamu orang mana?",
-                    mandarin: "我是 David，你是哪裡人？",
-                    audio: "AUDIO_URL_AKU_DAVID"
+                    mandarin: "我是 David，你是哪裡人？"
                 },
 
                 speakerB: {
                     name: "Anna",
                     indonesian: "Aku orang Taiwan, kalo kamu?",
-                    mandarin: "我是台灣人，你呢？",
-                    audio: "AUDIO_URL_AKU_ORANG_TAIWAN"
+                    mandarin: "我是台灣人，你呢？"
                 },
 
                 explanation: {
 
                     vocabulary: [
+
                         {
-                            word: "orang",
+                            word: "Orang",
                             meaning: "人"
                         },
+
                         {
-                            word: "mana",
+                            word: "Mana",
                             meaning: "哪裡"
                         }
+
                     ],
 
                     phrases: [
+
                         {
                             phrase: "Orang mana?",
-                            explanation: "詢問一個人是哪裡人。"
+                            explanation:
+                                "哪裡人？用來詢問一個人來自哪裡。"
                         },
+
                         {
                             phrase: "Kalo kamu?",
-                            explanation: "你呢？用來把同樣的問題問回對方。"
+                            explanation:
+                                "你呢？用來把同樣的問題問回對方。"
                         }
+
                     ],
 
-                    usage:
-                        `
+                    usage: `
                         <p>
-                            「是」在印尼語中其實有一個很適合的對應詞，就是
-                            <strong>adalah（阿達拉）</strong>。
+                            「是」在印尼語中其實有一個很適合的對應詞，
+                            就是 <strong>adalah（阿達拉）</strong>。
                         </p>
 
                         <p>
-                            不過，在日常對話中，「adalah」幾乎不會被說出來，
+                            不過，在日常對話中，
+                            <strong>adalah</strong> 幾乎不會被說出來，
                             通常只有在比較正式的情況下才會使用。
                         </p>
 
                         <p>
-                            例如，想說「我是台灣人」，正式一點可以說：
+                            例如，想說「我是台灣人」，
+                            正式一點可以說：
                         </p>
 
-                        <div class="practice">
-                            <strong>Aku adalah orang Taiwan.</strong><br>
+                        <div class="example-box">
+
+                            <strong>
+                                Aku adalah orang Taiwan.
+                            </strong>
+
+                            <br>
+
                             我 是 台灣人。
+
                         </div>
 
                         <p>
-                            但在日常對話中，印尼人通常會把「adalah」省略，
-                            直接說：
+                            但在日常對話中，印尼人通常會把
+                            <strong>adalah</strong> 省略，直接說：
                         </p>
 
-                        <div class="practice">
-                            <strong>Aku orang Taiwan.</strong><br>
+                        <div class="example-box">
+
+                            <strong>
+                                Aku orang Taiwan.
+                            </strong>
+
+                            <br>
+
                             我 台灣人。
+
                         </div>
 
                         <p>
                             所以在日常對話中，
                             <strong>Aku orang Taiwan.</strong>
-                            聽起來會比
+                            會比
                             <strong>Aku adalah orang Taiwan.</strong>
                             更自然。
                         </p>
-                        `
+                    `
 
                 }
             },
@@ -820,15 +1085,13 @@
                 speakerA: {
                     name: "David",
                     indonesian: "Aku orang Indonesia. Aku duluan ya",
-                    mandarin: "我是印尼人。我先走囉。",
-                    audio: "AUDIO_URL_AKU_ORANG_INDONESIA"
+                    mandarin: "我是印尼人。我先走囉。"
                 },
 
                 speakerB: {
                     name: "Anna",
                     indonesian: "Iya. Hati-hati",
-                    mandarin: "好！小心。",
-                    audio: "AUDIO_URL_IYA_HATI_HATI"
+                    mandarin: "好！小心。"
                 },
 
                 explanation: {
@@ -836,18 +1099,28 @@
                     vocabulary: [],
 
                     phrases: [
+
                         {
                             phrase: "Duluan ya",
-                            explanation: "先走／我先走囉。"
+                            explanation:
+                                "先走／我先走囉。"
                         },
+
                         {
                             phrase: "Hati-hati",
-                            explanation: "小心／路上小心。"
+                            explanation:
+                                "小心／路上小心。"
+                        },
+
+                        {
+                            phrase: "Dadah",
+                            explanation:
+                                "拜拜，一種輕鬆、口語的道別方式。"
                         }
+
                     ],
 
-                    usage:
-                        `
+                    usage: `
                         <p>
                             在印尼語中，人們其實很少說
                             <strong>sampai jumpa（桑拜朱巴）</strong>，
@@ -867,8 +1140,8 @@
                         </p>
 
                         <p>
-                            這是因為印尼人會認為，對方離開之後，
-                            接下來可能還要在路上移動，
+                            這是因為印尼人會認為，
+                            對方離開之後，接下來可能還要在路上移動，
                             所以會說「Hati-hati」，
                             提醒對方路上注意安全。
                         </p>
@@ -881,7 +1154,7 @@
                             <strong>「拜拜 👋」</strong>，
                             通常比較輕鬆、口語。
                         </p>
-                        `
+                    `
 
                 }
             }
@@ -890,114 +1163,121 @@
 
 
         /* =====================================================
-           GAME DATA
+           5 GAME QUESTIONS
         ===================================================== */
 
         const sentenceGames = [
 
             {
-                sentence: ["Aku", "orang", "Taiwan"],
-                translation: "我是台灣人。"
+                sentence: [
+                    "Aku",
+                    "orang",
+                    "Taiwan"
+                ],
+
+                translation:
+                    "我是台灣人。"
             },
 
-            {
-                sentence: ["Nama", "aku", "Anna"],
-                translation: "我叫 Anna。"
-            },
 
             {
-                sentence: ["Nama", "kamu", "siapa"],
-                translation: "你叫什麼名字？"
+                sentence: [
+                    "Nama",
+                    "aku",
+                    "Anna"
+                ],
+
+                translation:
+                    "我叫 Anna。"
             },
 
-            {
-                sentence: ["Kalo", "kamu"],
-                translation: "你呢？"
-            },
 
             {
-                sentence: ["Kamu", "orang", "mana"],
-                translation: "你是哪裡人？"
+                sentence: [
+                    "Nama",
+                    "kamu",
+                    "siapa"
+                ],
+
+                translation:
+                    "你叫什麼名字？"
+            },
+
+
+            {
+                sentence: [
+                    "Kalo",
+                    "kamu"
+                ],
+
+                translation:
+                    "你呢？"
+            },
+
+
+            {
+                sentence: [
+                    "Kamu",
+                    "orang",
+                    "mana"
+                ],
+
+                translation:
+                    "你是哪裡人？"
             }
 
         ];
 
 
         /* =====================================================
-           AUDIO
+           SHUFFLE
         ===================================================== */
 
-        let currentAudio = null;
-        let currentAudioButton = null;
+        function shuffle(array) {
 
-        function playAudio(audioUrl, button = null) {
+            const result =
+                [...array];
 
-            if (
-                !audioUrl ||
-                audioUrl.startsWith("AUDIO_URL_")
+
+            for (
+                let i = result.length - 1;
+                i > 0;
+                i--
             ) {
 
-                console.warn(
-                    "Audio URL 尚未設定：",
-                    audioUrl
-                );
+                const j =
+                    Math.floor(
+                        Math.random() * (i + 1)
+                    );
 
-                return;
+
+                [
+                    result[i],
+                    result[j]
+                ] = [
+                    result[j],
+                    result[i]
+                ];
+
             }
 
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-            }
 
-            if (currentAudioButton) {
-                currentAudioButton.classList.remove("playing");
-            }
-
-            const audio = new Audio(audioUrl);
-
-            currentAudio = audio;
-            currentAudioButton = button;
-
-            if (button) {
-                button.classList.add("playing");
-            }
-
-            audio.play().catch(error => {
-
-                console.error(
-                    "Audio 播放失敗：",
-                    error
-                );
-
-                if (button) {
-                    button.classList.remove("playing");
-                }
-
-            });
-
-            audio.addEventListener(
-                "ended",
-                () => {
-
-                    if (button) {
-                        button.classList.remove("playing");
-                    }
-
-                    currentAudio = null;
-                    currentAudioButton = null;
-
-                }
-            );
+            return result;
 
         }
 
 
         /* =====================================================
-           CONVERSATION
+           CONVERSATION STATE
         ===================================================== */
 
-        let currentConversationIndex = 0;
+        let currentConversationIndex =
+            0;
+
+
+        /* =====================================================
+           RENDER CONVERSATION
+        ===================================================== */
 
         function renderConversation() {
 
@@ -1006,61 +1286,72 @@
                     "conversation-container"
                 );
 
+
             if (!container) return;
+
 
             const conversation =
                 conversations[
                     currentConversationIndex
                 ];
 
+
             const total =
                 conversations.length;
+
 
             container.innerHTML = `
 
                 <div class="conversation-counter">
 
-                    Conversation
+                    對話
                     ${currentConversationIndex + 1}
                     / ${total}
 
                 </div>
 
+
                 ${renderSpeaker(
                     conversation.speakerA
                 )}
 
+
                 <div class="dialogue-divider"></div>
+
 
                 ${renderSpeaker(
                     conversation.speakerB
                 )}
 
+
                 <div class="conversation-actions">
 
                     <button
                         class="conversation-action-btn explanation-btn"
-                        id="explanation-toggle">
+                        id="explanation-toggle"
+                        type="button">
 
-                        📖 Penjelasan
+                        📖 說明
 
                     </button>
 
+
                     <button
-                        class="conversation-action-btn next-conversation-btn"
-                        id="next-conversation">
+                        class="conversation-action-btn next-btn"
+                        id="next-conversation"
+                        type="button">
 
                         ${
                             currentConversationIndex === total - 1
-                                ? "✓ Selesai"
-                                : "→ Berikutnya"
+                                ? "✓ 完成"
+                                : "→ 下一段"
                         }
 
                     </button>
 
                 </div>
 
-                <!-- 每一段對話自己的說明 -->
+
                 <div
                     class="explanation-panel"
                     id="explanation-panel">
@@ -1074,10 +1365,38 @@
             `;
 
 
+            /*
+             * Conversation audio
+             */
+
+            container
+                .querySelectorAll(".audio-btn")
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            playAudio(
+                                button.dataset.text,
+                                button
+                            );
+
+                        }
+                    );
+
+                });
+
+
+            /*
+             * Explanation
+             */
+
             const explanationButton =
                 document.getElementById(
                     "explanation-toggle"
                 );
+
 
             const explanationPanel =
                 document.getElementById(
@@ -1085,29 +1404,28 @@
                 );
 
 
-            /*
-             * 說明預設關閉
-             * 點擊後才打開
-             */
-
             explanationButton.addEventListener(
                 "click",
                 () => {
 
-                    explanationPanel.classList.toggle(
-                        "show"
-                    );
+                    const isOpen =
+                        explanationPanel.classList.toggle(
+                            "show"
+                        );
+
 
                     explanationButton.textContent =
-                        explanationPanel.classList.contains(
-                            "show"
-                        )
+                        isOpen
                             ? "📖 關閉說明"
-                            : "📖 Penjelasan";
+                            : "📖 說明";
 
                 }
             );
 
+
+            /*
+             * Next conversation
+             */
 
             const nextButton =
                 document.getElementById(
@@ -1145,29 +1463,40 @@
         }
 
 
+        /* =====================================================
+           RENDER SPEAKER
+        ===================================================== */
+
         function renderSpeaker(speaker) {
 
             return `
 
                 <div class="speaker-row">
 
-                    <div class="speaker-label">
+                    <div class="speaker-name">
+
                         ${speaker.name}
+
                     </div>
+
 
                     <div class="speaker-content">
 
                         <div class="indonesian-row">
 
                             <div class="indonesian-text">
+
                                 ${speaker.indonesian}
+
                             </div>
+
 
                             <button
                                 class="audio-btn"
-                                aria-label="播放印尼語發音"
-                                data-audio="${escapeAttribute(
-                                    speaker.audio
+                                type="button"
+                                aria-label="播放印尼語"
+                                data-text="${escapeHtml(
+                                    speaker.indonesian
                                 )}">
 
                                 🔊
@@ -1176,8 +1505,11 @@
 
                         </div>
 
+
                         <div class="mandarin-text">
+
                             ${speaker.mandarin}
+
                         </div>
 
                     </div>
@@ -1189,90 +1521,130 @@
         }
 
 
-        function renderExplanation(explanation) {
+        /* =====================================================
+           RENDER EXPLANATION
+        ===================================================== */
+
+        function renderExplanation(
+            explanation
+        ) {
 
             let html = "";
 
 
+            /*
+             * VOCABULARY
+             */
+
             if (
                 explanation.vocabulary &&
-                explanation.vocabulary.length
+                explanation.vocabulary.length > 0
             ) {
 
                 html += `
 
-                    <h3>
-                        📚 生詞
-                    </h3>
+                    <div class="explanation-section">
 
-                    <ul>
+                        <h3>
+                            📚 生詞
+                        </h3>
 
-                        ${
-                            explanation.vocabulary
-                                .map(item => `
-                                    <li>
-                                        <strong>
-                                            ${item.word}
-                                        </strong>
-                                        =
-                                        ${item.meaning}
-                                    </li>
-                                `)
-                                .join("")
-                        }
+                        <ul class="explanation-list">
 
-                    </ul>
+                            ${
+                                explanation.vocabulary
+                                    .map(item => `
+
+                                        <li>
+
+                                            <strong>
+                                                ${item.word}
+                                            </strong>
+
+                                            ＝
+                                            ${item.meaning}
+
+                                        </li>
+
+                                    `)
+                                    .join("")
+                            }
+
+                        </ul>
+
+                    </div>
 
                 `;
 
             }
 
+
+            /*
+             * PHRASES
+             */
 
             if (
                 explanation.phrases &&
-                explanation.phrases.length
+                explanation.phrases.length > 0
             ) {
 
                 html += `
 
-                    <h3>
-                        💬 短語
-                    </h3>
+                    <div class="explanation-section">
 
-                    <ul>
+                        <h3>
+                            💬 短語
+                        </h3>
 
-                        ${
-                            explanation.phrases
-                                .map(item => `
-                                    <li>
-                                        <strong>
-                                            ${item.phrase}
-                                        </strong>
-                                        =
-                                        ${item.explanation}
-                                    </li>
-                                `)
-                                .join("")
-                        }
+                        <ul class="explanation-list">
 
-                    </ul>
+                            ${
+                                explanation.phrases
+                                    .map(item => `
+
+                                        <li>
+
+                                            <strong>
+                                                ${item.phrase}
+                                            </strong>
+
+                                            ＝
+                                            ${item.explanation}
+
+                                        </li>
+
+                                    `)
+                                    .join("")
+                            }
+
+                        </ul>
+
+                    </div>
 
                 `;
 
             }
 
+
+            /*
+             * USAGE / EXPLANATION
+             */
 
             if (explanation.usage) {
 
                 html += `
 
-                    <h3>
-                        📝 說明
-                    </h3>
+                    <div class="explanation-section">
 
-                    <div class="explanation-note">
+                        <h3>
+                            📝 說明
+                        </h3>
 
-                        ${explanation.usage}
+                        <div class="explanation-note">
+
+                            ${explanation.usage}
+
+                        </div>
 
                     </div>
 
@@ -1287,79 +1659,56 @@
 
 
         /* =====================================================
-           SHUFFLE
-        ===================================================== */
-
-        function shuffle(array) {
-
-            const result = [...array];
-
-            for (
-                let i = result.length - 1;
-                i > 0;
-                i--
-            ) {
-
-                const j =
-                    Math.floor(
-                        Math.random() * (i + 1)
-                    );
-
-                [
-                    result[i],
-                    result[j]
-                ] = [
-                    result[j],
-                    result[i]
-                ];
-
-            }
-
-            return result;
-
-        }
-
-
-        /* =====================================================
-           SENTENCE GAME
+           GAME STATE
         ===================================================== */
 
         let gameQuestions = [];
-        let currentGameIndex = 0;
-        let selectedWords = [];
+
+        let currentGameIndex =
+            0;
+
         let currentTokens = [];
 
+        let selectedWords = [];
 
-        function createWordTokens(sentence) {
+        let gameLocked = false;
 
-            return sentence.map(
-                (word, index) => ({
 
-                    id: index,
-                    word: word
-
-                })
-            );
-
-        }
-
+        /* =====================================================
+           START GAME
+        ===================================================== */
 
         function startSentenceGame() {
 
             /*
-             * 每次開始遊戲都重新隨機題目
+             * 題目順序隨機
              */
 
             gameQuestions =
-                shuffle(sentenceGames);
+                shuffle(
+                    sentenceGames
+                );
 
-            currentGameIndex = 0;
+
+            currentGameIndex =
+                0;
+
+
             selectedWords = [];
+
+            currentTokens = [];
+
+            gameLocked = false;
+
 
             renderSentenceGame();
 
         }
 
+
+        /* =====================================================
+           RENDER GAME
+        ===================================================== */
 
         function renderSentenceGame() {
 
@@ -1368,8 +1717,13 @@
                     "sentence-game-container"
                 );
 
+
             if (!container) return;
 
+
+            /*
+             * ALL FINISHED
+             */
 
             if (
                 currentGameIndex
@@ -1381,17 +1735,22 @@
 
                     <div class="game-finished">
 
+                        <div class="game-finished-icon">
+                            🎉
+                        </div>
+
                         <h3>
-                            🎉 全部完成！
+                            全部完成！
                         </h3>
 
                         <p>
-                            你已經完成所有句子排列。
+                            你已完成全部 5 題。
                         </p>
 
                         <button
                             class="game-restart-btn"
-                            id="restart-game">
+                            id="restart-game"
+                            type="button">
 
                             🔄 再玩一次
 
@@ -1403,15 +1762,22 @@
 
 
                 document
-                    .getElementById("restart-game")
+                    .getElementById(
+                        "restart-game"
+                    )
                     .addEventListener(
                         "click",
                         startSentenceGame
                     );
 
+
                 return;
 
             }
+
+
+            gameLocked =
+                false;
 
 
             const question =
@@ -1420,44 +1786,112 @@
                 ];
 
 
+            /*
+             * 建立 unique token
+             */
+
             const tokens =
-                createWordTokens(
-                    question.sentence
+                question.sentence.map(
+                    (word, index) => ({
+
+                        id: index,
+
+                        word: word
+
+                    })
                 );
 
 
             /*
-             * 每一題的單字重新隨機排列
+             * 單字順序隨機
              */
 
             currentTokens =
                 shuffle(tokens);
 
 
+            /*
+             * 避免剛好和正確答案完全一樣
+             */
+
+            let attempts = 0;
+
+
+            while (
+
+                currentTokens.every(
+                    (token, index) =>
+                        token.id === index
+                )
+
+                &&
+
+                currentTokens.length > 1
+
+                &&
+
+                attempts < 20
+
+            ) {
+
+                currentTokens =
+                    shuffle(tokens);
+
+                attempts++;
+
+            }
+
+
             selectedWords = [];
+
+
+            const progress =
+                (
+                    (currentGameIndex + 1)
+                    /
+                    gameQuestions.length
+                ) * 100;
 
 
             container.innerHTML = `
 
                 <div class="game-progress">
 
-                    第 ${currentGameIndex + 1}
-                    題 / 共 ${gameQuestions.length} 題
+                    <div class="progress-text">
+
+                        第
+                        ${currentGameIndex + 1}
+                        題 / 共
+                        ${gameQuestions.length}
+                        題
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${progress}%">
+
+                    </div>
 
                 </div>
 
 
                 <div class="game-instruction">
 
-                    💡 點擊單字即可聽發音。
-                    再依照正確順序排列句子。
+                    💡 點擊單字會播放印尼語發音，
+                    再依照正確順序組成句子。
 
                 </div>
 
 
                 <div class="game-question">
 
-                    請把單字排列成正確的印尼語句子：
+                    請把下面的單字排列成正確的印尼語句子：
 
                 </div>
 
@@ -1472,6 +1906,7 @@
                 <div
                     class="word-chips"
                     id="available-words">
+
                 </div>
 
 
@@ -1502,8 +1937,9 @@
                 <div class="game-actions">
 
                     <button
-                        class="check-answer-btn"
-                        id="check-answer">
+                        class="check-btn"
+                        id="check-answer"
+                        type="button">
 
                         ✓ 檢查答案
 
@@ -1511,8 +1947,9 @@
 
 
                     <button
-                        class="reset-answer-btn"
-                        id="reset-answer">
+                        class="reset-btn"
+                        id="reset-answer"
+                        type="button">
 
                         ↩ 重來
 
@@ -1524,6 +1961,7 @@
                 <div
                     class="game-feedback"
                     id="game-feedback">
+
                 </div>
 
             `;
@@ -1533,7 +1971,9 @@
 
 
             document
-                .getElementById("check-answer")
+                .getElementById(
+                    "check-answer"
+                )
                 .addEventListener(
                     "click",
                     checkSentenceAnswer
@@ -1541,7 +1981,9 @@
 
 
             document
-                .getElementById("reset-answer")
+                .getElementById(
+                    "reset-answer"
+                )
                 .addEventListener(
                     "click",
                     resetSentenceAnswer
@@ -1550,9 +1992,9 @@
         }
 
 
-        /*
-         * 顯示目前還沒有被選擇的單字
-         */
+        /* =====================================================
+           AVAILABLE WORDS
+        ===================================================== */
 
         function renderAvailableWords() {
 
@@ -1561,135 +2003,115 @@
                     "available-words"
                 );
 
+
             if (!container) return;
+
 
             container.innerHTML = "";
 
 
-            currentTokens.forEach(token => {
+            currentTokens.forEach(
+                token => {
 
-                const alreadySelected =
-                    selectedWords.some(
-                        selected =>
-                            selected.id === token.id
-                    );
-
-
-                const button =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                button.className =
-                    "word-chip";
-
-
-                button.textContent =
-                    token.word;
-
-
-                button.disabled =
-                    alreadySelected;
-
-
-                /*
-                 * ★ 點擊單字
-                 * 1. 播放這個單字的 audio
-                 * 2. 把單字放到答案區
-                 */
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        playWordAudio(
-                            token.word,
-                            button
+                    const isSelected =
+                        selectedWords.some(
+                            selected =>
+                                selected.id ===
+                                token.id
                         );
 
-                        selectWord(token);
 
-                    }
-                );
-
-
-                container.appendChild(
-                    button
-                );
-
-            });
-
-        }
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
 
 
-        /*
-         * 單字發音
-         *
-         * 之後只需要把 audio URL
-         * 放進 wordAudioData 即可。
-         */
-
-        const wordAudioData = {
-
-            "Aku": "AUDIO_AKU",
-            "orang": "AUDIO_ORANG",
-            "Taiwan": "AUDIO_TAIWAN",
-
-            "Nama": "AUDIO_NAMA",
-            "aku": "AUDIO_AKU",
-            "Anna": "AUDIO_ANNA",
-
-            "kamu": "AUDIO_KAMU",
-            "siapa": "AUDIO_SIAPA",
-
-            "Kalo": "AUDIO_KALO",
-
-            "Kamu": "AUDIO_KAMU",
-            "mana": "AUDIO_MANA"
-
-        };
+                    button.type =
+                        "button";
 
 
-        function playWordAudio(word, button) {
+                    button.className =
+                        "word-chip";
 
-            const audioUrl =
-                wordAudioData[word];
 
-            if (
-                !audioUrl ||
-                audioUrl.startsWith("AUDIO_")
-            ) {
+                    button.textContent =
+                        token.word;
 
-                console.warn(
-                    "尚未設定單字 audio：",
-                    word
-                );
 
-                return;
+                    button.disabled =
+                        isSelected;
 
-            }
 
-            playAudio(
-                audioUrl,
-                button
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            if (gameLocked) {
+                                return;
+                            }
+
+
+                            /*
+                             * 🔊 播放該單字
+                             */
+
+                            playAudio(
+                                token.word,
+                                button
+                            );
+
+
+                            /*
+                             * 加入答案
+                             */
+
+                            selectWord(
+                                token
+                            );
+
+                        }
+                    );
+
+
+                    container.appendChild(
+                        button
+                    );
+
+                }
             );
 
         }
 
 
+        /* =====================================================
+           SELECT WORD
+        ===================================================== */
+
         function selectWord(token) {
+
+            if (gameLocked) {
+                return;
+            }
+
 
             const alreadySelected =
                 selectedWords.some(
                     selected =>
-                        selected.id === token.id
+                        selected.id ===
+                        token.id
                 );
 
-            if (alreadySelected) return;
+
+            if (alreadySelected) {
+                return;
+            }
 
 
-            selectedWords.push(token);
+            selectedWords.push(
+                token
+            );
+
 
             renderAnswer();
 
@@ -1700,12 +2122,17 @@
         }
 
 
+        /* =====================================================
+           RENDER ANSWER
+        ===================================================== */
+
         function renderAnswer() {
 
             const answerBox =
                 document.getElementById(
                     "answer-box"
                 );
+
 
             if (!answerBox) return;
 
@@ -1741,6 +2168,10 @@
                         );
 
 
+                    button.type =
+                        "button";
+
+
                     button.className =
                         "answer-chip";
 
@@ -1757,10 +2188,20 @@
                         "click",
                         () => {
 
-                            playWordAudio(
+                            if (gameLocked) {
+                                return;
+                            }
+
+
+                            /*
+                             * 點擊已選單字也播放一次
+                             */
+
+                            playAudio(
                                 token.word,
                                 button
                             );
+
 
                             removeSelectedWord(
                                 index
@@ -1780,13 +2221,25 @@
         }
 
 
-        function removeSelectedWord(index) {
+        /* =====================================================
+           REMOVE SELECTED WORD
+        ===================================================== */
+
+        function removeSelectedWord(
+            index
+        ) {
+
+            if (gameLocked) {
+                return;
+            }
+
 
             selectedWords.splice(
                 index,
                 1
             );
 
+
             renderAnswer();
 
             renderAvailableWords();
@@ -1795,10 +2248,20 @@
 
         }
 
+
+        /* =====================================================
+           RESET ANSWER
+        ===================================================== */
 
         function resetSentenceAnswer() {
 
+            if (gameLocked) {
+                return;
+            }
+
+
             selectedWords = [];
+
 
             renderAnswer();
 
@@ -1809,7 +2272,16 @@
         }
 
 
+        /* =====================================================
+           CHECK ANSWER
+        ===================================================== */
+
         function checkSentenceAnswer() {
+
+            if (gameLocked) {
+                return;
+            }
+
 
             const question =
                 gameQuestions[
@@ -1819,7 +2291,8 @@
 
             const userAnswer =
                 selectedWords.map(
-                    token => token.word
+                    token =>
+                        token.word
                 );
 
 
@@ -1854,11 +2327,20 @@
                 );
 
 
+            /*
+             * CORRECT
+             */
+
             if (isCorrect) {
+
+                gameLocked =
+                    true;
+
 
                 answerBox.classList.remove(
                     "incorrect"
                 );
+
 
                 answerBox.classList.add(
                     "correct"
@@ -1888,6 +2370,26 @@
                 `;
 
 
+                /*
+                 * 播放完整句子
+                 */
+
+                setTimeout(
+                    () => {
+
+                        playAudio(
+                            correctAnswer.join(" ")
+                        );
+
+                    },
+                    100
+                );
+
+
+                /*
+                 * 下一題
+                 */
+
                 setTimeout(
                     () => {
 
@@ -1896,39 +2398,49 @@
                         renderSentenceGame();
 
                     },
-                    1300
+                    1500
                 );
 
 
-            } else {
-
-                answerBox.classList.remove(
-                    "correct"
-                );
-
-                answerBox.classList.add(
-                    "incorrect"
-                );
-
-
-                feedback.className =
-                    "game-feedback show incorrect";
-
-
-                feedback.innerHTML = `
-
-                    ❌ 還不對喔。
-
-                    <br>
-
-                    再試試看正確的單字順序！
-
-                `;
+                return;
 
             }
 
+
+            /*
+             * WRONG
+             */
+
+            answerBox.classList.remove(
+                "correct"
+            );
+
+
+            answerBox.classList.add(
+                "incorrect"
+            );
+
+
+            feedback.className =
+                "game-feedback show incorrect";
+
+
+            feedback.innerHTML = `
+
+                ❌ 還不對喔。
+
+                <br>
+
+                再試試看單字的順序！
+
+            `;
+
         }
 
+
+        /* =====================================================
+           CLEAR FEEDBACK
+        ===================================================== */
 
         function clearFeedback() {
 
@@ -1936,6 +2448,7 @@
                 document.getElementById(
                     "game-feedback"
                 );
+
 
             const answerBox =
                 document.getElementById(
@@ -1948,7 +2461,8 @@
                 feedback.className =
                     "game-feedback";
 
-                feedback.innerHTML = "";
+                feedback.innerHTML =
+                    "";
 
             }
 
@@ -1966,34 +2480,38 @@
 
 
         /* =====================================================
-           EVENT DELEGATION FOR AUDIO BUTTONS
+           ESCAPE HTML
         ===================================================== */
 
-        document.addEventListener(
-            "click",
-            event => {
+        function escapeHtml(value) {
 
-                const button =
-                    event.target.closest(
-                        ".audio-btn"
-                    );
-
-                if (!button) return;
-
-                const audioUrl =
-                    button.dataset.audio;
-
-                playAudio(
-                    audioUrl,
-                    button
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
                 );
 
-            }
-        );
+        }
 
 
         /* =====================================================
-           INIT
+           INITIALIZE
         ===================================================== */
 
         document.addEventListener(
@@ -2009,6 +2527,12 @@
 
     </script>
 
+
+    <!--
+        Shared template
+        Karena file berada di /lessons/,
+        script.js berada satu folder di atas.
+    -->
 
     <script src="../script.js"></script>
 
