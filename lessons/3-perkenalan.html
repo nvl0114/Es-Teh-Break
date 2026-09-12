@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break｜自我介紹</title>
+
+    <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+            --red: #c8756d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
+        }
+
+        .lesson-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+
+        .hero {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 28px 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.08);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 15px 17px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .practice {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .tip-list {
+            padding-left: 20px;
+        }
+
+        .tip-list li {
+            margin-bottom: 8px;
+        }
+
+        /* =========================================
+           CONVERSATION
+           ========================================= */
+
+        .conversation-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        .section-title {
+            margin: 0 0 6px;
+            font-size: 22px;
+        }
+
+        .section-subtitle {
+            margin: 0 0 20px;
+            color: #806b5d;
+            font-size: 14px;
+        }
+
+        .conversation-counter {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .speaker-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .speaker-label {
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--soft-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .speaker-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .indonesian-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .indonesian-text {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .mandarin-text {
+            margin-top: 2px;
+            font-size: 14px;
+            color: #806b5d;
+            line-height: 1.6;
+        }
+
+        .audio-btn {
+            flex: 0 0 auto;
+            width: 38px;
+            height: 38px;
+            border: 1px solid #ead8c5;
+            background: #fffaf4;
+            color: var(--brown);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-btn:hover {
+            transform: translateY(-1px);
+            background: var(--soft-brown);
+        }
+
+        .audio-btn.playing {
+            transform: scale(1.08);
+            background: var(--soft-brown);
+        }
+
+        .dialogue-divider {
+            height: 1px;
+            background: #ead8c5;
+            margin: 20px 0;
+        }
+
+        /* =========================================
+           CONVERSATION ACTIONS
+           ========================================= */
+
+        .conversation-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .conversation-action-btn {
+            flex: 1;
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .explanation-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        .next-conversation-btn {
+            background: var(--brown);
+            color: white;
+        }
+
+        .conversation-action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .conversation-action-btn:disabled {
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        /* =========================================
+           EXPLANATION
+           ========================================= */
+
+        .explanation-panel {
+            display: none;
+            margin-top: 15px;
+            background: #fffaf4;
+            border: 1px solid #ead8c5;
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .explanation-panel.show {
+            display: block;
+        }
+
+        .explanation-panel h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        .explanation-panel ul {
+            margin: 6px 0 18px;
+            padding-left: 20px;
+        }
+
+        .explanation-panel li {
+            margin-bottom: 6px;
+        }
+
+        .explanation-note {
+            background: #fff4df;
+            border-left: 4px solid var(--light-brown);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* =========================================
+           SENTENCE GAME
+           ========================================= */
+
+        .sentence-game-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        .game-progress {
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #806b5d;
+            font-weight: 700;
+        }
+
+        .game-instruction {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 13px 15px;
+            border-radius: 11px;
+            margin-bottom: 20px;
+        }
+
+        .game-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .word-area-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #806b5d;
+            margin-bottom: 8px;
+        }
+
+        .word-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            min-height: 48px;
+            padding: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 13px;
+        }
+
+        .word-chip {
+            border: 1px solid #dfc8b0;
+            background: white;
+            color: var(--brown);
+            border-radius: 10px;
+            padding: 9px 13px;
+            min-height: 42px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.18s ease;
+        }
+
+        .word-chip:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .word-chip:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .answer-area {
+            margin-top: 18px;
+        }
+
+        .answer-box {
+            min-height: 58px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: #fffdf9;
+            border: 2px solid #ead8c5;
+            border-radius: 13px;
+        }
+
+        .answer-box.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .answer-box.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .answer-chip {
+            border: 0;
+            background: var(--soft-brown);
+            color: var(--brown);
+            border-radius: 9px;
+            padding: 8px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .answer-chip:hover {
+            background: #ead4bd;
+        }
+
+        .empty-answer {
+            color: #a08d80;
+            font-size: 14px;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .check-answer-btn,
+        .reset-answer-btn {
+            min-height: 45px;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .check-answer-btn {
+            flex: 1;
+            background: var(--brown);
+            color: white;
+        }
+
+        .reset-answer-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        .game-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .game-feedback.show {
+            display: block;
+        }
+
+        .game-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .game-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .correct-sentence {
+            margin-top: 5px;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .game-finished {
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .game-finished h3 {
+            margin-bottom: 5px;
+        }
+
+        .game-restart-btn {
+            margin-top: 12px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* =========================================
+           MOBILE
+           ========================================= */
+
+        @media (max-width: 650px) {
+
+            .lesson-container {
+                padding: 20px 12px 45px;
+            }
+
+            .hero,
+            .card,
+            .conversation-card,
+            .sentence-game-card {
+                padding: 20px 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .indonesian-text {
+                font-size: 17px;
+            }
+
+            .conversation-actions {
+                flex-direction: column;
+            }
+
+            .game-actions {
+                flex-direction: column;
+            }
+
+            .word-chip,
+            .answer-chip {
+                font-size: 15px;
+                padding: 10px 13px;
+            }
+
+            .speaker-label {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         SHARED TEMPLATE
+         ========================================= -->
+
+    <div id="app"></div>
+
+
+    <!-- =========================================
+         PAGE SOURCE
+         ========================================= -->
+
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+
+            <!-- =====================================
+                 HERO
+                 ===================================== -->
+
+            <section class="hero">
+
+                <div class="badge">
+                    BAHASA INDONESIA • BEGINNER
+                </div>
+
+                <h1>
+                    👋 Perkenalan（自己介紹）
+                </h1>
+
+                <p>
+                    Belajar cara menyapa dan memperkenalkan diri
+                    dalam Bahasa Indonesia.
+                </p>
+
+                <p>
+                    Di lesson ini, kamu akan belajar cara mengatakan
+                    nama, asal, dan beberapa ungkapan yang sering
+                    digunakan dalam percakapan sehari-hari.
+                </p>
+
+                <div class="note">
+                    💡 Fokus lesson ini bukan hanya menghafal kata,
+                    tetapi juga memahami bagaimana orang Indonesia
+                    benar-benar berbicara dalam percakapan sehari-hari.
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 BASIC GREETING
+                 ===================================== -->
+
+            <section class="card">
+
+                <h2>👋 打招呼</h2>
+
+                <p>
+                    Dalam Bahasa Indonesia, kamu bisa menggunakan
+                    <strong>Hi</strong> atau <strong>Halo</strong>
+                    untuk menyapa seseorang.
+                </p>
+
+                <div class="practice">
+
+                    <div class="mini-title">
+                        💬 Contoh
+                    </div>
+
+                    <p>
+                        <strong>Hi!</strong>
+                    </p>
+
+                    <p>
+                        <strong>Halo!</strong>
+                    </p>
+
+                    <p>
+                        Keduanya berarti
+                        <strong>你好</strong>
+                        dan sangat umum digunakan.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 CONVERSATION
+                 ===================================== -->
+
+            <section class="conversation-card">
+
+                <h2 class="section-title">
+                    💬 Conversation
+                </h2>
+
+                <p class="section-subtitle">
+                    Dengarkan percakapan Bahasa Indonesia
+                    dan pelajari ungkapan yang digunakan.
+                </p>
+
+                <div id="conversation-container"></div>
+
+            </section>
+
+
+            <!-- =====================================
+                 PENJELASAN "ADALAH"
+                 ===================================== -->
+
+            <section class="card">
+
+                <h2>🌱 「adalah」 dalam Bahasa Indonesia</h2>
+
+                <p>
+                    Dalam Bahasa Indonesia, sebenarnya ada kata
+                    <strong>adalah</strong> yang dapat digunakan
+                    untuk menghubungkan subjek dan identitas.
+                </p>
+
+                <p>
+                    Contohnya:
+                </p>
+
+                <div class="practice">
+
+                    <p>
+                        <strong>Aku adalah orang Taiwan.</strong>
+                    </p>
+
+                    <p>
+                        我是台灣人。
+                    </p>
+
+                </div>
+
+                <p>
+                    Namun, dalam percakapan sehari-hari,
+                    orang Indonesia biasanya menghilangkan
+                    kata <strong>adalah</strong>.
+                </p>
+
+                <div class="practice">
+
+                    <p>
+                        <strong>Aku orang Taiwan.</strong>
+                    </p>
+
+                    <p>
+                        我是台灣人。
+                    </p>
+
+                </div>
+
+                <div class="note">
+
+                    💡 Jadi, untuk percakapan sehari-hari,
+                    <strong>Aku orang Taiwan.</strong>
+                    terdengar lebih natural daripada
+                    <strong>Aku adalah orang Taiwan.</strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 DULUAN YA
+                 ===================================== -->
+
+            <section class="card">
+
+                <h2>👋 「Duluan ya」</h2>
+
+                <p>
+                    Dalam percakapan sehari-hari, orang Indonesia
+                    tidak terlalu sering mengatakan
+                    <strong>sampai jumpa</strong>
+                    ketika berpisah secara santai.
+                </p>
+
+                <p>
+                    Salah satu ungkapan yang sangat natural adalah:
+                </p>
+
+                <div class="practice">
+
+                    <p>
+                        <strong>Duluan ya.</strong>
+                    </p>
+
+                    <p>
+                        我先走囉。
+                    </p>
+
+                </div>
+
+                <p>
+                    「Duluan ya」digunakan ketika seseorang
+                    pergi lebih dulu.
+                </p>
+
+                <p>
+                    Orang yang ditinggalkan biasanya dapat menjawab:
+                </p>
+
+                <div class="practice">
+
+                    <p>
+                        <strong>Hati-hati.</strong>
+                    </p>
+
+                    <p>
+                        小心／路上小心。
+                    </p>
+
+                </div>
+
+                <div class="note">
+
+                    💡 Ada juga ungkapan santai
+                    <strong>Dadah 👋</strong>,
+                    yang terasa seperti
+                    「拜拜 👋」dalam bahasa Mandarin.
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 QUICK VOCAB
+                 ===================================== -->
+
+            <section class="card">
+
+                <h2>📚 Kosakata Penting</h2>
+
+                <ul class="tip-list">
+
+                    <li>
+                        <strong>nama</strong>
+                        = 名字
+                    </li>
+
+                    <li>
+                        <strong>kamu</strong>
+                        = 你／妳
+                    </li>
+
+                    <li>
+                        <strong>aku</strong>
+                        = 我
+                    </li>
+
+                    <li>
+                        <strong>orang</strong>
+                        = 人
+                    </li>
+
+                    <li>
+                        <strong>mana</strong>
+                        = 哪裡
+                    </li>
+
+                    <li>
+                        <strong>duluan</strong>
+                        = 先走
+                    </li>
+
+                    <li>
+                        <strong>hati-hati</strong>
+                        = 小心／路上小心
+                    </li>
+
+                </ul>
+
+            </section>
+
+
+            <!-- =====================================
+                 SENTENCE GAME
+                 ===================================== -->
+
+            <section class="sentence-game-card">
+
+                <h2 class="section-title">
+                    🧩 Susun Kalimat
+                </h2>
+
+                <p class="section-subtitle">
+                    Susun kata-kata berikut menjadi kalimat
+                    Bahasa Indonesia yang benar.
+                </p>
+
+                <div id="sentence-game-container"></div>
+
+            </section>
+
+
+            <!-- =====================================
+                 FINAL
+                 ===================================== -->
+
+            <section class="card">
+
+                <h2>☕ Es Teh Break 小結</h2>
+
+                <p>
+                    Sekarang kamu sudah belajar beberapa cara
+                    dasar untuk memperkenalkan diri dalam
+                    Bahasa Indonesia.
+                </p>
+
+                <ul class="tip-list">
+
+                    <li>
+                        👋 <strong>Hi / Halo</strong>
+                        = 你好
+                    </li>
+
+                    <li>
+                        👤 <strong>Nama kamu siapa?</strong>
+                        = 你叫什麼名字？
+                    </li>
+
+                    <li>
+                        🙋 <strong>Nama aku...</strong>
+                        = 我叫……
+                    </li>
+
+                    <li>
+                        🌏 <strong>Kamu orang mana?</strong>
+                        = 你是哪裡人？
+                    </li>
+
+                    <li>
+                        🇹🇼 <strong>Aku orang Taiwan.</strong>
+                        = 我是台灣人。
+                    </li>
+
+                    <li>
+                        👋 <strong>Duluan ya.</strong>
+                        = 我先走囉。
+                    </li>
+
+                    <li>
+                        🌱 <strong>Hati-hati.</strong>
+                        = 小心／路上小心。
+                    </li>
+
+                </ul>
+
+                <div class="note">
+
+                    🌱 Tidak perlu menghafal semuanya sekaligus.
+                    Coba gunakan beberapa kalimat ini dalam
+                    percakapan kecil dan ulangi secara perlahan.
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+    <!-- /#page-source -->
+
+
+    <!-- =========================================
+         CONVERSATION + GAME JAVASCRIPT
+         ========================================= -->
+
+    <script>
+
+        /* =====================================================
+           CONVERSATION DATA
+           ===================================================== */
+
+        const conversations = [
+
+            {
+                speakerA: {
+                    id: "A",
+                    indonesian: "Hi.",
+                    mandarin: "你好。",
+                    audio: "AUDIO_URL_HI"
+                },
+
+                speakerB: {
+                    id: "B",
+                    indonesian: "Halo.",
+                    mandarin: "你好。",
+                    audio: "AUDIO_URL_HALO"
+                },
+
+                explanation: {
+
+                    vocabulary: [],
+
+                    phrases: [
+
+                        {
+                            phrase: "Hi",
+                            explanation:
+                                "Sapaan santai yang berarti「你好」."
+                        },
+
+                        {
+                            phrase: "Halo",
+                            explanation:
+                                "Sapaan yang sangat umum digunakan dalam Bahasa Indonesia."
+                        }
+
+                    ],
+
+                    usage:
+                        "Hi dan Halo sama-sama dapat digunakan untuk menyapa seseorang dalam percakapan sehari-hari."
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    id: "A",
+                    indonesian: "Nama kamu siapa?",
+                    mandarin: "你叫什麼名字？",
+                    audio: "AUDIO_URL_NAMA_KAMU_SIAPA"
+                },
+
+                speakerB: {
+                    id: "B",
+                    indonesian: "Nama aku Anna.",
+                    mandarin: "我叫 Anna。",
+                    audio: "AUDIO_URL_NAMA_AKU_ANNA"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+
+                        {
+                            word: "nama",
+                            meaning: "名字"
+                        },
+
+                        {
+                            word: "kamu",
+                            meaning: "你／妳"
+                        },
+
+                        {
+                            word: "aku",
+                            meaning: "我"
+                        }
+
+                    ],
+
+                    phrases: [
+
+                        {
+                            phrase: "Nama kamu siapa?",
+                            explanation:
+                                "Digunakan untuk menanyakan nama seseorang."
+                        },
+
+                        {
+                            phrase: "Nama aku...",
+                            explanation:
+                                "Digunakan untuk memperkenalkan nama sendiri."
+                        }
+
+                    ],
+
+                    usage:
+                        "Dalam percakapan sehari-hari, 「Nama kamu siapa?」 adalah cara yang natural untuk bertanya nama seseorang."
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    id: "A",
+                    indonesian: "Aku David, kamu orang mana?",
+                    mandarin: "我是 David，你是哪裡人？",
+                    audio: "AUDIO_URL_AKU_DAVID"
+                },
+
+                speakerB: {
+                    id: "B",
+                    indonesian: "Aku orang Taiwan, kalo kamu?",
+                    mandarin: "我是台灣人，你呢？",
+                    audio: "AUDIO_URL_AKU_ORANG_TAIWAN"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+
+                        {
+                            word: "orang",
+                            meaning: "人"
+                        },
+
+                        {
+                            word: "mana",
+                            meaning: "哪裡"
+                        }
+
+                    ],
+
+                    phrases: [
+
+                        {
+                            phrase: "Orang mana?",
+                            explanation:
+                                "Digunakan untuk menanyakan seseorang berasal dari mana."
+                        },
+
+                        {
+                            phrase: "Kalo kamu?",
+                            explanation:
+                                "Berarti「你呢？」dan digunakan untuk menanyakan hal yang sama kepada lawan bicara."
+                        }
+
+                    ],
+
+                    usage:
+                        "「Aku orang Taiwan」berarti 'Saya orang Taiwan'. Dalam percakapan sehari-hari, kata 「adalah」biasanya tidak perlu digunakan."
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    id: "A",
+                    indonesian: "Aku orang Indonesia. Aku duluan ya.",
+                    mandarin: "我是印尼人。我先走囉。",
+                    audio: "AUDIO_URL_AKU_ORANG_INDONESIA"
+                },
+
+                speakerB: {
+                    id: "B",
+                    indonesian: "Iya. Hati-hati.",
+                    mandarin: "好。小心。",
+                    audio: "AUDIO_URL_IYA_HATI_HATI"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+
+                        {
+                            word: "duluan",
+                            meaning: "先走"
+                        },
+
+                        {
+                            word: "hati-hati",
+                            meaning: "小心／路上小心"
+                        }
+
+                    ],
+
+                    phrases: [
+
+                        {
+                            phrase: "Duluan ya",
+                            explanation:
+                                "Cara santai untuk mengatakan bahwa kita pergi lebih dulu."
+                        },
+
+                        {
+                            phrase: "Hati-hati",
+                            explanation:
+                                "Digunakan untuk mengingatkan seseorang agar berhati-hati ketika pergi."
+                        },
+
+                        {
+                            phrase: "Dadah",
+                            explanation:
+                                "Ungkapan perpisahan yang santai, mirip dengan「拜拜」."
+                        }
+
+                    ],
+
+                    usage:
+                        "Dalam percakapan sehari-hari, 「Duluan ya」lebih natural ketika seseorang pergi lebih dulu. Orang yang ditinggalkan biasanya menjawab 「Hati-hati」."
+
+                }
+            }
+
+        ];
+
+
+        /* =====================================================
+           SENTENCE GAME DATA
+           ===================================================== */
+
+        const sentenceGames = [
+
+            {
+                sentence: ["Aku", "orang", "Taiwan", "."],
+                translation: "我是台灣人。"
+            },
+
+            {
+                sentence: ["Nama", "aku", "Anna", "."],
+                translation: "我叫 Anna。"
+            },
+
+            {
+                sentence: ["Nama", "kamu", "siapa", "?"],
+                translation: "你叫什麼名字？"
+            },
+
+            {
+                sentence: ["Kalo", "kamu", "?"],
+                translation: "你呢？"
+            },
+
+            {
+                sentence: ["Kamu", "orang", "mana", "?"],
+                translation: "你是哪裡人？"
+            }
+
+        ];
+
+
+        /* =====================================================
+           AUDIO
+           ===================================================== */
+
+        let currentAudio = null;
+        let currentAudioButton = null;
+
+
+        function playAudio(audioUrl, button = null) {
+
+            if (
+                !audioUrl ||
+                audioUrl.startsWith("AUDIO_URL_")
+            ) {
+
+                console.warn(
+                    "Audio URL belum diisi:",
+                    audioUrl
+                );
+
+                return;
+            }
+
+
+            if (currentAudio) {
+
+                currentAudio.pause();
+
+                currentAudio.currentTime = 0;
+
+            }
+
+
+            if (currentAudioButton) {
+
+                currentAudioButton.classList.remove(
+                    "playing"
+                );
+
+            }
+
+
+            const audio =
+                new Audio(audioUrl);
+
+
+            currentAudio = audio;
+
+            currentAudioButton = button;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            audio.play().catch(error => {
+
+                console.error(
+                    "Audio gagal dimainkan:",
+                    error
+                );
+
+                if (button) {
+
+                    button.classList.remove(
+                        "playing"
+                    );
+
+                }
+
+            });
+
+
+            audio.addEventListener(
+                "ended",
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentAudio = null;
+
+                    currentAudioButton = null;
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION
+           ===================================================== */
+
+        let currentConversationIndex = 0;
+
+
+        function renderConversation() {
+
+            const container =
+                document.getElementById(
+                    "conversation-container"
+                );
+
+
+            if (!container) return;
+
+
+            const conversation =
+                conversations[
+                    currentConversationIndex
+                ];
+
+
+            if (!conversation) return;
+
+
+            const total =
+                conversations.length;
+
+
+            container.innerHTML = `
+
+                <div class="conversation-counter">
+
+                    Conversation
+                    ${currentConversationIndex + 1}
+                    / ${total}
+
+                </div>
+
+
+                <div class="dialogue">
+
+                    ${renderSpeaker(
+                        conversation.speakerA
+                    )}
+
+
+                    <div class="dialogue-divider"></div>
+
+
+                    ${renderSpeaker(
+                        conversation.speakerB
+                    )}
+
+                </div>
+
+
+                <div class="conversation-actions">
+
+                    <button
+                        class="conversation-action-btn explanation-btn"
+                        id="explanation-toggle">
+
+                        📖 Penjelasan
+
+                    </button>
+
+
+                    <button
+                        class="conversation-action-btn next-conversation-btn"
+                        id="next-conversation">
+
+                        ${
+                            currentConversationIndex === total - 1
+                                ? "✓ Selesai"
+                                : "→ Berikutnya"
+                        }
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="explanation-panel"
+                    id="explanation-panel">
+
+                    ${renderExplanation(
+                        conversation.explanation
+                    )}
+
+                </div>
+
+            `;
+
+
+            /* Explanation */
+
+            const explanationButton =
+                document.getElementById(
+                    "explanation-toggle"
+                );
+
+
+            const explanationPanel =
+                document.getElementById(
+                    "explanation-panel"
+                );
+
+
+            explanationButton.addEventListener(
+                "click",
+                () => {
+
+                    explanationPanel.classList.toggle(
+                        "show"
+                    );
+
+
+                    explanationButton.textContent =
+                        explanationPanel.classList.contains(
+                            "show"
+                        )
+                            ? "📖 Tutup Penjelasan"
+                            : "📖 Penjelasan";
+
+                }
+            );
+
+
+            /* Next */
+
+            const nextButton =
+                document.getElementById(
+                    "next-conversation"
+                );
+
+
+            nextButton.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        currentConversationIndex
+                        <
+                        total - 1
+                    ) {
+
+                        currentConversationIndex++;
+
+                        renderConversation();
+
+                    } else {
+
+                        nextButton.textContent =
+                            "✓ Selesai";
+
+                        nextButton.disabled =
+                            true;
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        function renderSpeaker(speaker) {
+
+            return `
+
+                <div class="speaker-row">
+
+                    <div class="speaker-label">
+                        ${speaker.id}
+                    </div>
+
+
+                    <div class="speaker-content">
+
+                        <div class="indonesian-row">
+
+                            <div class="indonesian-text">
+                                ${speaker.indonesian}
+                            </div>
+
+
+                            <button
+                                class="audio-btn"
+                                aria-label="Play Indonesian audio"
+                                onclick="playAudio(
+                                    '${escapeAttribute(
+                                        speaker.audio
+                                    )}',
+                                    this
+                                )">
+
+                                🔊
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="mandarin-text">
+
+                            ${speaker.mandarin}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function renderExplanation(explanation) {
+
+            let html = "";
+
+
+            /* Vocabulary */
+
+            if (
+                explanation.vocabulary &&
+                explanation.vocabulary.length > 0
+            ) {
+
+                html += `
+
+                    <h3>
+                        📚 Kosakata
+                    </h3>
+
+                    <ul>
+
+                        ${
+                            explanation.vocabulary
+                                .map(item => `
+
+                                    <li>
+
+                                        <strong>
+                                            ${item.word}
+                                        </strong>
+
+                                        =
+                                        ${item.meaning}
+
+                                    </li>
+
+                                `)
+                                .join("")
+                        }
+
+                    </ul>
+
+                `;
+
+            }
+
+
+            /* Phrases */
+
+            if (
+                explanation.phrases &&
+                explanation.phrases.length > 0
+            ) {
+
+                html += `
+
+                    <h3>
+                        💬 Frasa
+                    </h3>
+
+                    <ul>
+
+                        ${
+                            explanation.phrases
+                                .map(item => `
+
+                                    <li>
+
+                                        <strong>
+                                            ${item.phrase}
+                                        </strong>
+
+                                        =
+                                        ${item.explanation}
+
+                                    </li>
+
+                                `)
+                                .join("")
+                        }
+
+                    </ul>
+
+                `;
+
+            }
+
+
+            /* Usage */
+
+            if (explanation.usage) {
+
+                html += `
+
+                    <h3>
+                        🌱 Penjelasan penggunaan
+                    </h3>
+
+                    <div class="explanation-note">
+
+                        ${explanation.usage}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            return html;
+
+        }
+
+
+        function escapeAttribute(value) {
+
+            return String(value)
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'");
+
+        }
+
+
+        /* =====================================================
+           SHUFFLE
+           ===================================================== */
+
+        function shuffle(array) {
+
+            const result = [...array];
+
+
+            for (
+                let i = result.length - 1;
+                i > 0;
+                i--
+            ) {
+
+                const j =
+                    Math.floor(
+                        Math.random() * (i + 1)
+                    );
+
+
+                [
+                    result[i],
+                    result[j]
+                ] = [
+                    result[j],
+                    result[i]
+                ];
+
+            }
+
+
+            return result;
+
+        }
+
+
+        /* =====================================================
+           SENTENCE GAME
+           ===================================================== */
+
+        let gameQuestions = [];
+
+        let currentGameIndex = 0;
+
+        let selectedWords = [];
+
+
+        function createWordTokens(sentence) {
+
+            return sentence.map(
+                (word, index) => ({
+
+                    id: index,
+
+                    word: word
+
+                })
+            );
+
+        }
+
+
+        function shuffleTokens(tokens) {
+
+            if (tokens.length <= 1) {
+
+                return [...tokens];
+
+            }
+
+
+            let shuffled =
+                shuffle(tokens);
+
+
+            const original =
+                tokens
+                    .map(token => token.word)
+                    .join("|");
+
+
+            let attempt = 0;
+
+
+            while (
+
+                shuffled
+                    .map(token => token.word)
+                    .join("|")
+                    === original
+
+                &&
+
+                attempt < 10
+
+            ) {
+
+                shuffled =
+                    shuffle(tokens);
+
+                attempt++;
+
+            }
+
+
+            return shuffled;
+
+        }
+
+
+        function startSentenceGame() {
+
+            gameQuestions =
+                shuffle(sentenceGames);
+
+            currentGameIndex = 0;
+
+            selectedWords = [];
+
+            renderSentenceGame();
+
+        }
+
+
+        function renderSentenceGame() {
+
+            const container =
+                document.getElementById(
+                    "sentence-game-container"
+                );
+
+
+            if (!container) return;
+
+
+            if (
+                currentGameIndex
+                >=
+                gameQuestions.length
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="game-finished">
+
+                        <h3>
+                            🎉 Semua selesai!
+                        </h3>
+
+                        <p>
+                            Kamu sudah menyelesaikan
+                            semua soal.
+                        </p>
+
+                        <button
+                            class="game-restart-btn"
+                            id="restart-game">
+
+                            🔄 Mulai Lagi
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById("restart-game")
+                    .addEventListener(
+                        "click",
+                        startSentenceGame
+                    );
+
+
+                return;
+
+            }
+
+
+            const question =
+                gameQuestions[
+                    currentGameIndex
+                ];
+
+
+            const tokens =
+                createWordTokens(
+                    question.sentence
+                );
+
+
+            const shuffledTokens =
+                shuffleTokens(tokens);
+
+
+            selectedWords = [];
+
+
+            container.innerHTML = `
+
+                <div class="game-progress">
+
+                    Soal
+                    ${currentGameIndex + 1}
+                    /
+                    ${gameQuestions.length}
+
+                </div>
+
+
+                <div class="game-instruction">
+
+                    💡 Klik kata satu per satu
+                    untuk membentuk kalimat yang benar.
+
+                </div>
+
+
+                <div class="game-question">
+
+                    Susun kata-kata berikut
+                    menjadi kalimat yang benar:
+
+                </div>
+
+
+                <div class="word-area-title">
+
+                    Kata-kata:
+
+                </div>
+
+
+                <div
+                    class="word-chips"
+                    id="available-words">
+                </div>
+
+
+                <div class="answer-area">
+
+                    <div class="word-area-title">
+
+                        Jawabanmu:
+
+                    </div>
+
+
+                    <div
+                        class="answer-box"
+                        id="answer-box">
+
+                        <span class="empty-answer">
+
+                            Pilih kata di atas...
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="game-actions">
+
+                    <button
+                        class="check-answer-btn"
+                        id="check-answer">
+
+                        ✓ Periksa Jawaban
+
+                    </button>
+
+
+                    <button
+                        class="reset-answer-btn"
+                        id="reset-answer">
+
+                        ↩ Reset
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="game-feedback"
+                    id="game-feedback">
+                </div>
+
+            `;
+
+
+            renderAvailableWords(
+                shuffledTokens
+            );
+
+
+            document
+                .getElementById("check-answer")
+                .addEventListener(
+                    "click",
+                    checkSentenceAnswer
+                );
+
+
+            document
+                .getElementById("reset-answer")
+                .addEventListener(
+                    "click",
+                    resetSentenceAnswer
+                );
+
+        }
+
+
+        function renderAvailableWords(tokens) {
+
+            const container =
+                document.getElementById(
+                    "available-words"
+                );
+
+
+            if (!container) return;
+
+
+            container.innerHTML = "";
+
+
+            tokens.forEach(token => {
+
+                const alreadySelected =
+                    selectedWords.some(
+                        selected =>
+                            selected.id === token.id
+                    );
+
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.className =
+                    "word-chip";
+
+
+                button.textContent =
+                    token.word;
+
+
+                button.disabled =
+                    alreadySelected;
+
+
+                button.addEventListener(
+                    "click",
+                    () => selectWord(token)
+                );
+
+
+                container.appendChild(
+                    button
+                );
+
+            });
+
+        }
+
+
+        function selectWord(token) {
+
+            const alreadySelected =
+                selectedWords.some(
+                    selected =>
+                        selected.id === token.id
+                );
+
+
+            if (alreadySelected) return;
+
+
+            selectedWords.push(token);
+
+
+            renderAnswer();
+
+
+            const originalTokens =
+                createWordTokens(
+                    gameQuestions[
+                        currentGameIndex
+                    ].sentence
+                );
+
+
+            renderAvailableWords(
+                originalTokens
+            );
+
+
+            clearFeedback();
+
+        }
+
+
+        function renderAnswer() {
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            if (!answerBox) return;
+
+
+            answerBox.innerHTML = "";
+
+
+            if (
+                selectedWords.length === 0
+            ) {
+
+                answerBox.innerHTML = `
+
+                    <span class="empty-answer">
+
+                        Pilih kata di atas...
+
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            selectedWords.forEach(
+                (token, index) => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.className =
+                        "answer-chip";
+
+
+                    button.textContent =
+                        token.word;
+
+
+                    button.title =
+                        "Klik untuk menghapus";
+
+
+                    button.addEventListener(
+                        "click",
+                        () =>
+                            removeSelectedWord(
+                                index
+                            )
+                    );
+
+
+                    answerBox.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+        }
+
+
+        function removeSelectedWord(index) {
+
+            selectedWords.splice(
+                index,
+                1
+            );
+
+
+            renderAnswer();
+
+
+            const originalTokens =
+                createWordTokens(
+                    gameQuestions[
+                        currentGameIndex
+                    ].sentence
+                );
+
+
+            renderAvailableWords(
+                originalTokens
+            );
+
+
+            clearFeedback();
+
+        }
+
+
+        function resetSentenceAnswer() {
+
+            selectedWords = [];
+
+
+            renderAnswer();
+
+
+            const originalTokens =
+                createWordTokens(
+                    gameQuestions[
+                        currentGameIndex
+                    ].sentence
+                );
+
+
+            renderAvailableWords(
+                originalTokens
+            );
+
+
+            clearFeedback();
+
+        }
+
+
+        function checkSentenceAnswer() {
+
+            const question =
+                gameQuestions[
+                    currentGameIndex
+                ];
+
+
+            const userAnswer =
+                selectedWords.map(
+                    token => token.word
+                );
+
+
+            const correctAnswer =
+                question.sentence;
+
+
+            const isCorrect =
+
+                userAnswer.length
+                ===
+                correctAnswer.length
+
+                &&
+
+                userAnswer.every(
+                    (word, index) =>
+                        word ===
+                        correctAnswer[index]
+                );
+
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            const feedback =
+                document.getElementById(
+                    "game-feedback"
+                );
+
+
+            if (isCorrect) {
+
+                answerBox.classList.remove(
+                    "incorrect"
+                );
+
+
+                answerBox.classList.add(
+                    "correct"
+                );
+
+
+                feedback.className =
+                    "game-feedback show correct";
+
+
+                feedback.innerHTML = `
+
+                    🎉 Benar!
+
+                    <div class="correct-sentence">
+
+                        ${correctAnswer.join(" ")}
+
+                    </div>
+
+                    <div>
+
+                        ${question.translation}
+
+                    </div>
+
+                `;
+
+
+                setTimeout(
+                    () => {
+
+                        currentGameIndex++;
+
+                        renderSentenceGame();
+
+                    },
+                    1300
+                );
+
+
+            } else {
+
+                answerBox.classList.remove(
+                    "correct"
+                );
+
+
+                answerBox.classList.add(
+                    "incorrect"
+                );
+
+
+                feedback.className =
+                    "game-feedback show incorrect";
+
+
+                feedback.innerHTML = `
+
+                    ❌ Belum tepat.
+
+                    Coba periksa lagi
+                    urutan katanya.
+
+                `;
+
+            }
+
+        }
+
+
+        function clearFeedback() {
+
+            const feedback =
+                document.getElementById(
+                    "game-feedback"
+                );
+
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            if (feedback) {
+
+                feedback.className =
+                    "game-feedback";
+
+
+                feedback.innerHTML = "";
+
+            }
+
+
+            if (answerBox) {
+
+                answerBox.classList.remove(
+                    "correct",
+                    "incorrect"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+           ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                renderConversation();
+
+                startSentenceGame();
+
+            }
+        );
+
+    </script>
+
+
+    <!-- =========================================
+         SHARED SCRIPT
+         ========================================= -->
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
