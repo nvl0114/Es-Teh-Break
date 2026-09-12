@@ -245,449 +245,454 @@
     <!-- 載入共用模板 -->
     <div id="app"></div>
 
-    <!-- Lesson Content -->
-    <main class="lesson-container">
+    <!-- 這個頁面自己的內容，會被 script.js 抓出來塞進 template 的 #page-content -->
+    <div id="page-source">
 
-        <!-- Intro -->
-        <section class="hero">
-            <div class="badge">BAHASA INDONESIA • BEGINNER</div>
+        <main class="lesson-container">
 
-            <h1>🔤 印尼文字母怎麼念？</h1>
+            <!-- Intro -->
+            <section class="hero">
+                <div class="badge">BAHASA INDONESIA • BEGINNER</div>
 
-            <p>
-                Selamat datang! 👋
-            </p>
-
-            <p>
-                在開始學印尼文之前，先來認識印尼文的
-                <strong>字母（alfabet）</strong>以及每個字母的發音。
-            </p>
-
-            <p>
-                印尼文使用的也是
-                <strong>A–Z 這 26 個拉丁字母</strong>，
-                看起來跟英文很像。
-                不過要注意：
-                <span class="important">
-                    印尼文的字母名稱和英文的念法不完全一樣。
-                </span>
-            </p>
-
-            <div class="note">
-                💡 所以，不要看到 A、B、C 就直接用英文的方式念。
-                學會印尼文字母的念法，之後看到新的印尼文單字時會更容易自己讀出來。
-            </div>
-        </section>
-
-        <!-- Video -->
-        <section class="card">
-            <h2>🎬 先看影片</h2>
-
-            <p>
-                先聽一次 26 個印尼文字母的發音。
-                不需要一次全部記起來，先讓耳朵熟悉印尼文的聲音就可以了。
-            </p>
-
-            <div class="video-wrapper">
-                <iframe
-                    src="https://www.youtube.com/embed/v2pcOUQmtqA"
-                    title="How to Pronounce Indonesian Alphabet"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </section>
-
-        <!-- Why -->
-        <section class="card">
-            <h2>🌱 為什麼要學印尼文字母？</h2>
-
-            <p>
-                也許你會想：
-                「A–Z 我早就會了，為什麼還要學？」
-            </p>
-
-            <p>
-                因為你需要學的不是「字母長什麼樣子」，
-                而是<strong>印尼文裡這些字母怎麼念</strong>。
-            </p>
-
-            <ul class="tip-list">
-                <li>
-                    🔊 <strong>幫助你正確讀單字：</strong>
-                    看到新的單字時，可以慢慢拼讀。
-                </li>
-
-                <li>
-                    👂 <strong>幫助你聽懂別人拼字：</strong>
-                    例如別人告訴你一個名字、地址或 Email 時，
-                    你需要知道字母怎麼念。
-                </li>
-
-                <li>
-                    ✍️ <strong>幫助你記單字：</strong>
-                    聽到一個單字後，你會更容易把聲音和拼法連在一起。
-                </li>
-
-                <li>
-                    🗣️ <strong>幫助你說出新的單字：</strong>
-                    印尼文很多單字其實可以透過字母和拼讀慢慢讀出來。
-                </li>
-            </ul>
-
-            <div class="practice">
-                <div class="mini-title">☕ Es Teh Break Tip</div>
-                不用急著把 26 個字母背得很完美。
-                先知道「看到這個字母，大概應該發什麼音」，
-                再慢慢透過單字練習。
-            </div>
-        </section>
-
-        <!-- Alphabet -->
-        <section class="card">
-            <h2>🔤 印尼文 26 個字母</h2>
-
-            <p>
-                下面是印尼文常用的 26 個拉丁字母。
-                中文的注音只是幫助你抓大概的聲音，
-                <strong>不是完全相同的發音</strong>。
-            </p>
-
-            <div class="alphabet-grid">
-
-                <div class="letter-card">
-                    <div class="letter">A</div>
-                    <div class="pronunciation">a</div>
-                    <div class="zhuyin">ㄚ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">B</div>
-                    <div class="pronunciation">be</div>
-                    <div class="zhuyin">ㄅㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">C</div>
-                    <div class="pronunciation">ce</div>
-                    <div class="zhuyin">接近「ㄐㄟ」</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">D</div>
-                    <div class="pronunciation">de</div>
-                    <div class="zhuyin">ㄉㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">E</div>
-                    <div class="pronunciation">e</div>
-                    <div class="zhuyin">ㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">F</div>
-                    <div class="pronunciation">ef</div>
-                    <div class="zhuyin">ㄟㄈ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">G</div>
-                    <div class="pronunciation">ge</div>
-                    <div class="zhuyin">ㄍㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">H</div>
-                    <div class="pronunciation">ha</div>
-                    <div class="zhuyin">ㄏㄚ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">I</div>
-                    <div class="pronunciation">i</div>
-                    <div class="zhuyin">ㄧ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">J</div>
-                    <div class="pronunciation">je</div>
-                    <div class="zhuyin">接近「ㄐㄧㄟ」</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">K</div>
-                    <div class="pronunciation">ka</div>
-                    <div class="zhuyin">ㄎㄚ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">L</div>
-                    <div class="pronunciation">el</div>
-                    <div class="zhuyin">ㄟㄦ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">M</div>
-                    <div class="pronunciation">em</div>
-                    <div class="zhuyin">ㄟㄇ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">N</div>
-                    <div class="pronunciation">en</div>
-                    <div class="zhuyin">ㄟㄣ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">O</div>
-                    <div class="pronunciation">o</div>
-                    <div class="zhuyin">ㄛ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">P</div>
-                    <div class="pronunciation">pe</div>
-                    <div class="zhuyin">ㄆㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">Q</div>
-                    <div class="pronunciation">ki</div>
-                    <div class="zhuyin">ㄎㄧ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">R</div>
-                    <div class="pronunciation">er</div>
-                    <div class="zhuyin">ㄜㄦ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">S</div>
-                    <div class="pronunciation">es</div>
-                    <div class="zhuyin">ㄟㄙ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">T</div>
-                    <div class="pronunciation">te</div>
-                    <div class="zhuyin">ㄊㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">U</div>
-                    <div class="pronunciation">u</div>
-                    <div class="zhuyin">ㄨ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">V</div>
-                    <div class="pronunciation">ve</div>
-                    <div class="zhuyin">接近「ㄨㄟ」</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">W</div>
-                    <div class="pronunciation">we</div>
-                    <div class="zhuyin">ㄨㄟ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">X</div>
-                    <div class="pronunciation">eks</div>
-                    <div class="zhuyin">ㄟㄎㄙ</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">Y</div>
-                    <div class="pronunciation">ye</div>
-                    <div class="zhuyin">接近「ㄧㄟ」</div>
-                </div>
-
-                <div class="letter-card">
-                    <div class="letter">Z</div>
-                    <div class="pronunciation">zet</div>
-                    <div class="zhuyin">ㄗㄟㄊ</div>
-                </div>
-
-            </div>
-
-            <div class="note">
-                💡 中文注音只是「幫你找方向」的提示。
-                真正學習時，還是要以印尼文的實際聲音為主。
-            </div>
-        </section>
-
-        <!-- English comparison -->
-        <section class="card">
-            <h2>🇬🇧 英文一樣的字母，為什麼念法不一樣？</h2>
-
-            <p>
-                印尼文和英文都使用 A–Z，
-                但是<strong>字母名稱不一定相同</strong>。
-            </p>
-
-            <p>
-                例如英文的 C 通常念成
-                <strong>see</strong>，
-                但是印尼文的 C 是
-                <strong>ce</strong>。
-            </p>
-
-            <p>
-                所以如果你已經會英文，
-                一開始可能反而容易「念錯」。
-                看到熟悉的字母時，會自然套用英文發音。
-            </p>
-
-            <table class="comparison">
-                <thead>
-                    <tr>
-                        <th>字母</th>
-                        <th>英文</th>
-                        <th>印尼文</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>C</td>
-                        <td>see</td>
-                        <td>ce</td>
-                    </tr>
-
-                    <tr>
-                        <td>G</td>
-                        <td>gee</td>
-                        <td>ge</td>
-                    </tr>
-
-                    <tr>
-                        <td>J</td>
-                        <td>jay</td>
-                        <td>je</td>
-                    </tr>
-
-                    <tr>
-                        <td>Q</td>
-                        <td>cue</td>
-                        <td>ki</td>
-                    </tr>
-
-                    <tr>
-                        <td>R</td>
-                        <td>ar</td>
-                        <td>er</td>
-                    </tr>
-
-                    <tr>
-                        <td>W</td>
-                        <td>double-u</td>
-                        <td>we</td>
-                    </tr>
-
-                    <tr>
-                        <td>Z</td>
-                        <td>zee / zed</td>
-                        <td>zet</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="note">
-                ⚠️ 特別注意 Q、R、W、Z。
-                這幾個字母的印尼文念法跟英文差異比較明顯，
-                很值得另外練習。
-            </div>
-        </section>
-
-        <!-- Spelling -->
-        <section class="card">
-            <h2>📝 學會字母之後，可以做什麼？</h2>
-
-            <p>
-                印尼文生活中常常會遇到需要「拼字」的情況。
-            </p>
-
-            <ul class="tip-list">
-                <li>📧 Email 地址</li>
-                <li>👤 人名</li>
-                <li>🏠 地址</li>
-                <li>📱 使用者名稱</li>
-                <li>🪪 身分資料</li>
-                <li>📝 不熟悉的印尼文單字</li>
-            </ul>
-
-            <p>
-                例如，如果對方問你一個名字怎麼拼，
-                你就需要聽懂像
-                <strong>A、B、C、D...</strong>
-                這些字母。
-            </p>
-
-            <div class="practice">
-                <div class="mini-title">🎯 小練習</div>
-
-                試著慢慢念這些字母：
+                <h1>🔤 印尼文字母怎麼念？</h1>
 
                 <p>
-                    A → B → C → D → E
+                    Selamat datang! 👋
                 </p>
 
                 <p>
-                    J → K → L → M → N
+                    在開始學印尼文之前，先來認識印尼文的
+                    <strong>字母（alfabet）</strong>以及每個字母的發音。
                 </p>
 
                 <p>
-                    Q → R → S → T → U
+                    印尼文使用的也是
+                    <strong>A–Z 這 26 個拉丁字母</strong>，
+                    看起來跟英文很像。
+                    不過要注意：
+                    <span class="important">
+                        印尼文的字母名稱和英文的念法不完全一樣。
+                    </span>
+                </p>
+
+                <div class="note">
+                    💡 所以，不要看到 A、B、C 就直接用英文的方式念。
+                    學會印尼文字母的念法，之後看到新的印尼文單字時會更容易自己讀出來。
+                </div>
+            </section>
+
+            <!-- Video -->
+            <section class="card">
+                <h2>🎬 先看影片</h2>
+
+                <p>
+                    先聽一次 26 個印尼文字母的發音。
+                    不需要一次全部記起來，先讓耳朵熟悉印尼文的聲音就可以了。
+                </p>
+
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/v2pcOUQmtqA"
+                        title="How to Pronounce Indonesian Alphabet"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- Why -->
+            <section class="card">
+                <h2>🌱 為什麼要學印尼文字母？</h2>
+
+                <p>
+                    也許你會想：
+                    「A–Z 我早就會了，為什麼還要學？」
                 </p>
 
                 <p>
-                    W → X → Y → Z
+                    因為你需要學的不是「字母長什麼樣子」，
+                    而是<strong>印尼文裡這些字母怎麼念</strong>。
                 </p>
 
-                不需要一次念得很快，先把每個字母的聲音念清楚。
-            </div>
-        </section>
+                <ul class="tip-list">
+                    <li>
+                        🔊 <strong>幫助你正確讀單字：</strong>
+                        看到新的單字時，可以慢慢拼讀。
+                    </li>
 
-        <!-- Final -->
-        <section class="card">
-            <h2>☕ Es Teh Break 小結</h2>
+                    <li>
+                        👂 <strong>幫助你聽懂別人拼字：</strong>
+                        例如別人告訴你一個名字、地址或 Email 時，
+                        你需要知道字母怎麼念。
+                    </li>
 
-            <p>
-                印尼文使用的是 A–Z 這 26 個拉丁字母，
-                所以字母看起來跟英文一樣。
-            </p>
+                    <li>
+                        ✍️ <strong>幫助你記單字：</strong>
+                        聽到一個單字後，你會更容易把聲音和拼法連在一起。
+                    </li>
 
-            <p>
-                但是！
-                <strong>字母的名稱和發音不一定跟英文一樣。</strong>
-            </p>
+                    <li>
+                        🗣️ <strong>幫助你說出新的單字：</strong>
+                        印尼文很多單字其實可以透過字母和拼讀慢慢讀出來。
+                    </li>
+                </ul>
 
-            <p>
-                學會印尼文字母的念法，
-                可以幫助你：
-            </p>
+                <div class="practice">
+                    <div class="mini-title">☕ Es Teh Break Tip</div>
+                    不用急著把 26 個字母背得很完美。
+                    先知道「看到這個字母，大概應該發什麼音」，
+                    再慢慢透過單字練習。
+                </div>
+            </section>
 
-            <ul class="tip-list">
-                <li>讀新的印尼文單字</li>
-                <li>理解別人拼字</li>
-                <li>記住單字的拼法</li>
-                <li>處理名字、地址和 Email</li>
-                <li>建立印尼文發音的基礎</li>
-            </ul>
+            <!-- Alphabet -->
+            <section class="card">
+                <h2>🔤 印尼文 26 個字母</h2>
 
-            <div class="note">
-                🌱 不用急著一次全部背起來。
-                先聽、再跟著念，之後在單字裡反覆遇到它們，
-                自然就會越來越熟。
-            </div>
-        </section>
+                <p>
+                    下面是印尼文常用的 26 個拉丁字母。
+                    中文的注音只是幫助你抓大概的聲音，
+                    <strong>不是完全相同的發音</strong>。
+                </p>
 
-    </main>
+                <div class="alphabet-grid">
 
-    <!-- 因為此 HTML 位於 /lesson/ 資料夾，
+                    <div class="letter-card">
+                        <div class="letter">A</div>
+                        <div class="pronunciation">a</div>
+                        <div class="zhuyin">ㄚ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">B</div>
+                        <div class="pronunciation">be</div>
+                        <div class="zhuyin">ㄅㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">C</div>
+                        <div class="pronunciation">ce</div>
+                        <div class="zhuyin">接近「ㄐㄟ」</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">D</div>
+                        <div class="pronunciation">de</div>
+                        <div class="zhuyin">ㄉㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">E</div>
+                        <div class="pronunciation">e</div>
+                        <div class="zhuyin">ㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">F</div>
+                        <div class="pronunciation">ef</div>
+                        <div class="zhuyin">ㄟㄈ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">G</div>
+                        <div class="pronunciation">ge</div>
+                        <div class="zhuyin">ㄍㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">H</div>
+                        <div class="pronunciation">ha</div>
+                        <div class="zhuyin">ㄏㄚ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">I</div>
+                        <div class="pronunciation">i</div>
+                        <div class="zhuyin">ㄧ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">J</div>
+                        <div class="pronunciation">je</div>
+                        <div class="zhuyin">接近「ㄐㄧㄟ」</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">K</div>
+                        <div class="pronunciation">ka</div>
+                        <div class="zhuyin">ㄎㄚ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">L</div>
+                        <div class="pronunciation">el</div>
+                        <div class="zhuyin">ㄟㄦ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">M</div>
+                        <div class="pronunciation">em</div>
+                        <div class="zhuyin">ㄟㄇ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">N</div>
+                        <div class="pronunciation">en</div>
+                        <div class="zhuyin">ㄟㄣ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">O</div>
+                        <div class="pronunciation">o</div>
+                        <div class="zhuyin">ㄛ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">P</div>
+                        <div class="pronunciation">pe</div>
+                        <div class="zhuyin">ㄆㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">Q</div>
+                        <div class="pronunciation">ki</div>
+                        <div class="zhuyin">ㄎㄧ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">R</div>
+                        <div class="pronunciation">er</div>
+                        <div class="zhuyin">ㄜㄦ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">S</div>
+                        <div class="pronunciation">es</div>
+                        <div class="zhuyin">ㄟㄙ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">T</div>
+                        <div class="pronunciation">te</div>
+                        <div class="zhuyin">ㄊㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">U</div>
+                        <div class="pronunciation">u</div>
+                        <div class="zhuyin">ㄨ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">V</div>
+                        <div class="pronunciation">ve</div>
+                        <div class="zhuyin">接近「ㄨㄟ」</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">W</div>
+                        <div class="pronunciation">we</div>
+                        <div class="zhuyin">ㄨㄟ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">X</div>
+                        <div class="pronunciation">eks</div>
+                        <div class="zhuyin">ㄟㄎㄙ</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">Y</div>
+                        <div class="pronunciation">ye</div>
+                        <div class="zhuyin">接近「ㄧㄟ」</div>
+                    </div>
+
+                    <div class="letter-card">
+                        <div class="letter">Z</div>
+                        <div class="pronunciation">zet</div>
+                        <div class="zhuyin">ㄗㄟㄊ</div>
+                    </div>
+
+                </div>
+
+                <div class="note">
+                    💡 中文注音只是「幫你找方向」的提示。
+                    真正學習時，還是要以印尼文的實際聲音為主。
+                </div>
+            </section>
+
+            <!-- English comparison -->
+            <section class="card">
+                <h2>🇬🇧 英文一樣的字母，為什麼念法不一樣？</h2>
+
+                <p>
+                    印尼文和英文都使用 A–Z，
+                    但是<strong>字母名稱不一定相同</strong>。
+                </p>
+
+                <p>
+                    例如英文的 C 通常念成
+                    <strong>see</strong>，
+                    但是印尼文的 C 是
+                    <strong>ce</strong>。
+                </p>
+
+                <p>
+                    所以如果你已經會英文，
+                    一開始可能反而容易「念錯」。
+                    看到熟悉的字母時，會自然套用英文發音。
+                </p>
+
+                <table class="comparison">
+                    <thead>
+                        <tr>
+                            <th>字母</th>
+                            <th>英文</th>
+                            <th>印尼文</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>C</td>
+                            <td>see</td>
+                            <td>ce</td>
+                        </tr>
+
+                        <tr>
+                            <td>G</td>
+                            <td>gee</td>
+                            <td>ge</td>
+                        </tr>
+
+                        <tr>
+                            <td>J</td>
+                            <td>jay</td>
+                            <td>je</td>
+                        </tr>
+
+                        <tr>
+                            <td>Q</td>
+                            <td>cue</td>
+                            <td>ki</td>
+                        </tr>
+
+                        <tr>
+                            <td>R</td>
+                            <td>ar</td>
+                            <td>er</td>
+                        </tr>
+
+                        <tr>
+                            <td>W</td>
+                            <td>double-u</td>
+                            <td>we</td>
+                        </tr>
+
+                        <tr>
+                            <td>Z</td>
+                            <td>zee / zed</td>
+                            <td>zet</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    ⚠️ 特別注意 Q、R、W、Z。
+                    這幾個字母的印尼文念法跟英文差異比較明顯，
+                    很值得另外練習。
+                </div>
+            </section>
+
+            <!-- Spelling -->
+            <section class="card">
+                <h2>📝 學會字母之後，可以做什麼？</h2>
+
+                <p>
+                    印尼文生活中常常會遇到需要「拼字」的情況。
+                </p>
+
+                <ul class="tip-list">
+                    <li>📧 Email 地址</li>
+                    <li>👤 人名</li>
+                    <li>🏠 地址</li>
+                    <li>📱 使用者名稱</li>
+                    <li>🪪 身分資料</li>
+                    <li>📝 不熟悉的印尼文單字</li>
+                </ul>
+
+                <p>
+                    例如，如果對方問你一個名字怎麼拼，
+                    你就需要聽懂像
+                    <strong>A、B、C、D...</strong>
+                    這些字母。
+                </p>
+
+                <div class="practice">
+                    <div class="mini-title">🎯 小練習</div>
+
+                    試著慢慢念這些字母：
+
+                    <p>
+                        A → B → C → D → E
+                    </p>
+
+                    <p>
+                        J → K → L → M → N
+                    </p>
+
+                    <p>
+                        Q → R → S → T → U
+                    </p>
+
+                    <p>
+                        W → X → Y → Z
+                    </p>
+
+                    不需要一次念得很快，先把每個字母的聲音念清楚。
+                </div>
+            </section>
+
+            <!-- Final -->
+            <section class="card">
+                <h2>☕ Es Teh Break 小結</h2>
+
+                <p>
+                    印尼文使用的是 A–Z 這 26 個拉丁字母，
+                    所以字母看起來跟英文一樣。
+                </p>
+
+                <p>
+                    但是！
+                    <strong>字母的名稱和發音不一定跟英文一樣。</strong>
+                </p>
+
+                <p>
+                    學會印尼文字母的念法，
+                    可以幫助你：
+                </p>
+
+                <ul class="tip-list">
+                    <li>讀新的印尼文單字</li>
+                    <li>理解別人拼字</li>
+                    <li>記住單字的拼法</li>
+                    <li>處理名字、地址和 Email</li>
+                    <li>建立印尼文發音的基礎</li>
+                </ul>
+
+                <div class="note">
+                    🌱 不用急著一次全部背起來。
+                    先聽、再跟著念，之後在單字裡反覆遇到它們，
+                    自然就會越來越熟。
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+    <!-- /#page-source -->
+
+    <!-- 因為此 HTML 位於 /lessons/ 資料夾，
          所以 script.js 使用上一層路徑 -->
     <script src="../script.js"></script>
 
