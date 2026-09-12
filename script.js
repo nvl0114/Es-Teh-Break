@@ -23,14 +23,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     // =========================================
-    // 保存這個頁面自己的內容
+    // 保存這個頁面自己的內容（保留原始節點，不轉成字串）
+    //
+    // 之前的版本用 outerHTML 把內容轉成文字，
+    // 再用 innerHTML 貼回去，這樣會建立全新的 DOM 元素，
+    // 導致 quiz 腳本原本掛在按鈕上的 click 事件監聽器全部消失。
+    //
+    // 改成直接保留節點本身，之後用 appendChild 搬移，
+    // 這樣按鈕原本的事件監聽器會跟著節點一起被保留下來。
     // =========================================
 
     const pageSource = document.getElementById("page-source");
-
-    const pageContentHTML = pageSource
-        ? pageSource.outerHTML
-        : "";
 
     if (pageSource) {
         pageSource.remove();
@@ -90,21 +93,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         // =========================================
-        // 將頁面自己的內容放入 #page-content
+        // 將頁面自己的內容節點搬進 #page-content
+        //
+        // 用 appendChild 搬移原始節點（而不是用 innerHTML
+        // 重新產生新的節點），按鈕上的 click 事件監聽器
+        // 才不會遺失。
         // =========================================
 
         const pageContentSlot =
             app.querySelector("#page-content");
 
-        if (pageContentSlot) {
+        if (pageContentSlot && pageSource) {
 
-            pageContentSlot.innerHTML =
-                pageContentHTML;
+            pageContentSlot.appendChild(pageSource);
+
+        } else if (!pageContentSlot) {
+
+            console.warn(
+                "template.html 裡找不到 #page-content。"
+            );
 
         } else {
 
             console.warn(
-                "template.html 裡找不到 #page-content。"
+                "找不到 #page-source，沒有內容可以搬移。"
             );
 
         }
