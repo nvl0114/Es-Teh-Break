@@ -7,6 +7,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    // 先把「這個頁面自己的內容」抓出來、記下來，
+    // 再把它從原本的位置移除，等一下要塞進 template 的 #page-content。
+    const pageSource = document.getElementById("page-source");
+    const pageContentHTML = pageSource ? pageSource.outerHTML : "";
+
+    if (pageSource) {
+        pageSource.remove();
+    }
+
     try {
 
         // 載入 template.html
@@ -22,6 +31,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 將模板放入頁面
         app.innerHTML = template;
+
+        // 把這個頁面自己的內容，放進模板裡的 #page-content
+        const pageContentSlot = app.querySelector("#page-content");
+
+        if (pageContentSlot) {
+            pageContentSlot.innerHTML = pageContentHTML;
+        } else {
+            console.warn("template.html 裡找不到 #page-content。");
+        }
 
         // 載入完成後啟用側邊選單
         setupSidebar();
