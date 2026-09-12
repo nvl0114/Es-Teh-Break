@@ -1,298 +1,159 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>關於 Es Teh Break</title>
-
     <style>
-        .about-container {
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .about-title {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .about-card {
-            background: #fff8ef;
-            border: 1px solid #e6d5c3;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            box-shadow: 0 3px 8px rgba(92, 64, 51, 0.08);
-        }
-
-        .about-card-header {
-            padding: 18px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: bold;
-            color: #5c4033;
-            font-size: 18px;
-            user-select: none;
-        }
-
-        .about-card-header:hover {
-            background: #fdf1e4;
-        }
-
-        .about-arrow {
-            transition: transform 0.3s ease;
-            font-size: 14px;
-        }
-
-        .about-card.active .about-arrow {
-            transform: rotate(180deg);
-        }
-
-        .about-card-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-
-        .about-card-content-inner {
-            padding: 0 20px 20px;
-            color: #5c4033;
-            line-height: 1.9;
-            font-size: 16px;
-        }
-
-        .about-card-content-inner p {
-            margin: 0 0 15px;
-        }
-
-        .about-card-content-inner p:last-child {
-            margin-bottom: 0;
-        }
-
-        .about-card-content-inner ul {
-            padding-left: 22px;
-            margin-top: 10px;
-        }
-
-        .about-card-content-inner li {
-            margin-bottom: 8px;
-        }
-
-        .about-highlight {
-            font-weight: bold;
-            color: #8b5e3c;
-        }
-
-        .about-quote {
-            background: #fdf1e4;
-            border-left: 4px solid #b8865c;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-
+        .about-container { max-width: 750px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; }
+        .about-title { text-align: center; margin-bottom: 25px; color: #5c4033; }
+        .about-card { background: #fff8ef; border: 1px solid #e6d5c3; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 3px 8px rgba(92, 64, 51, 0.08); }
+        .about-card-header { padding: 18px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: bold; color: #5c4033; font-size: 18px; user-select: none; }
+        .about-card-header:hover { background: #fdf1e4; }
+        .about-arrow { transition: transform 0.3s ease; font-size: 14px; }
+        .about-card.active .about-arrow { transform: rotate(180deg); }
+        .about-card-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .about-card-content-inner { padding: 0 20px 20px; color: #5c4033; line-height: 1.9; font-size: 16px; }
+        .about-card-content-inner p { margin: 0 0 15px; }
+        .about-card-content-inner p:last-child { margin-bottom: 0; }
+        .about-card-content-inner ul { padding-left: 22px; margin-top: 10px; }
+        .about-card-content-inner li { margin-bottom: 8px; }
+        .about-highlight { font-weight: bold; color: #8b5e3c; }
+        .about-quote { background: #fdf1e4; border-left: 4px solid #b8865c; padding: 12px 15px; margin: 15px 0; border-radius: 8px; font-weight: 500; }
         @media (max-width: 600px) {
-            .about-container {
-                padding: 15px;
-            }
-
-            .about-card-header {
-                font-size: 16px;
-                padding: 16px;
-            }
-
-            .about-card-content-inner {
-                padding: 0 16px 18px;
-                font-size: 15px;
-            }
+            .about-container { padding: 15px; }
+            .about-card-header { font-size: 16px; padding: 16px; }
+            .about-card-content-inner { padding: 0 16px 18px; font-size: 15px; }
         }
     </style>
 </head>
-
 <body>
-
     <!-- 載入共用模板 -->
     <div id="app"></div>
 
     <!-- About Content -->
     <main class="about-container">
-
         <h1 class="about-title">關於 Es Teh Break</h1>
 
         <!-- Card 1 -->
         <div class="about-card">
-
             <div class="about-card-header">
                 <span>什麼是 Es Teh Break？</span>
                 <span class="about-arrow">▼</span>
             </div>
-
             <div class="about-card-content">
                 <div class="about-card-content-inner">
-
                     <p>
-                        <strong>Es Teh Break</strong>
-                        是一個以印尼日常口語為主的印尼文學習網站。
+                        <strong>Es Teh Break</strong> 是一個以印尼日常口語為主的印尼文學習網站。
                     </p>
-
                     <p>
                         印尼文其實和很多語言一樣，同一個意思常常可以有不同的說法，
                         而不同的說法也可能代表不同程度的正式與禮貌。
                     </p>
-
                     <p>
                         這也是為什麼有些印尼文雖然文法完全正確，
                         但如果直接拿來和印尼人聊天，聽起來卻可能稍微有點
                         「太正式」或不太像日常對話。
                     </p>
-
                     <p>
                         在學校、正式場合或課本裡，我們通常會先接觸比較正式的印尼文。
                         這些說法當然沒有錯，而且在寫作、官方場合或正式溝通中非常重要。
                     </p>
-
                     <p>
                         不過，實際和印尼人聊天時，使用的語言往往更加簡單、自然，
                         也可能會把某些單字或句子縮短。
                     </p>
-
                     <div class="about-quote">
-                        所以，<span class="about-highlight">Es Teh Break</span>
-                        想教的不只是「正確的印尼文」，
+                        所以，<span class="about-highlight">Es Teh Break</span> 想教的不只是「正確的印尼文」，
                         而是「印尼人平常真的會怎麼說」。
                     </div>
-
                     <p>
                         這裡會以日常生活中常見、自然又保持基本禮貌的說法為主，
                         讓你學到的句子不只是「看得懂」，
                         而是真的可以拿來和印尼人聊天。
                     </p>
-
-                    <p>
-                        而且不用太擔心！
-                    </p>
-
+                    <p>而且不用太擔心！</p>
                     <p>
                         雖然一開始可能會覺得口語印尼文的變化很多，
                         但其實印尼文是一種相對容易開始學習的語言。
                         尤其在日常聊天中，並不是每一句話都需要完全按照課本上的正式文法來說。
                     </p>
-
                     <p>
                         很多時候，只要掌握常見的單字、語氣和表達方式，
                         就可以慢慢建立自己的溝通能力。
                     </p>
-
                 </div>
             </div>
         </div>
 
-
         <!-- Card 2 -->
         <div class="about-card">
-
             <div class="about-card-header">
                 <span>網站背景</span>
                 <span class="about-arrow">▼</span>
             </div>
-
             <div class="about-card-content">
                 <div class="about-card-content-inner">
-
                     <p>
                         Es Teh Break 的想法，來自於印尼與台灣、華人社會之間越來越多的交流。
                     </p>
-
                     <p>
                         近年來，有不少台灣人以及華人對印尼文產生興趣。
                         有人是因為工作，有人是因為朋友或人際交流，
                         也有人是因為感情，或者只是單純想學一門新的語言。
                     </p>
-
                     <p>
                         當然，也有很多人是希望有一天去印尼旅行時，
                         可以自己和當地人簡單聊天、點餐、買東西、問路，
                         或是在認識印尼朋友時，不需要完全依靠翻譯工具。
                     </p>
-
-                    <p>
-                        在接觸這些學習者的過程中，我發現一個很有趣的現象：
-                    </p>
-
+                    <p>在接觸這些學習者的過程中，我發現一個很有趣的現象：</p>
                     <div class="about-quote">
                         很多外國學習者其實已經學會了不少印尼文，
                         只是說出來的時候，常常會比印尼人的日常說法更加正式。
                     </div>
-
-                    <p>
-                        這其實是一件很好的事情。
-                    </p>
-
+                    <p>這其實是一件很好的事情。</p>
                     <p>
                         因為這代表他們認真學習了印尼文，
                         也代表他們已經有能力讓印尼人理解自己。
                         對印尼人來說，看到外國人願意學習自己的語言，
                         通常也會覺得很開心。
                     </p>
-
                     <p>
                         但是，如果目標是更自然地融入日常對話，
                         那麼只學習課本裡的正式表達可能還不太夠。
                     </p>
-
                     <p>
                         例如，在課本裡看到的句子可能非常完整、正式，
                         但實際聊天時，印尼人可能會使用更短、更簡單、更口語的說法。
                     </p>
-
                     <div class="about-quote">
                         這中間的差異，就是 Es Teh Break 想帶你認識的部分。
                     </div>
-
-                    <p>
-                        我們希望透過生活化的情境和自然的對話，
-                        讓你慢慢理解：
-                    </p>
-
+                    <p>我們希望透過生活化的情境和自然的對話，讓你慢慢理解：</p>
                     <div class="about-quote">
-                        「課本上的印尼文是這樣說，
-                        那印尼人平常聊天又會怎麼說？」
+                        「課本上的印尼文是這樣說，<br>那印尼人平常聊天又會怎麼說？」
                     </div>
-
                 </div>
             </div>
         </div>
 
-
         <!-- Card 3 -->
         <div class="about-card">
-
             <div class="about-card-header">
                 <span>網站目標</span>
                 <span class="about-arrow">▼</span>
             </div>
-
             <div class="about-card-content">
                 <div class="about-card-content-inner">
-
                     <p>
                         Es Teh Break 的目標不是讓你在最短的時間內背完大量單字，
                         也不是要求你一開始就把所有文法學得非常完整。
                     </p>
-
                     <p>
-                        我們更希望你可以先學會
-                        <span class="about-highlight">真正能用在生活中的印尼文。</span>
+                        我們更希望你可以先學會 <span class="about-highlight">真正能用在生活中的印尼文。</span>
                     </p>
-
                     <p>例如：</p>
-
                     <ul>
                         <li>第一次認識別人時怎麼聊天</li>
                         <li>和朋友簡單聊天</li>
@@ -303,128 +164,84 @@
                         <li>聽懂印尼人平常聊天時常用的說法</li>
                         <li>理解正式印尼文和日常口語之間的差異</li>
                     </ul>
-
                     <p>
                         我們希望你學完一個句子之後，
                         不只是知道它「是什麼意思」，而是會知道：
                     </p>
-
                     <div class="about-quote">
                         「這句話什麼時候可以用？」<br>
                         「跟誰說比較自然？」<br>
                         「印尼人平常真的會這樣講嗎？」
                     </div>
-
-                    <p>
-                        最重要的是，希望你可以慢慢建立用印尼文溝通的信心。
-                    </p>
-
+                    <p>最重要的是，希望你可以慢慢建立用印尼文溝通的信心。</p>
                     <p>
                         就算一開始只會幾個簡單的句子也沒關係。
                         語言本來就是在一次又一次的使用中慢慢變熟悉的。
                     </p>
-
                 </div>
             </div>
         </div>
 
-
         <!-- Card 4 -->
         <div class="about-card">
-
             <div class="about-card-header">
                 <span>為什麼叫「Es Teh Break」？</span>
                 <span class="about-arrow">▼</span>
             </div>
-
             <div class="about-card-content">
                 <div class="about-card-content-inner">
-
                     <p>
-                        如果你有看過我的另一個網站
-                        <strong>Boba Break Study</strong>，
+                        如果你有看過我的另一個網站 <strong>Boba Break Study</strong>，
                         可能會發現這兩個網站的名字有一點相似。
                     </p>
-
                     <p>
                         Boba Break Study 是一個以台灣中文學習為主的網站，
-                        而它的名字來自我很喜歡的台灣飲料——珍珠奶茶。
+                        而它的名字來和我很喜歡的台灣飲料——珍珠奶茶。
                     </p>
-
-                    <p>
-                        那麼，到了印尼呢？
-                    </p>
-
-                    <p>
-                        我想到的是 <strong>Es Teh（冰茶／冰甜茶）</strong>。
-                    </p>
-
+                    <p>那麼，到了印尼呢？</p>
+                    <p>我想到的是 <strong>Es Teh（冰茶／冰甜茶）</strong>。</p>
                     <p>
                         對我來說，Es Teh 是一種很簡單、清爽，
                         而且很適合在休息時間喝的飲料。
                     </p>
-
                     <div class="about-quote">
                         <strong>Es Teh + Break = Es Teh Break</strong>
                     </div>
-
-                    <p>
-                        而這個名字其實也代表了這個網站的學習方式。
-                    </p>
-
+                    <p>而這個名字其實也代表了這個網站的學習方式。</p>
                     <p>
                         你不需要一直逼自己學習，
                         也不需要急著把所有內容一次學完。
                     </p>
-
                     <p>
                         可以在休息的時候，喝著自己喜歡的飲料、吃點東西，
                         慢慢學幾個印尼文。
                     </p>
-
-                    <p>
-                        今天學一點，明天再學一點。
-                    </p>
-
+                    <p>今天學一點，明天再學一點。</p>
                     <div class="about-quote">
                         Take a break.<br>
                         Have some Es Teh.<br>
                         Learn some Indonesian.
                     </div>
-
                     <p>
                         希望 Es Teh Break 可以讓學習印尼文變成一件輕鬆、
                         有趣，而且真的用得上的事情。
                     </p>
-
-                    <p>
-                        不用急。
-                    </p>
-
-                    <p>
-                        <strong>我們慢慢學就好。 🧋</strong>
-                    </p>
-
+                    <p>不用急。</p>
+                    <p><strong>我們慢慢學就好。 🧋</strong></p>
                 </div>
             </div>
         </div>
-
     </main>
 
-
-    <!-- 載入 template.html -->
+    <!-- 載入 script.js -->
     <script src="script.js"></script>
-
-
-    <!-- Card Accordion -->
+    <!-- Card Accordion Script -->
     <script>
         document.querySelectorAll(".about-card-header").forEach(header => {
-
             header.addEventListener("click", () => {
-
                 const card = header.parentElement;
                 const content = card.querySelector(".about-card-content");
-
+                
                 // Tutup card lain
                 document.querySelectorAll(".about-card").forEach(otherCard => {
                     if (otherCard !== card) {
@@ -432,21 +249,16 @@
                         otherCard.querySelector(".about-card-content").style.maxHeight = null;
                     }
                 });
-
+                
                 // Toggle card yang diklik
                 card.classList.toggle("active");
-
                 if (card.classList.contains("active")) {
                     content.style.maxHeight = content.scrollHeight + "px";
                 } else {
                     content.style.maxHeight = null;
                 }
-
             });
-
         });
     </script>
-
 </body>
-
 </html>
