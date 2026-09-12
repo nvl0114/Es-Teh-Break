@@ -35,6 +35,12 @@
             color: #5c4033;
 
             min-height: 100vh;
+
+            /* FIX: topbar bersifat fixed (tidak makan tempat di flow dokumen),
+               jadi SEMUA konten di body (termasuk konten halaman lain yang
+               ditaruh sebagai sibling dari #app, misalnya about-container)
+               perlu jarak ini supaya tidak ketutup topbar. */
+            padding-top: 72px;
         }
 
 
@@ -364,8 +370,12 @@
         .main {
             min-height: 100vh;
 
+            /* FIX: sebelumnya 105px (asumsi body belum punya padding-top).
+               Sekarang body sudah kasih 72px, jadi di sini tinggal nambah
+               jarak "napas" tambahan (33px) supaya total tetap ~105px
+               untuk halaman yang memang pakai class .main. */
             padding:
-                105px
+                33px
                 25px
                 60px;
         }
@@ -398,6 +408,11 @@
 
         @media (max-width: 600px) {
 
+            body {
+                /* FIX: sesuaikan dengan tinggi topbar versi mobile (64px) */
+                padding-top: 64px;
+            }
+
             .topbar {
                 height: 64px;
 
@@ -414,7 +429,7 @@
 
             .main {
                 padding:
-                    88px
+                    24px
                     16px
                     45px;
             }
