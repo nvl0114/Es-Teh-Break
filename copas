@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break</title>
+</head>
+
+<body>
+
+    <!-- 載入共用模板 -->
+    <div id="app"></div>
+
+    <!-- 載入 template.html -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
