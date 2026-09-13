@@ -148,16 +148,9 @@
         }
 
         .mandarin {
-            margin-bottom: 5px;
-
             color: #7c563c;
             font-size: 19px;
             font-weight: 600;
-        }
-
-        .pinyin {
-            color: #9a806e;
-            font-size: 13px;
         }
 
         /* =========================
@@ -254,10 +247,6 @@
                 font-size: 18px;
             }
 
-            .pinyin {
-                font-size: 12px;
-            }
-
             .audio-button {
                 width: 40px;
                 height: 40px;
@@ -271,6 +260,7 @@
 
     <!-- =========================
          SHARED SIDEBAR / TEMPLATE
+         (kept above main content)
     ========================== -->
 
     <div id="app"></div>
@@ -288,7 +278,7 @@
 
             <p>
                 學習常用的印尼語詞彙，
-                搭配繁體中文解釋與拼音，
+                搭配繁體中文解釋，
                 幫助你更輕鬆地學習印尼語。
             </p>
 
@@ -306,7 +296,7 @@
             <input
                 type="text"
                 id="searchInput"
-                placeholder="搜尋印尼語、中文或拼音..."
+                placeholder="搜尋印尼語或中文..."
                 autocomplete="off">
 
         </div>
@@ -368,173 +358,34 @@
 
         const vocabulary = [
 
-            {
-                indonesia: "Hai",
-                mandarin: "嗨",
-                pinyin: "hāi"
-            },
-
-            {
-                indonesia: "Halo",
-                mandarin: "你好",
-                pinyin: "nǐ hǎo"
-            },
-
-            {
-                indonesia: "Selamat pagi",
-                mandarin: "早安",
-                pinyin: "zǎo ān"
-            },
-
-            {
-                indonesia: "Selamat siang",
-                mandarin: "午安",
-                pinyin: "wǔ ān"
-            },
-
-            {
-                indonesia: "Selamat sore",
-                mandarin: "午安",
-                pinyin: "wǔ ān"
-            },
-
-            {
-                indonesia: "Selamat malam",
-                mandarin: "晚安",
-                pinyin: "wǎn ān"
-            },
-
-            {
-                indonesia: "Pagi",
-                mandarin: "早上",
-                pinyin: "zǎoshàng"
-            },
-
-            {
-                indonesia: "Siang",
-                mandarin: "中午",
-                pinyin: "zhōngwǔ"
-            },
-
-            {
-                indonesia: "Sore",
-                mandarin: "下午",
-                pinyin: "xiàwǔ"
-            },
-
-            {
-                indonesia: "Malam",
-                mandarin: "晚上",
-                pinyin: "wǎnshàng"
-            },
-
-            {
-                indonesia: "Terima kasih",
-                mandarin: "謝謝",
-                pinyin: "xièxie"
-            },
-
-            {
-                indonesia: "Makasih",
-                mandarin: "謝謝",
-                pinyin: "xièxie"
-            },
-
-            {
-                indonesia: "Permisi",
-                mandarin: "不好意思",
-                pinyin: "bù hǎo yìsi"
-            },
-
-            {
-                indonesia: "Maaf",
-                mandarin: "對不起",
-                pinyin: "duìbuqǐ"
-            },
-
-            {
-                indonesia: "Senang bertemu dengan Anda",
-                mandarin: "很高興認識你",
-                pinyin: "hěn gāoxìng rènshi nǐ"
-            },
-
-            {
-                indonesia: "Salam kenal",
-                mandarin: "很高興認識你",
-                pinyin: "hěn gāoxìng rènshi nǐ"
-            },
-
-            {
-                indonesia: "Apa kabar",
-                mandarin: "你好嗎？",
-                pinyin: "nǐ hǎo ma?"
-            },
-
-            {
-                indonesia: "Gimana kabar",
-                mandarin: "最近好嗎？",
-                pinyin: "zuìjìn hǎo ma?"
-            },
-
-            {
-                indonesia: "Aku",
-                mandarin: "我",
-                pinyin: "wǒ"
-            },
-
-            {
-                indonesia: "Kamu",
-                mandarin: "你",
-                pinyin: "nǐ"
-            },
-
-            {
-                indonesia: "Nama",
-                mandarin: "名字",
-                pinyin: "míngzi"
-            },
-
-            {
-                indonesia: "Orang",
-                mandarin: "人",
-                pinyin: "rén"
-            },
-
-            {
-                indonesia: "Mana",
-                mandarin: "哪裡",
-                pinyin: "nǎlǐ"
-            },
-
-            {
-                indonesia: "Adalah",
-                mandarin: "是",
-                pinyin: "shì"
-            },
-
-            {
-                indonesia: "Duluan",
-                mandarin: "先走",
-                pinyin: "xiān zǒu"
-            },
-
-            {
-                indonesia: "Hati-hati",
-                mandarin: "小心",
-                pinyin: "xiǎoxīn"
-            },
-
-            {
-                indonesia: "Dadah",
-                mandarin: "掰掰",
-                pinyin: "bāi bāi"
-            },
-
-            {
-                indonesia: "Sampai jumpa",
-                mandarin: "再見",
-                pinyin: "zàijiàn"
-            }
+            { indonesia: "Hai", mandarin: "嗨" },
+            { indonesia: "Halo", mandarin: "你好" },
+            { indonesia: "Selamat pagi", mandarin: "早安" },
+            { indonesia: "Selamat siang", mandarin: "午安" },
+            { indonesia: "Selamat sore", mandarin: "午安" },
+            { indonesia: "Selamat malam", mandarin: "晚安" },
+            { indonesia: "Pagi", mandarin: "早上" },
+            { indonesia: "Siang", mandarin: "中午" },
+            { indonesia: "Sore", mandarin: "下午" },
+            { indonesia: "Malam", mandarin: "晚上" },
+            { indonesia: "Terima kasih", mandarin: "謝謝" },
+            { indonesia: "Makasih", mandarin: "謝謝" },
+            { indonesia: "Permisi", mandarin: "不好意思" },
+            { indonesia: "Maaf", mandarin: "對不起" },
+            { indonesia: "Senang bertemu dengan Anda", mandarin: "很高興認識你" },
+            { indonesia: "Salam kenal", mandarin: "很高興認識你" },
+            { indonesia: "Apa kabar", mandarin: "你好嗎？" },
+            { indonesia: "Gimana kabar", mandarin: "最近好嗎？" },
+            { indonesia: "Aku", mandarin: "我" },
+            { indonesia: "Kamu", mandarin: "你" },
+            { indonesia: "Nama", mandarin: "名字" },
+            { indonesia: "Orang", mandarin: "人" },
+            { indonesia: "Mana", mandarin: "哪裡" },
+            { indonesia: "Adalah", mandarin: "是" },
+            { indonesia: "Duluan", mandarin: "先走" },
+            { indonesia: "Hati-hati", mandarin: "小心" },
+            { indonesia: "Dadah", mandarin: "掰掰" },
+            { indonesia: "Sampai jumpa", mandarin: "再見" }
 
         ];
 
@@ -599,10 +450,6 @@
                             ${word.mandarin}
                         </div>
 
-                        <div class="pinyin">
-                            ${word.pinyin}
-                        </div>
-
                     </div>
 
 
@@ -657,12 +504,6 @@
                         ||
 
                         word.mandarin
-                            .toLowerCase()
-                            .includes(keyword)
-
-                        ||
-
-                        word.pinyin
                             .toLowerCase()
                             .includes(keyword)
 
