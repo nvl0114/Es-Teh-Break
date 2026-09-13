@@ -13,7 +13,6 @@
     >
 
     <style>
-        /* 這裡加上可愛框框與頁面排版的 CSS */
         body {
             background-color: #f7f9fc;
             font-family: system-ui, -apple-system, sans-serif;
@@ -30,18 +29,50 @@
             max-width: 680px;
         }
 
-        /* 療癒可愛的歡迎卡片框 */
-        .intro-card {
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* 共用卡片樣式 */
+        .card {
             background: #ffffff;
-            border: 3px solid #ffe082;
             border-radius: 24px;
-            padding: 40px 32px;
-            box-shadow: 0 10px 25px rgba(255, 224, 130, 0.3);
+            padding: 36px 32px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
 
-        /* 裝飾性的小圓點背景 */
+        .card h1,
+        .card h2 {
+            color: #333333;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 歡迎卡片：黃色系 */
+        .intro-card {
+            border: 3px solid #ffe082;
+            box-shadow: 0 10px 25px rgba(255, 224, 130, 0.3);
+        }
+
         .intro-card::before {
             content: "✨";
             position: absolute;
@@ -51,21 +82,115 @@
             opacity: 0.6;
         }
 
-        .intro-card h1 {
-            color: #333333;
-            font-size: 26px;
-            margin-top: 0;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* 簡短介紹卡片：藍色系 */
+        .about-card {
+            border: 3px solid #90caf9;
+            box-shadow: 0 10px 25px rgba(144, 202, 249, 0.25);
         }
 
-        .intro-card p {
+        .about-card::before {
+            content: "📖";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        /* 為什麼學印尼文卡片：綠色系 */
+        .why-card {
+            border: 3px solid #a5d6a7;
+            box-shadow: 0 10px 25px rgba(165, 214, 167, 0.25);
+        }
+
+        .why-card::before {
+            content: "🌏";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .why-card ul {
             color: #555555;
             font-size: 16px;
             line-height: 1.8;
-            margin-bottom: 16px;
+            padding-left: 20px;
+            margin: 0 0 14px 0;
+        }
+
+        .why-card li {
+            margin-bottom: 8px;
+        }
+
+        /* 網站特色卡片：粉色系 */
+        .feature-card {
+            border: 3px solid #f48fb1;
+            box-shadow: 0 10px 25px rgba(244, 143, 177, 0.25);
+        }
+
+        .feature-card::before {
+            content: "🧋";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .feature-text strong {
+            color: #333333;
+        }
+
+        /* 開始學習按鈕 */
+        .cta-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffb300;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 999px;
+            box-shadow: 0 8px 20px rgba(255, 179, 0, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(255, 179, 0, 0.45);
         }
 
         /* 底部小語的可愛提示框 */
@@ -76,7 +201,6 @@
             border-radius: 0 16px 16px 0;
             color: #795548;
             font-weight: 500;
-            margin-top: 28px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -95,35 +219,93 @@
 
         <div class="content">
 
-            <section class="intro-card">
-
+            <!-- 歡迎 -->
+            <section class="card intro-card">
                 <h1>🧊🍵 歡迎來到 Es Teh Break！</h1>
-
                 <p>
-                    這是一個學習印尼文的網站，
-                    主要教你日常生活中真的會用到的印尼文。
+                    找一個舒服的角落，泡杯冰茶，
+                    我們一起用最輕鬆的方式，
+                    走進印尼文的日常生活。
+                </p>
+            </section>
+
+            <!-- 簡短介紹 -->
+            <section class="card about-card">
+                <h2>📖 這是一個什麼樣的網站？</h2>
+                <p>
+                    Es Teh Break 主要教你日常生活中真的會用到的印尼文，
                     從一開始，我們就以輕鬆、自然的口語為主。
                 </p>
-
                 <p>
-                    印尼文有比較正式的說法，
-                    通常會在學校、正式場合或書面文章中看到。
-                    但有些說法如果直接拿來日常聊天，
+                    印尼文有比較正式的說法，通常會在學校、正式場合
+                    或書面文章中看到，但這些說法如果直接拿來日常聊天，
                     聽起來可能會有點不自然。
                 </p>
-
                 <p>
-                    所以在 Es Teh Break，
-                    我們更注重生活中實際會說的印尼文，
+                    所以在這裡，我們更注重生活中實際會說的印尼文，
                     讓你學到的不只是「正確的印尼文」，
                     也能慢慢習慣印尼人平常聊天時的說法。
                 </p>
-
-                <div class="intro-note">
-                    🧊🍵 不用急，慢慢學，從生活中最常用的印尼文開始。
-                </div>
-
             </section>
+
+            <!-- 為什麼要學印尼文 -->
+            <section class="card why-card">
+                <h2>🌏 為什麼要學印尼文？</h2>
+                <p>
+                    印尼是東南亞人口最多的國家，也是全世界使用人數
+                    數一數二的語言之一，但相較於英文、日文，
+                    學習資源卻少了很多。
+                </p>
+                <ul>
+                    <li>工作、生活或旅行在印尼會更方便、更自在</li>
+                    <li>能直接聽懂印尼朋友、同事平常在聊什麼</li>
+                    <li>印尼文文法相對簡單，發音也很直覺，入門門檻低</li>
+                    <li>學一個比較少人教的語言，反而更容易被看見、被需要</li>
+                </ul>
+                <p>
+                    這些都是值得花時間學印尼文的理由，
+                    而 Es Teh Break 想做的，就是把這條路走得輕鬆一點。
+                </p>
+            </section>
+
+            <!-- 網站特色 -->
+            <section class="card feature-card">
+                <h2>🧋 這個網站有什麼特別的？</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">🗣️</span>
+                        <span class="feature-text">
+                            <strong>生活口語優先：</strong>教你印尼人真正會說的話，不只是教科書用語。
+                        </span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🖼️</span>
+                        <span class="feature-text">
+                            <strong>Pilih Gambar 圖片互動測驗：</strong>用看圖選字的方式練習，記憶更直覺。
+                        </span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🈶</span>
+                        <span class="feature-text">
+                            <strong>全繁體中文講解：</strong>專為中文使用者設計，不用透過英文轉一手。
+                        </span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💸</span>
+                        <span class="feature-text">
+                            <strong>完全免費：</strong>沒有廣告轟炸、沒有付費牆，想學隨時都能學。
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="cta-wrapper">
+                <a class="cta-button" href="lessons.html">🚀 開始學習</a>
+            </div>
+
+            <div class="intro-note">
+                🧊🍵 不用急，慢慢學，從生活中最常用的印尼文開始。
+            </div>
 
         </div>
 
