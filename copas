@@ -5,643 +5,393 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>印尼語詞彙 | Es Teh Break</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- ✏️ GANTI JUDUL HALAMAN -->
+    <title>Es Teh Break｜Judul Pelajaran</title>
 
     <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+        }
+
         * {
             box-sizing: border-box;
         }
 
-        html,
         body {
             margin: 0;
-            padding: 0;
-            background: #fff8ef;
-            color: #5c4033;
-            font-family: Arial, "Noto Sans", sans-serif;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
         }
 
-        body {
-            min-height: 100vh;
-        }
-
-        /* =========================
-           SHARED TEMPLATE
-        ========================== */
-
-        #app {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* =========================
-           MAIN CONTENT
-        ========================== */
-
-        .vocab-page {
-            width: 100%;
-            max-width: 800px;
-
+        .lesson-container {
+            max-width: 850px;
             margin: 0 auto;
-
-            /* 讓內容靠近頂部 */
-            padding: 12px 20px 50px;
+            padding: 30px 18px 60px;
         }
 
-        /* =========================
-           HEADER
-        ========================== */
-
-        .page-header {
-            text-align: center;
-            margin: 0 0 20px;
+        /* ===== Hero / kartu pembuka ===== */
+        .hero {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 28px 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.08);
         }
 
-        .page-header h1 {
-            margin: 0 0 8px;
-            font-size: 30px;
-            line-height: 1.3;
-        }
-
-        .page-header p {
-            margin: 0;
-            color: #8a6a55;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* =========================
-           SEARCH
-        ========================== */
-
-        .search-box {
-            position: relative;
-            margin-bottom: 12px;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-
-            color: #b8865c;
-
-            pointer-events: none;
-        }
-
-        #searchInput {
-            width: 100%;
-
-            padding: 13px 18px 13px 45px;
-
-            border: 2px solid #ead8c6;
-            border-radius: 14px;
-
-            background: #ffffff;
-            color: #5c4033;
-
-            font-size: 15px;
-
-            outline: none;
-
-            transition: 0.2s;
-        }
-
-        #searchInput:focus {
-            border-color: #b8865c;
-        }
-
-        #searchInput::placeholder {
-            color: #b8a294;
-        }
-
-        /* =========================
-           RESULT COUNT
-        ========================== */
-
-        .result-info {
-            margin-bottom: 10px;
-
-            color: #927965;
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
             font-size: 13px;
-        }
-
-        /* =========================
-           VOCABULARY LIST
-        ========================== */
-
-        .vocab-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .vocab-card {
-            display: grid;
-
-            grid-template-columns: 1fr auto;
-
-            align-items: center;
-
-            gap: 15px;
-
-            padding: 15px 17px;
-
-            background: #ffffff;
-
-            border: 1px solid #ead8c6;
-            border-radius: 15px;
-
-            transition: 0.2s ease;
-        }
-
-        .vocab-card:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 5px 16px rgba(92, 64, 51, 0.08);
-        }
-
-        /* =========================
-           WORD
-        ========================== */
-
-        .indonesian {
-            margin-bottom: 5px;
-
-            font-size: 20px;
             font-weight: 700;
-
-            color: #5c4033;
-
-            line-height: 1.3;
+            margin-bottom: 10px;
         }
 
-        .mandarin {
-            color: #7c563c;
-
-            font-size: 18px;
-            font-weight: 600;
-
-            line-height: 1.3;
-        }
-
-        /* =========================
-           AUDIO
-        ========================== */
-
-        .audio-button {
-            align-self: center;
-
-            width: 42px;
-            height: 42px;
-
-            border: none;
-            border-radius: 50%;
-
-            background: #b8865c;
-            color: #ffffff;
-
-            cursor: pointer;
-
-            font-size: 15px;
-
-            transition: 0.2s ease;
-        }
-
-        .audio-button:hover {
-            background: #9e704b;
-
-            transform: scale(1.05);
-        }
-
-        .audio-button:active {
-            transform: scale(0.94);
-        }
-
-        /* =========================
-           NO RESULT
-        ========================== */
-
-        .no-result {
-            display: none;
-
-            padding: 30px 20px;
-
-            text-align: center;
-
-            background: #ffffff;
-
-            border: 1px solid #ead8c6;
-            border-radius: 15px;
-
-            color: #8a6a55;
-        }
-
-        .no-result-icon {
-            margin-bottom: 8px;
-
+        h1 {
+            margin: 0 0 10px;
             font-size: 30px;
         }
 
-        .no-result strong {
-            font-size: 16px;
+        h2 {
+            margin-top: 0;
+            font-size: 22px;
         }
 
-        .no-result p {
-            margin: 6px 0 0;
-
-            font-size: 13px;
+        h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
         }
 
-        /* =========================
-           MOBILE
-        ========================== */
+        p {
+            margin: 8px 0;
+        }
 
-        @media (max-width: 600px) {
+        /* ===== Kartu umum (dipakai berulang) ===== */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
 
-            .vocab-page {
-                padding: 8px 14px 40px;
+        /* Kotak catatan kuning */
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 15px 17px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .important {
+            font-weight: 700;
+            color: var(--light-brown);
+        }
+
+        /* Video YouTube responsif */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-top: 15px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Grid kartu kecil (contoh: huruf, kosakata, dsb) */
+        .alphabet-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .letter-card {
+            background: #fffaf4;
+            border: 1px solid #ead8c5;
+            border-radius: 15px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .letter {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--brown);
+        }
+
+        .pronunciation {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--light-brown);
+            margin-top: 3px;
+        }
+
+        .example {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Tabel perbandingan */
+        .comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .comparison th,
+        .comparison td {
+            border: 1px solid #ead8c5;
+            padding: 11px 10px;
+            text-align: left;
+        }
+
+        .comparison th {
+            background: var(--soft-brown);
+        }
+
+        .comparison td {
+            background: #fffdf9;
+        }
+
+        .tip-list {
+            padding-left: 20px;
+        }
+
+        .tip-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Kotak latihan hijau */
+        .practice {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .mini-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 650px) {
+            .lesson-container {
+                padding: 20px 12px 45px;
             }
 
-            .page-header {
-                margin-bottom: 17px;
+            .hero,
+            .card {
+                padding: 20px 17px;
             }
 
-            .page-header h1 {
-                font-size: 26px;
-                margin-bottom: 6px;
+            h1 {
+                font-size: 25px;
             }
 
-            .page-header p {
-                font-size: 13px;
-                line-height: 1.5;
+            .alphabet-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 9px;
             }
 
-            #searchInput {
-                padding: 12px 15px 12px 43px;
+            .letter-card {
+                padding: 12px 7px;
             }
 
-            .vocab-list {
-                gap: 8px;
+            .letter {
+                font-size: 24px;
             }
 
-            .vocab-card {
-                padding: 13px 14px;
-                gap: 10px;
+            .pronunciation {
+                font-size: 15px;
             }
+        }
 
-            .indonesian {
-                font-size: 18px;
-            }
-
-            .mandarin {
-                font-size: 17px;
-            }
-
-            .audio-button {
-                width: 39px;
-                height: 39px;
+        @media (max-width: 400px) {
+            .alphabet-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 
-
 <body>
 
-    <!-- =========================
-         SHARED SIDEBAR / TEMPLATE
-    ========================== -->
+    <!-- =========================================================
+         JANGAN DIUBAH — bagian ini wajib ada di SETIAP halaman
+         yang pakai sidebar/template bersama.
+
+         Urutan yang WAJIB:
+           1. <div id="app"></div>          (kosong, diisi script.js)
+           2. <div id="page-source"> ...     (konten halaman ini)
+           3. <script src="...script.js">    (di baris paling akhir)
+
+         Kalau salah satu ini hilang / berubah / ditambah id lain,
+         sidebar bisa "jatuh" ke bawah atau tidak muncul sama sekali.
+    ========================================================== -->
 
     <div id="app"></div>
 
-
-    <!-- =========================
-         VOCABULARY CONTENT
-    ========================== -->
-
-    <main class="vocab-page">
-
-        <!-- HEADER -->
-
-        <div class="page-header">
-
-            <h1>📚 印尼語詞彙</h1>
-
-            <p>
-                學習常用的印尼語詞彙，
-                搭配繁體中文解釋，
-                幫助你更輕鬆地學習印尼語。
-            </p>
-
-        </div>
-
-
-        <!-- SEARCH -->
-
-        <div class="search-box">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="搜尋印尼語或中文..."
-                autocomplete="off">
-
-        </div>
-
-
-        <!-- RESULT COUNT -->
-
-        <div class="result-info">
-
-            <span id="resultCount"></span>
-
-        </div>
-
-
-        <!-- VOCABULARY -->
-
-        <div
-            id="vocabList"
-            class="vocab-list">
-        </div>
-
-
-        <!-- NO RESULT -->
-
-        <div
-            id="noResult"
-            class="no-result">
-
-            <div class="no-result-icon">
-                🔍
-            </div>
-
-            <strong>找不到相關詞彙</strong>
-
-            <p>
-                請試試其他關鍵字。
-            </p>
-
-        </div>
-
-    </main>
-
-
-    <!-- =========================
-         VOCABULARY JAVASCRIPT
-    ========================== -->
-
-    <script>
-
-        const vocabulary = [
-
-            { indonesia: "Hai", mandarin: "嗨" },
-            { indonesia: "Halo", mandarin: "你好" },
-
-            { indonesia: "Selamat pagi", mandarin: "早安" },
-            { indonesia: "Selamat siang", mandarin: "午安" },
-            { indonesia: "Selamat sore", mandarin: "下午好" },
-            { indonesia: "Selamat malam", mandarin: "晚安" },
-
-            { indonesia: "Pagi", mandarin: "早上" },
-            { indonesia: "Siang", mandarin: "中午" },
-            { indonesia: "Sore", mandarin: "下午" },
-            { indonesia: "Malam", mandarin: "晚上" },
-
-            { indonesia: "Terima kasih", mandarin: "謝謝" },
-            { indonesia: "Makasih", mandarin: "謝謝" },
-
-            { indonesia: "Permisi", mandarin: "不好意思" },
-            { indonesia: "Maaf", mandarin: "對不起" },
-
-            {
-                indonesia: "Senang bertemu dengan Anda",
-                mandarin: "很高興認識你"
-            },
-
-            {
-                indonesia: "Salam kenal",
-                mandarin: "很高興認識你"
-            },
-
-            {
-                indonesia: "Apa kabar",
-                mandarin: "你好嗎？"
-            },
-
-            {
-                indonesia: "Gimana kabar",
-                mandarin: "最近好嗎？"
-            },
-
-            { indonesia: "Aku", mandarin: "我" },
-            { indonesia: "Kamu", mandarin: "你" },
-
-            { indonesia: "Nama", mandarin: "名字" },
-            { indonesia: "Orang", mandarin: "人" },
-            { indonesia: "Mana", mandarin: "哪裡" },
-            { indonesia: "Adalah", mandarin: "是" },
-
-            { indonesia: "Duluan", mandarin: "先走" },
-            { indonesia: "Hati-hati", mandarin: "小心" },
-            { indonesia: "Dadah", mandarin: "掰掰" },
-            { indonesia: "Sampai jumpa", mandarin: "再見" }
-
-        ];
-
-
-        /* =========================
-           ELEMENTS
-        ========================== */
-
-        const searchInput =
-            document.getElementById("searchInput");
-
-        const vocabList =
-            document.getElementById("vocabList");
-
-        const resultCount =
-            document.getElementById("resultCount");
-
-        const noResult =
-            document.getElementById("noResult");
-
-
-        /* =========================
-           DISPLAY VOCABULARY
-        ========================== */
-
-        function displayVocabulary(list) {
-
-            vocabList.innerHTML = "";
-
-            resultCount.textContent =
-                `共 ${list.length} 個詞彙`;
-
-
-            if (list.length === 0) {
-
-                noResult.style.display = "block";
-
-                return;
-            }
-
-
-            noResult.style.display = "none";
-
-
-            list.forEach(word => {
-
-                const card =
-                    document.createElement("div");
-
-                card.className = "vocab-card";
-
-
-                card.innerHTML = `
-
-                    <div class="vocab-info">
-
-                        <div class="indonesian">
-                            ${word.indonesia}
-                        </div>
-
-                        <div class="mandarin">
-                            ${word.mandarin}
-                        </div>
-
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+            <!-- ============ HERO / PEMBUKA ============ -->
+            <!-- ✏️ Ganti badge, judul, dan paragraf pembuka -->
+            <section class="hero">
+                <div class="badge">BAHASA INDONESIA • LEVEL</div>
+
+                <h1>🔤 Judul Pelajaran</h1>
+
+                <p>
+                    Kalimat pembuka / sapaan.
+                </p>
+
+                <p>
+                    Penjelasan singkat tentang topik pelajaran ini.
+                </p>
+
+                <div class="note">
+                    💡 Catatan penting atau tips singkat di sini.
+                </div>
+            </section>
+
+            <!-- ============ VIDEO (opsional, hapus jika tidak perlu) ============ -->
+            <section class="card">
+                <h2>🎬 Video</h2>
+
+                <p>
+                    Penjelasan singkat tentang video ini.
+                </p>
+
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/GANTI_ID_VIDEO"
+                        title="Judul video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- ============ PENJELASAN / MATERI ============ -->
+            <section class="card">
+                <h2>🌱 Judul Bagian</h2>
+
+                <p>
+                    Isi penjelasan materi.
+                </p>
+
+                <ul class="tip-list">
+                    <li>Poin 1</li>
+                    <li>Poin 2</li>
+                    <li>Poin 3</li>
+                </ul>
+
+                <div class="practice">
+                    <div class="mini-title">☕ Es Teh Break Tip</div>
+                    Tips tambahan atau motivasi singkat.
+                </div>
+            </section>
+
+            <!-- ============ GRID CONTOH (huruf/kosakata/dsb) ============ -->
+            <section class="card">
+                <h2>🔤 Contoh / Daftar</h2>
+
+                <div class="alphabet-grid">
+
+                    <div class="letter-card">
+                        <div class="letter">A</div>
+                        <div class="pronunciation">contoh</div>
+                        <div class="example">keterangan</div>
                     </div>
 
+                    <!-- ✏️ Salin blok .letter-card di atas untuk item lain -->
 
-                    <button
-                        class="audio-button"
-                        onclick="speakIndonesian(${JSON.stringify(word.indonesia)})"
-                        aria-label="播放 ${word.indonesia}">
+                </div>
+            </section>
 
-                        <i class="fa-solid fa-volume-high"></i>
+            <!-- ============ TABEL PERBANDINGAN (opsional) ============ -->
+            <section class="card">
+                <h2>🇬🇧 Perbandingan</h2>
 
-                    </button>
+                <table class="comparison">
+                    <thead>
+                        <tr>
+                            <th>Kolom 1</th>
+                            <th>Kolom 2</th>
+                            <th>Kolom 3</th>
+                        </tr>
+                    </thead>
 
-                `;
+                    <tbody>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
+            <!-- ============ PENUTUP / RINGKASAN ============ -->
+            <section class="card">
+                <h2>☕ Ringkasan</h2>
 
-                vocabList.appendChild(card);
+                <p>
+                    Rangkuman singkat isi pelajaran.
+                </p>
 
-            });
+                <ul class="tip-list">
+                    <li>Poin ringkasan 1</li>
+                    <li>Poin ringkasan 2</li>
+                </ul>
 
-        }
+                <div class="note">
+                    🌱 Kalimat penutup yang menenangkan/menyemangati.
+                </div>
+            </section>
 
+        </main>
 
-        /* =========================
-           SEARCH
-        ========================== */
+    </div>
+    <!-- /#page-source -->
 
-        function searchVocabulary() {
-
-            const keyword =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
-
-            if (keyword === "") {
-
-                displayVocabulary(vocabulary);
-
-                return;
-            }
-
-
-            const filtered =
-                vocabulary.filter(word => {
-
-                    return (
-
-                        word.indonesia
-                            .toLowerCase()
-                            .includes(keyword)
-
-                        ||
-
-                        word.mandarin
-                            .toLowerCase()
-                            .includes(keyword)
-
-                    );
-
-                });
-
-
-            displayVocabulary(filtered);
-
-        }
-
-
-        searchInput.addEventListener(
-            "input",
-            searchVocabulary
-        );
-
-
-        /* =========================
-           INDONESIAN AUDIO
-        ========================== */
-
-        function speakIndonesian(text) {
-
-            if (!("speechSynthesis" in window)) {
-
-                alert(
-                    "你的瀏覽器不支援語音功能。"
-                );
-
-                return;
-            }
-
-
-            window.speechSynthesis.cancel();
-
-
-            const utterance =
-                new SpeechSynthesisUtterance(text);
-
-
-            utterance.lang = "id-ID";
-
-            utterance.rate = 0.85;
-
-            utterance.pitch = 1;
-
-
-            window.speechSynthesis.speak(
-                utterance
-            );
-
-        }
-
-
-        /* =========================
-           INITIAL DISPLAY
-        ========================== */
-
-        displayVocabulary(vocabulary);
-
-    </script>
-
-
-    <!-- =========================
-         LOAD SHARED TEMPLATE
-    ========================== -->
-
-    <script src="script.js"></script>
+    <!-- =========================================================
+         PENTING soal path script.js:
+         - Kalau file HTML ini ada di ROOT situs
+             → <script src="script.js"></script>
+         - Kalau file HTML ini ada di dalam folder /lessons/
+             → <script src="../script.js"></script>
+    ========================================================== -->
+    <script src="../script.js"></script>
 
 </body>
 
