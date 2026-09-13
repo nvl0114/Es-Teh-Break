@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>印尼語詞彙 | Es Teh Break</title>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         * {
@@ -22,390 +20,264 @@
             padding: 0;
             background: #fff8ef;
             color: #5c4033;
-            font-family: Arial, "Noto Sans", sans-serif;
         }
 
         body {
-            min-height: 100vh;
+            font-family: Arial, "Noto Sans TC", sans-serif;
         }
 
-        /* =========================
-           SHARED TEMPLATE
-        ========================== */
-
+        /* Shared sidebar / navigation */
         #app {
             margin: 0;
             padding: 0;
         }
 
-        /* =========================
-           MAIN CONTENT
-        ========================== */
-
+        /*
+         * Vocabulary page
+         * Jangan kasih margin-top besar karena #app
+         * sudah menangani navigation/sidebar.
+         */
         .vocab-page {
             width: 100%;
             max-width: 800px;
-
             margin: 0 auto;
-
-            /* 讓內容靠近頂部 */
-            padding: 12px 20px 50px;
+            padding: 0 20px 50px;
         }
-
-        /* =========================
-           HEADER
-        ========================== */
 
         .page-header {
             text-align: center;
-            margin: 0 0 20px;
+            margin: 0 0 16px;
+            padding: 0;
         }
 
         .page-header h1 {
             margin: 0 0 8px;
-            font-size: 30px;
-            line-height: 1.3;
+            font-size: 28px;
+            color: #5c4033;
         }
 
         .page-header p {
             margin: 0;
-            color: #8a6a55;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.7;
+            color: #7a6254;
         }
 
-        /* =========================
-           SEARCH
-        ========================== */
-
+        /* Search */
         .search-box {
-            position: relative;
-            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            background: #ffffff;
+            border: 1px solid #ead9c8;
+            border-radius: 14px;
+
+            padding: 11px 14px;
+            margin: 0 0 12px;
+
+            box-shadow: 0 3px 10px rgba(92, 64, 51, 0.05);
         }
 
         .search-box i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-
             color: #b8865c;
-
-            pointer-events: none;
         }
 
-        #searchInput {
+        .search-box input {
             width: 100%;
-
-            padding: 13px 18px 13px 45px;
-
-            border: 2px solid #ead8c6;
-            border-radius: 14px;
-
-            background: #ffffff;
-            color: #5c4033;
-
-            font-size: 15px;
-
+            border: none;
             outline: none;
 
-            transition: 0.2s;
+            background: transparent;
+            color: #5c4033;
+
+            font-size: 14px;
         }
 
-        #searchInput:focus {
-            border-color: #b8865c;
+        .search-box input::placeholder {
+            color: #b7a397;
         }
 
-        #searchInput::placeholder {
-            color: #b8a294;
-        }
-
-        /* =========================
-           RESULT COUNT
-        ========================== */
-
+        /* Result */
         .result-info {
-            margin-bottom: 10px;
-
-            color: #927965;
+            margin: 0 0 10px;
             font-size: 13px;
+            color: #8a7263;
         }
 
-        /* =========================
-           VOCABULARY LIST
-        ========================== */
-
+        /* Vocabulary list */
         .vocab-list {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
         .vocab-card {
-            display: grid;
-
-            grid-template-columns: 1fr auto;
-
+            display: flex;
             align-items: center;
-
+            justify-content: space-between;
             gap: 15px;
 
-            padding: 15px 17px;
-
             background: #ffffff;
+            border: 1px solid #ead9c8;
+            border-radius: 14px;
 
-            border: 1px solid #ead8c6;
-            border-radius: 15px;
+            padding: 13px 14px;
 
-            transition: 0.2s ease;
+            box-shadow: 0 3px 10px rgba(92, 64, 51, 0.04);
         }
 
-        .vocab-card:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 5px 16px rgba(92, 64, 51, 0.08);
+        .vocab-info {
+            min-width: 0;
         }
 
-        /* =========================
-           WORD
-        ========================== */
-
-        .indonesian {
-            margin-bottom: 5px;
-
-            font-size: 20px;
+        .indonesia-word {
+            font-size: 17px;
             font-weight: 700;
-
             color: #5c4033;
-
-            line-height: 1.3;
+            margin-bottom: 4px;
         }
 
-        .mandarin {
-            color: #7c563c;
-
-            font-size: 18px;
-            font-weight: 600;
-
-            line-height: 1.3;
+        .mandarin-word {
+            font-size: 14px;
+            color: #9b7457;
         }
 
-        /* =========================
-           AUDIO
-        ========================== */
+        .audio-btn {
+            flex-shrink: 0;
 
-        .audio-button {
-            align-self: center;
-
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
 
             border: none;
             border-radius: 50%;
 
             background: #b8865c;
-            color: #ffffff;
+            color: white;
 
             cursor: pointer;
-
             font-size: 15px;
 
-            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .audio-button:hover {
-            background: #9e704b;
-
-            transform: scale(1.05);
-        }
-
-        .audio-button:active {
+        .audio-btn:active {
             transform: scale(0.94);
         }
 
-        /* =========================
-           NO RESULT
-        ========================== */
-
+        /* No result */
         .no-result {
             display: none;
 
-            padding: 30px 20px;
-
             text-align: center;
-
-            background: #ffffff;
-
-            border: 1px solid #ead8c6;
-            border-radius: 15px;
-
-            color: #8a6a55;
+            padding: 35px 20px;
+            color: #8a7263;
         }
 
         .no-result-icon {
-            margin-bottom: 8px;
-
-            font-size: 30px;
+            font-size: 35px;
+            margin-bottom: 10px;
         }
 
         .no-result strong {
-            font-size: 16px;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .no-result p {
-            margin: 6px 0 0;
-
+            margin: 0;
             font-size: 13px;
         }
 
-        /* =========================
-           MOBILE
-        ========================== */
-
+        /* Mobile */
         @media (max-width: 600px) {
 
             .vocab-page {
-                padding: 8px 14px 40px;
+                padding: 0 12px 40px;
             }
 
             .page-header {
-                margin-bottom: 17px;
+                margin-bottom: 13px;
             }
 
             .page-header h1 {
-                font-size: 26px;
-                margin-bottom: 6px;
+                font-size: 24px;
             }
 
             .page-header p {
                 font-size: 13px;
-                line-height: 1.5;
-            }
-
-            #searchInput {
-                padding: 12px 15px 12px 43px;
-            }
-
-            .vocab-list {
-                gap: 8px;
             }
 
             .vocab-card {
-                padding: 13px 14px;
-                gap: 10px;
+                padding: 12px;
             }
 
-            .indonesian {
-                font-size: 18px;
+            .indonesia-word {
+                font-size: 16px;
             }
 
-            .mandarin {
-                font-size: 17px;
+            .mandarin-word {
+                font-size: 13px;
             }
 
-            .audio-button {
-                width: 39px;
-                height: 39px;
+            .audio-btn {
+                width: 38px;
+                height: 38px;
             }
         }
     </style>
 </head>
 
-
 <body>
 
-    <!-- =========================
-         SHARED SIDEBAR / TEMPLATE
-    ========================== -->
-
+    <!-- Shared sidebar / navigation -->
     <div id="app"></div>
 
-
-    <!-- =========================
-         VOCABULARY CONTENT
-    ========================== -->
-
+    <!-- Vocabulary content -->
     <main class="vocab-page">
 
-        <!-- HEADER -->
-
         <div class="page-header">
-
             <h1>📚 印尼語詞彙</h1>
 
             <p>
                 學習常用的印尼語詞彙，
-                搭配繁體中文解釋，
-                幫助你更輕鬆地學習印尼語。
+                搭配繁體中文解釋，幫助你更輕鬆地學習印尼語。
             </p>
-
         </div>
 
-
-        <!-- SEARCH -->
-
         <div class="search-box">
-
             <i class="fa-solid fa-magnifying-glass"></i>
 
             <input
                 type="text"
                 id="searchInput"
                 placeholder="搜尋印尼語或中文..."
-                autocomplete="off">
-
+                autocomplete="off"
+            >
         </div>
-
-
-        <!-- RESULT COUNT -->
 
         <div class="result-info">
-
             <span id="resultCount"></span>
-
         </div>
 
+        <div id="vocabList" class="vocab-list"></div>
 
-        <!-- VOCABULARY -->
-
-        <div
-            id="vocabList"
-            class="vocab-list">
-        </div>
-
-
-        <!-- NO RESULT -->
-
-        <div
-            id="noResult"
-            class="no-result">
-
-            <div class="no-result-icon">
-                🔍
-            </div>
+        <div id="noResult" class="no-result">
+            <div class="no-result-icon">🔍</div>
 
             <strong>找不到相關詞彙</strong>
 
-            <p>
-                請試試其他關鍵字。
-            </p>
-
+            <p>請試試其他關鍵字。</p>
         </div>
 
     </main>
 
-
-    <!-- =========================
-         VOCABULARY JAVASCRIPT
-    ========================== -->
-
     <script>
-
         const vocabulary = [
-
             { indonesia: "Hai", mandarin: "嗨" },
             { indonesia: "Halo", mandarin: "你好" },
-
             { indonesia: "Selamat pagi", mandarin: "早安" },
             { indonesia: "Selamat siang", mandarin: "午安" },
             { indonesia: "Selamat sore", mandarin: "下午好" },
@@ -418,7 +290,6 @@
 
             { indonesia: "Terima kasih", mandarin: "謝謝" },
             { indonesia: "Makasih", mandarin: "謝謝" },
-
             { indonesia: "Permisi", mandarin: "不好意思" },
             { indonesia: "Maaf", mandarin: "對不起" },
 
@@ -432,19 +303,11 @@
                 mandarin: "很高興認識你"
             },
 
-            {
-                indonesia: "Apa kabar",
-                mandarin: "你好嗎？"
-            },
-
-            {
-                indonesia: "Gimana kabar",
-                mandarin: "最近好嗎？"
-            },
+            { indonesia: "Apa kabar", mandarin: "你好嗎？" },
+            { indonesia: "Gimana kabar", mandarin: "最近好嗎？" },
 
             { indonesia: "Aku", mandarin: "我" },
             { indonesia: "Kamu", mandarin: "你" },
-
             { indonesia: "Nama", mandarin: "名字" },
             { indonesia: "Orang", mandarin: "人" },
             { indonesia: "Mana", mandarin: "哪裡" },
@@ -454,195 +317,91 @@
             { indonesia: "Hati-hati", mandarin: "小心" },
             { indonesia: "Dadah", mandarin: "掰掰" },
             { indonesia: "Sampai jumpa", mandarin: "再見" }
-
         ];
 
+        const vocabList = document.getElementById("vocabList");
+        const searchInput = document.getElementById("searchInput");
+        const resultCount = document.getElementById("resultCount");
+        const noResult = document.getElementById("noResult");
 
-        /* =========================
-           ELEMENTS
-        ========================== */
+        function speak(text) {
+            if (!("speechSynthesis" in window)) return;
 
-        const searchInput =
-            document.getElementById("searchInput");
+            window.speechSynthesis.cancel();
 
-        const vocabList =
-            document.getElementById("vocabList");
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "id-ID";
+            utterance.rate = 0.85;
 
-        const resultCount =
-            document.getElementById("resultCount");
-
-        const noResult =
-            document.getElementById("noResult");
-
-
-        /* =========================
-           DISPLAY VOCABULARY
-        ========================== */
+            window.speechSynthesis.speak(utterance);
+        }
 
         function displayVocabulary(list) {
 
             vocabList.innerHTML = "";
 
-            resultCount.textContent =
-                `共 ${list.length} 個詞彙`;
-
+            resultCount.textContent = `${list.length} 個詞彙`;
 
             if (list.length === 0) {
-
                 noResult.style.display = "block";
-
                 return;
             }
-
 
             noResult.style.display = "none";
 
-
             list.forEach(word => {
 
-                const card =
-                    document.createElement("div");
-
+                const card = document.createElement("div");
                 card.className = "vocab-card";
 
-
                 card.innerHTML = `
-
                     <div class="vocab-info">
-
-                        <div class="indonesian">
+                        <div class="indonesia-word">
                             ${word.indonesia}
                         </div>
 
-                        <div class="mandarin">
+                        <div class="mandarin-word">
                             ${word.mandarin}
                         </div>
-
                     </div>
 
-
                     <button
-                        class="audio-button"
-                        onclick="speakIndonesian(${JSON.stringify(word.indonesia)})"
-                        aria-label="播放 ${word.indonesia}">
-
+                        class="audio-btn"
+                        aria-label="播放 ${word.indonesia}"
+                    >
                         <i class="fa-solid fa-volume-high"></i>
-
                     </button>
-
                 `;
 
+                const audioButton = card.querySelector(".audio-btn");
 
-                vocabList.appendChild(card);
-
-            });
-
-        }
-
-
-        /* =========================
-           SEARCH
-        ========================== */
-
-        function searchVocabulary() {
-
-            const keyword =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
-
-            if (keyword === "") {
-
-                displayVocabulary(vocabulary);
-
-                return;
-            }
-
-
-            const filtered =
-                vocabulary.filter(word => {
-
-                    return (
-
-                        word.indonesia
-                            .toLowerCase()
-                            .includes(keyword)
-
-                        ||
-
-                        word.mandarin
-                            .toLowerCase()
-                            .includes(keyword)
-
-                    );
-
+                audioButton.addEventListener("click", () => {
+                    speak(word.indonesia);
                 });
 
-
-            displayVocabulary(filtered);
-
+                vocabList.appendChild(card);
+            });
         }
 
+        searchInput.addEventListener("input", function () {
 
-        searchInput.addEventListener(
-            "input",
-            searchVocabulary
-        );
+            const keyword = this.value
+                .trim()
+                .toLowerCase();
 
-
-        /* =========================
-           INDONESIAN AUDIO
-        ========================== */
-
-        function speakIndonesian(text) {
-
-            if (!("speechSynthesis" in window)) {
-
-                alert(
-                    "你的瀏覽器不支援語音功能。"
-                );
-
-                return;
-            }
-
-
-            window.speechSynthesis.cancel();
-
-
-            const utterance =
-                new SpeechSynthesisUtterance(text);
-
-
-            utterance.lang = "id-ID";
-
-            utterance.rate = 0.85;
-
-            utterance.pitch = 1;
-
-
-            window.speechSynthesis.speak(
-                utterance
+            const filtered = vocabulary.filter(word =>
+                word.indonesia.toLowerCase().includes(keyword) ||
+                word.mandarin.toLowerCase().includes(keyword)
             );
 
-        }
-
-
-        /* =========================
-           INITIAL DISPLAY
-        ========================== */
+            displayVocabulary(filtered);
+        });
 
         displayVocabulary(vocabulary);
-
     </script>
 
-
-    <!-- =========================
-         LOAD SHARED TEMPLATE
-    ========================== -->
-
+    <!-- Shared script -->
     <script src="script.js"></script>
 
 </body>
-
 </html>
