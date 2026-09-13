@@ -165,6 +165,10 @@
             text-align: center;
         }
 
+        /* =========================
+           AUDIO BUTTON
+        ========================= */
+
         .audio-button {
             width: 38px;
             height: 38px;
@@ -175,6 +179,10 @@
             cursor: pointer;
             font-size: 14px;
             transition: 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .audio-button:hover {
@@ -186,6 +194,14 @@
             transform: scale(0.94);
         }
 
+        .audio-button.playing {
+            background: #8f6544;
+        }
+
+        /* =========================
+           NO RESULT
+        ========================= */
+
         .no-result {
             display: none;
             padding: 30px 20px;
@@ -193,7 +209,12 @@
             color: #8a6a55;
         }
 
+        /* =========================
+           MOBILE
+        ========================= */
+
         @media (max-width: 600px) {
+
             .lesson-container {
                 padding: 20px 12px 45px;
             }
@@ -235,8 +256,12 @@
         <main class="lesson-container">
 
             <!-- ============ 導言 ============ -->
+
             <section class="hero">
-                <div class="badge">BAHASA INDONESIA • KOSAKATA</div>
+
+                <div class="badge">
+                    BAHASA INDONESIA • KOSAKATA
+                </div>
 
                 <h1>📚 印尼語常用詞彙</h1>
 
@@ -250,31 +275,50 @@
                     建議搭配聽力多練習幾次，
                     先熟悉聲音，再慢慢記住拼法與意思。
                 </p>
+
             </section>
 
+
             <!-- ============ 詞彙表 ============ -->
+
             <section class="card">
 
                 <div class="search-box">
+
                     <i class="fa-solid fa-magnifying-glass"></i>
+
                     <input
                         type="text"
                         id="searchInput"
                         placeholder="搜尋印尼語或中文意思..."
                         autocomplete="off">
+
                 </div>
 
+
                 <table class="vocab-table">
+
                     <thead>
+
                         <tr>
+
                             <th>印尼語</th>
+
                             <th>中文意思</th>
-                            <th class="col-audio">發音</th>
+
+                            <th class="col-audio">
+                                發音
+                            </th>
+
                         </tr>
+
                     </thead>
+
                     <tbody id="vocabBody">
                     </tbody>
+
                 </table>
+
 
                 <div class="no-result" id="noResult">
                     🔍 找不到相關詞彙，請試試其他關鍵字。
@@ -285,72 +329,164 @@
         </main>
 
     </div>
-    <!-- /#page-source -->
+
+
+    <!-- =========================================================
+         VOCABULARY
+    ========================================================== -->
 
     <script>
 
         const vocabulary = [
+
             { id: "Hai", zh: "嗨" },
+
             { id: "Halo", zh: "你好" },
+
             { id: "Selamat pagi", zh: "早安" },
+
             { id: "Selamat siang", zh: "午安" },
-            { id: "Selamat sore", zh: "午安" },
+
+            { id: "Selamat sore", zh: "下午好" },
+
             { id: "Selamat malam", zh: "晚安" },
+
             { id: "Pagi", zh: "早上" },
+
             { id: "Siang", zh: "中午" },
+
             { id: "Sore", zh: "下午" },
+
             { id: "Malam", zh: "晚上" },
+
             { id: "Terima kasih", zh: "謝謝" },
+
             { id: "Makasih", zh: "謝謝" },
+
             { id: "Permisi", zh: "不好意思" },
+
             { id: "Maaf", zh: "對不起" },
-            { id: "Senang bertemu dengan Anda", zh: "很高興認識你" },
-            { id: "Salam kenal", zh: "很高興認識你" },
-            { id: "Apa kabar", zh: "你好嗎？" },
-            { id: "Gimana kabar", zh: "最近好嗎？" },
+
+            {
+                id: "Senang bertemu dengan Anda",
+                zh: "很高興認識你"
+            },
+
+            {
+                id: "Salam kenal",
+                zh: "很高興認識你"
+            },
+
+            {
+                id: "Apa kabar",
+                zh: "你好嗎？"
+            },
+
+            {
+                id: "Gimana kabar",
+                zh: "最近好嗎？"
+            },
+
             { id: "Aku", zh: "我" },
+
             { id: "Kamu", zh: "你" },
+
             { id: "Nama", zh: "名字" },
+
             { id: "Orang", zh: "人" },
+
             { id: "Mana", zh: "哪裡" },
+
             { id: "Adalah", zh: "是" },
+
             { id: "Duluan", zh: "先走" },
+
             { id: "Hati-hati", zh: "小心" },
+
             { id: "Dadah", zh: "掰掰" },
+
             { id: "Sampai jumpa", zh: "再見" }
+
         ];
 
-        const vocabBody = document.getElementById("vocabBody");
-        const searchInput = document.getElementById("searchInput");
-        const noResult = document.getElementById("noResult");
+
+        const vocabBody =
+            document.getElementById("vocabBody");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const noResult =
+            document.getElementById("noResult");
+
+
+        /* =========================================================
+           RENDER VOCABULARY
+        ========================================================== */
 
         function renderVocab(list) {
 
             vocabBody.innerHTML = "";
 
             if (list.length === 0) {
+
                 noResult.style.display = "block";
+
                 return;
             }
 
             noResult.style.display = "none";
 
+
             list.forEach(word => {
 
-                const row = document.createElement("tr");
+                const row =
+                    document.createElement("tr");
+
 
                 row.innerHTML = `
-                    <td class="col-id">${word.id}</td>
-                    <td class="col-zh">${word.zh}</td>
+
+                    <td class="col-id">
+                        ${escapeHTML(word.id)}
+                    </td>
+
+                    <td class="col-zh">
+                        ${escapeHTML(word.zh)}
+                    </td>
+
                     <td class="col-audio">
+
                         <button
                             class="audio-button"
-                            onclick="speakIndonesian(${JSON.stringify(word.id)})"
-                            aria-label="播放 ${word.id}">
+                            type="button"
+                            aria-label="播放 ${escapeHTML(word.id)}"
+                            data-word="${escapeHTML(word.id)}">
+
                             <i class="fa-solid fa-volume-high"></i>
+
                         </button>
+
                     </td>
+
                 `;
+
+
+                const button =
+                    row.querySelector(".audio-button");
+
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        speakIndonesian(
+                            word.id,
+                            button
+                        );
+
+                    }
+                );
+
 
                 vocabBody.appendChild(row);
 
@@ -358,49 +494,291 @@
 
         }
 
+
+        /* =========================================================
+           SEARCH
+        ========================================================== */
+
         function searchVocabulary() {
 
-            const keyword = searchInput.value.toLowerCase().trim();
+            const keyword =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
 
             if (keyword === "") {
+
                 renderVocab(vocabulary);
+
                 return;
             }
 
-            const filtered = vocabulary.filter(word =>
-                word.id.toLowerCase().includes(keyword) ||
-                word.zh.toLowerCase().includes(keyword)
-            );
+
+            const filtered =
+                vocabulary.filter(word =>
+
+                    word.id
+                        .toLowerCase()
+                        .includes(keyword)
+
+                    ||
+
+                    word.zh
+                        .toLowerCase()
+                        .includes(keyword)
+
+                );
+
 
             renderVocab(filtered);
 
         }
 
-        searchInput.addEventListener("input", searchVocabulary);
 
-        function speakIndonesian(text) {
+        searchInput.addEventListener(
+            "input",
+            searchVocabulary
+        );
+
+
+        /* =========================================================
+           ESCAPE HTML
+           防止文字造成 HTML 問題
+        ========================================================== */
+
+        function escapeHTML(text) {
+
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =========================================================
+           GET INDONESIAN VOICE
+        ========================================================== */
+
+        let availableVoices = [];
+
+
+        function loadVoices() {
+
+            availableVoices =
+                window.speechSynthesis.getVoices();
+
+        }
+
+
+        if ("speechSynthesis" in window) {
+
+            loadVoices();
+
+            window.speechSynthesis.onvoiceschanged =
+                function () {
+
+                    loadVoices();
+
+                };
+
+        }
+
+
+        /* =========================================================
+           SPEAK INDONESIAN
+        ========================================================== */
+
+        function speakIndonesian(text, button) {
 
             if (!("speechSynthesis" in window)) {
-                alert("你的瀏覽器不支援語音功能。");
+
+                alert(
+                    "你的瀏覽器不支援語音功能。"
+                );
+
                 return;
             }
 
-            window.speechSynthesis.cancel();
 
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = "id-ID";
+            const synth =
+                window.speechSynthesis;
+
+
+            /*
+             * Stop previous speech
+             */
+
+            synth.cancel();
+
+
+            /*
+             * Refresh voices
+             */
+
+            loadVoices();
+
+
+            /*
+             * Find Indonesian voice
+             *
+             * id
+             * id-ID
+             * id_ID
+             */
+
+            let indonesianVoice =
+                availableVoices.find(
+                    voice =>
+                        voice.lang &&
+                        voice.lang
+                            .toLowerCase()
+                            .startsWith("id")
+                );
+
+
+            /*
+             * Create speech
+             */
+
+            const utterance =
+                new SpeechSynthesisUtterance(text);
+
+
+            if (indonesianVoice) {
+
+                utterance.voice =
+                    indonesianVoice;
+
+                utterance.lang =
+                    indonesianVoice.lang;
+
+            } else {
+
+                /*
+                 * Fallback
+                 */
+
+                utterance.lang =
+                    "id-ID";
+
+            }
+
+
             utterance.rate = 0.85;
+
             utterance.pitch = 1;
 
-            window.speechSynthesis.speak(utterance);
+            utterance.volume = 1;
+
+
+            /*
+             * Button animation
+             */
+
+            if (button) {
+
+                button.classList.add("playing");
+
+                const icon =
+                    button.querySelector("i");
+
+                if (icon) {
+
+                    icon.className =
+                        "fa-solid fa-volume-high";
+
+                }
+
+            }
+
+
+            /*
+             * When speech starts
+             */
+
+            utterance.onstart =
+                function () {
+
+                    if (button) {
+
+                        button.classList.add(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            /*
+             * When speech ends
+             */
+
+            utterance.onend =
+                function () {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            /*
+             * When speech fails
+             */
+
+            utterance.onerror =
+                function (event) {
+
+                    console.log(
+                        "Speech synthesis error:",
+                        event
+                    );
+
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            /*
+             * Speak
+             */
+
+            synth.speak(utterance);
 
         }
+
+
+        /* =========================================================
+           INITIAL RENDER
+        ========================================================== */
 
         renderVocab(vocabulary);
 
     </script>
 
-    <!-- File ini di ROOT situs -->
+
+    <!-- =========================================================
+         SHARED SITE SCRIPT
+         File ini di ROOT situs
+    ========================================================== -->
+
     <script src="script.js"></script>
 
 </body>
