@@ -1,246 +1,183 @@
-document.addEventListener("DOMContentLoaded", async () => {
 
-    const app = document.getElementById("app");
+document.addEventListener("DOMContentLoaded", async function () {
 
-    if (!app) {
-        console.error("找不到 #app 元素。");
+    // Ambil elemen dari halaman yang sedang dibuka
+    const pageContent = document.getElementById("page-content");
+
+    if (!pageContent) {
+        console.error("Elemen #page-content tidak ditemukan.");
         return;
     }
 
-    // =========================================
-    // 自動判斷目前頁面是否在 /lessons/
-    // =========================================
-
-    const currentPath = window.location.pathname;
-
-    const isLessonPage = currentPath.includes("/lessons/");
-
-    // 根目錄 → template.html
-    // /lessons/ → ../template.html
-    const templatePath = isLessonPage
-        ? "../template.html"
-        : "template.html";
-
-
-    // =========================================
-    // 保存這個頁面自己的內容（保留原始節點，不轉成字串）
-    //
-    // 之前的版本用 outerHTML 把內容轉成文字，
-    // 再用 innerHTML 貼回去，這樣會建立全新的 DOM 元素，
-    // 導致 quiz 腳本原本掛在按鈕上的 click 事件監聽器全部消失。
-    //
-    // 改成直接保留節點本身，之後用 appendChild 搬移，
-    // 這樣按鈕原本的事件監聽器會跟著節點一起被保留下來。
-    // =========================================
-
-    const pageSource = document.getElementById("page-source");
-
-    if (pageSource) {
-        pageSource.remove();
-    }
-
-
-    // =========================================
-    // 載入 template.html
-    // =========================================
-
     try {
 
-        const response = await fetch(templatePath);
+        // Ambil template desain
+        const response = await fetch("template.html");
 
         if (!response.ok) {
+            throw new Error("Gagal memuat template.html");
+        }
+
+        const html = await response.text();
+
+        // Ubah HTML menjadi dokumen yang bisa dibaca
+        const parser = new DOMParser();
+        const templateDoc = parser.parseFromString(
+            html,
+            "text/html"
+        );
+
+        // Ambil CSS dari template
+        const templateStyle = templateDoc.querySelector("style");
+
+        if (templateStyle) {
+
+            const style = document.createElement("style");
+            style.textContent = templateStyle.textContent;
+
+            document.head.appendChild(style);
+        }
+
+        // Ambil header dan footer dari template
+        const header = templateDoc.querySelector(".topbar");
+        const footer = templateDoc.querySelector(".footer");
+
+        if (!header || !footer) {
             throw new Error(
-                `無法載入 template.html（${response.status}）`
+                "Header atau footer tidak ditemukan di template.html"
             );
         }
 
-        const template = await response.text();
+        // Masukkan header ke halaman
+        document.body.prepend(
+            document.importNode(header, true)
+        );
 
+        // Masukkan footer ke halaman
+        document.body.appendChild(
+            document.importNode(footer, true)
+        );
 
-        // =========================================
-        // 修正相對路徑問題（重要！）
-        //
-        // template.html 裡面的路徑（logo.png、index.html、
-        // lessons.html...）都是「相對於網站根目錄」寫的。
-        //
-        // 但如果這個 template 是被 /lessons/xxx.html 載入，
-        // 瀏覽器會用「目前頁面的網址」去解析這些相對路徑，
-        // 導致 logo.png 變成去找 /lessons/logo.png、
-        // 點 lessons.html 變成跑去 /lessons/lessons.html。
-        //
-        // 解法：動態加一個 <base> 標籤，把「網站的解析基準點」
-        // 強制指向 template.html 實際所在的資料夾（也就是網站根目錄）。
-        // 這樣不管目前頁面在哪一層，template 裡的相對路徑
-        // 永遠都會解析成正確的位置。
-        // =========================================
+        // Aktifkan menu hamburger
+        initMenu();
 
-        const templateURL = new URL(templatePath, window.location.href);
-
-        const rootBase = templateURL.href.replace(/template\.html(\?.*)?$/, "");
-
-        let baseTag = document.querySelector("base");
-
-        if (!baseTag) {
-            baseTag = document.createElement("base");
-            document.head.prepend(baseTag);
-        }
-
-        baseTag.href = rootBase;
-
-
-        // 將模板放入 #app
-        app.innerHTML = template;
-
-
-        // =========================================
-        // 將頁面自己的內容節點搬進 #page-content
-        //
-        // 用 appendChild 搬移原始節點（而不是用 innerHTML
-        // 重新產生新的節點），按鈕上的 click 事件監聽器
-        // 才不會遺失。
-        // =========================================
-
-        const pageContentSlot =
-            app.querySelector("#page-content");
-
-        if (pageContentSlot && pageSource) {
-
-            pageContentSlot.appendChild(pageSource);
-
-        } else if (!pageContentSlot) {
-
-            console.warn(
-                "template.html 裡找不到 #page-content。"
-            );
-
-        } else {
-
-            console.warn(
-                "找不到 #page-source，沒有內容可以搬移。"
-            );
-
-        }
-
-
-        // =========================================
-        // 啟用側邊選單
-        // =========================================
-
-        setupSidebar();
-
+        // Tandai halaman yang sedang dibuka
+        setActiveMenu();
 
     } catch (error) {
 
-        console.error(
-            "模板載入失敗：",
-            error
-        );
+        console.error("Template gagal dimuat:", error);
 
-        app.innerHTML = `
-            <div style="
-                padding: 40px;
-                text-align: center;
-                color: #5c4033;
-            ">
-                <h2>🧊🍵</h2>
-                <p>目前無法載入頁面模板。</p>
-            </div>
-        `;
+    }
+
+
+    // =====================================
+    // MENU HAMBURGER
+    // =====================================
+
+    function initMenu() {
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+        if (!menuButton || !navLinks) return;
+
+        menuButton.addEventListener("click", function () {
+
+            const isOpen =
+                navLinks.classList.toggle("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "關閉選單" : "開啟選單"
+            );
+
+            menuButton.textContent =
+                isOpen ? "✕" : "☰";
+
+        });
+
+        // Tutup menu setelah link diklik
+        navLinks.querySelectorAll("a").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                navLinks.classList.remove("open");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "開啟選單"
+                );
+
+                menuButton.textContent = "☰";
+
+            });
+
+        });
+
+        // Tutup menu saat kembali ke tampilan desktop
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 850) {
+
+                navLinks.classList.remove("open");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuButton.textContent = "☰";
+
+            }
+
+        });
+
+    }
+
+
+    // =====================================
+    // MENU HALAMAN AKTIF
+    // =====================================
+
+    function setActiveMenu() {
+
+        const currentPage =
+            window.location.pathname.split("/").pop()
+            || "index.html";
+
+        document.querySelectorAll(".nav-links a")
+            .forEach(function (link) {
+
+                const linkPage =
+                    link.getAttribute("href");
+
+                if (linkPage === currentPage) {
+
+                    link.classList.add("active");
+
+                    link.setAttribute(
+                        "aria-current",
+                        "page"
+                    );
+
+                }
+
+            });
 
     }
 
 });
-
-
-
-/* =========================================
-   側邊選單
-========================================= */
-
-function setupSidebar() {
-
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const sidebar =
-        document.getElementById("sidebar");
-
-    const overlay =
-        document.getElementById("overlay");
-
-
-    if (
-        !menuButton ||
-        !sidebar ||
-        !overlay
-    ) {
-
-        console.warn(
-            "找不到側邊選單所需的元素。"
-        );
-
-        return;
-    }
-
-
-    // 點擊 ☰ 開啟／關閉側邊選單
-    menuButton.addEventListener(
-        "click",
-        () => {
-
-            sidebar.classList.toggle("open");
-            overlay.classList.toggle("show");
-
-        }
-    );
-
-
-    // 點擊背景區域關閉側邊選單
-    overlay.addEventListener(
-        "click",
-        () => {
-
-            closeSidebar();
-
-        }
-    );
-
-
-    // 點選單項目後自動關閉側邊選單
-    document
-        .querySelectorAll(".nav-item")
-        .forEach((item) => {
-
-            item.addEventListener(
-                "click",
-                () => {
-
-                    closeSidebar();
-
-                }
-            );
-
-        });
-
-
-    // ESC 關閉側邊選單
-    document.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (event.key === "Escape") {
-                closeSidebar();
-            }
-
-        }
-    );
-
-
-    function closeSidebar() {
-
-        sidebar.classList.remove("open");
-        overlay.classList.remove("show");
-
-    }
-
-}
