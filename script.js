@@ -19,11 +19,14 @@ const baseDir = new URL(".", scriptSrc);
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-    // Ambil elemen dari halaman yang sedang dibuka
-    const pageContent = document.getElementById("page-content");
+    // Kontainer kosong tempat template akan dipasang
+    const appDiv = document.getElementById("app");
 
-    if (!pageContent) {
-        console.error("Elemen #page-content tidak ditemukan.");
+    // Isi asli halaman (ditulis manual di setiap halaman)
+    const pageSource = document.getElementById("page-source");
+
+    if (!appDiv) {
+        console.error("Elemen #app tidak ditemukan.");
         return;
     }
 
@@ -31,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Ambil template desain
         // Path dihitung dari lokasi script.js, jadi tetap benar
-        // walau halaman ini ada di folder root ATAU folder lesson.
+        // walau halaman ini ada di folder root ATAU folder lessons.
         const templateUrl = new URL("template.html", baseDir);
 
         const response = await fetch(templateUrl);
@@ -49,42 +52,33 @@ document.addEventListener("DOMContentLoaded", async function () {
             "text/html"
         );
 
-        // Ambil CSS dari template
-        const templateStyle = templateDoc.querySelector("style");
-
-        if (templateStyle) {
-
-            const style = document.createElement("style");
-            style.textContent = templateStyle.textContent;
-
-            document.head.appendChild(style);
-        }
-
-        // Ambil header dan footer dari template
         const header = templateDoc.querySelector(".topbar");
         const footer = templateDoc.querySelector(".footer");
+        const pageContentSlot = templateDoc.querySelector("#page-content");
 
-        if (!header || !footer) {
+        if (!header || !footer || !pageContentSlot) {
             throw new Error(
-                "Header atau footer tidak ditemukan di template.html"
+                "Header, footer, atau #page-content tidak ditemukan di template.html"
             );
         }
 
-        // Perbaiki path logo & link menu di header
-        // supaya tetap mengarah ke lokasi yang benar
-        // walau halaman ini dibuka dari folder lesson.
+        // Perbaiki path logo & link menu di header/footer
+        // supaya tetap benar walau halaman dibuka dari folder lessons.
         fixRelativePaths(header);
         fixRelativePaths(footer);
 
-        // Masukkan header ke halaman
-        document.body.prepend(
-            document.importNode(header, true)
-        );
+        // Pindahkan isi asli halaman (#page-source) ke dalam slot
+        // #page-content milik template. appendChild lintas-dokumen
+        // otomatis meng-adopt node aslinya (bukan kloning), jadi
+        // event listener yang sudah nempel tetap jalan.
+        if (pageSource) {
+            pageContentSlot.appendChild(pageSource);
+        }
 
-        // Masukkan footer ke halaman
-        document.body.appendChild(
-            document.importNode(footer, true)
-        );
+        // Susun semuanya ke dalam #app pada halaman yang sedang dibuka
+        appDiv.appendChild(header);
+        appDiv.appendChild(pageContentSlot);
+        appDiv.appendChild(footer);
 
         // Aktifkan menu hamburger
         initMenu();
@@ -105,7 +99,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function fixRelativePaths(rootEl) {
 
-        // Perbaiki src gambar (mis. logo.png)
         rootEl.querySelectorAll("img[src]").forEach(function (img) {
 
             const src = img.getAttribute("src");
@@ -116,7 +109,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         });
 
-        // Perbaiki href link (mis. index.html, lessons.html)
         rootEl.querySelectorAll("a[href]").forEach(function (link) {
 
             const href = link.getAttribute("href");
@@ -153,56 +145,36 @@ document.addEventListener("DOMContentLoaded", async function () {
             const isOpen =
                 navLinks.classList.toggle("open");
 
-            menuButton.setAttribute(
-                "aria-expanded",
-                String(isOpen)
-            );
+            menuButton.setAttribute("aria-expanded", String(isOpen));
 
             menuButton.setAttribute(
                 "aria-label",
                 isOpen ? "關閉選單" : "開啟選單"
             );
 
-            menuButton.textContent =
-                isOpen ? "✕" : "☰";
+            menuButton.textContent = isOpen ? "✕" : "☰";
 
         });
 
-        // Tutup menu setelah link diklik
         navLinks.querySelectorAll("a").forEach(function (link) {
 
             link.addEventListener("click", function () {
 
                 navLinks.classList.remove("open");
-
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuButton.setAttribute(
-                    "aria-label",
-                    "開啟選單"
-                );
-
+                menuButton.setAttribute("aria-expanded", "false");
+                menuButton.setAttribute("aria-label", "開啟選單");
                 menuButton.textContent = "☰";
 
             });
 
         });
 
-        // Tutup menu saat kembali ke tampilan desktop
         window.addEventListener("resize", function () {
 
             if (window.innerWidth > 850) {
 
                 navLinks.classList.remove("open");
-
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
+                menuButton.setAttribute("aria-expanded", "false");
                 menuButton.textContent = "☰";
 
             }
@@ -225,8 +197,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.querySelectorAll(".nav-links a")
             .forEach(function (link) {
 
-                // Bandingkan berdasarkan nama file saja,
-                // karena href sekarang sudah jadi URL absolut.
                 const linkPage =
                     (link.getAttribute("href") || "")
                         .split("/").pop();
@@ -234,11 +204,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 if (linkPage === currentPage) {
 
                     link.classList.add("active");
-
-                    link.setAttribute(
-                        "aria-current",
-                        "page"
-                    );
+                    link.setAttribute("aria-current", "page");
 
                 }
 
