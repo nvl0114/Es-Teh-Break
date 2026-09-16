@@ -1,0 +1,3198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break｜年齡與家庭成員</title>
+
+    <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+            --red: #c8756d;
+            --muted: #806b5d;
+            --border: #ead8c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .lesson-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+
+        .hero,
+        .video-card,
+        .quiz-card,
+        .conversation-card,
+        .game-card,
+        .footer-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .hero-description {
+            color: var(--muted);
+        }
+
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        /* ================================
+           VIDEO
+        ================================= */
+
+        .section-subtitle {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .video-frame-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 177.7%;
+            /* 9:16 for shorts */
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--soft-brown);
+        }
+
+        .video-frame-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-caption {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        /* ================================
+           QUIZ
+        ================================= */
+
+        .quiz-progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: var(--soft-brown);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--light-brown);
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        .quiz-question-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 15px;
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+
+        .quiz-question-text {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option-btn {
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--brown);
+            border-radius: 13px;
+            padding: 13px 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.16s ease;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .quiz-option-btn:disabled {
+            cursor: default;
+        }
+
+        .quiz-option-btn.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .quiz-option-btn.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .quiz-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .quiz-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .quiz-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .quiz-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ================================
+           CONVERSATION
+        ================================= */
+
+        .conversation-counter {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .speaker-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .speaker-name {
+            flex: 0 0 auto;
+            min-width: 60px;
+            min-height: 38px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: var(--soft-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .speaker-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .indonesian-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .indonesian-text {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .mandarin-text {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ================================
+           TTS BUTTON
+        ================================= */
+
+        .audio-btn {
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: #fffaf4;
+            color: var(--brown);
+            border-radius: 50%;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            transition: 0.18s ease;
+            touch-action: manipulation;
+        }
+
+        .audio-btn:hover {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .audio-btn.playing {
+            background: var(--soft-brown);
+            transform: scale(1.08);
+        }
+
+        .dialogue-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 21px 0;
+        }
+
+        /* ================================
+           CONVERSATION / QUIZ BUTTONS
+        ================================= */
+
+        .conversation-actions,
+        .quiz-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .conversation-action-btn {
+            flex: 1;
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.18s ease;
+        }
+
+        .explanation-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        .next-btn {
+            background: var(--brown);
+            color: white;
+        }
+
+        .conversation-action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .conversation-action-btn:disabled {
+            opacity: 0.55;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ================================
+           EXPLANATION
+        ================================= */
+
+        .explanation-panel {
+            display: none;
+            margin-top: 15px;
+            background: #fffaf4;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .explanation-panel.show {
+            display: block;
+        }
+
+        .explanation-section {
+            margin-bottom: 18px;
+        }
+
+        .explanation-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-list {
+            margin: 6px 0 0;
+            padding-left: 21px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 6px;
+        }
+
+        .explanation-note {
+            background: #fff4df;
+            border-left: 4px solid var(--light-brown);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        .example-box {
+            background: #f3f7ef;
+            border-left: 4px solid var(--green);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .example-box strong {
+            font-size: 16px;
+        }
+
+        /* ================================
+           GAME
+        ================================= */
+
+        .game-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .game-instruction {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 13px 15px;
+            border-radius: 11px;
+            margin-bottom: 20px;
+        }
+
+        .game-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .word-area-title {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .word-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            min-height: 55px;
+            padding: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 13px;
+        }
+
+        .word-chip {
+            border: 1px solid #dfc8b0;
+            background: white;
+            color: var(--brown);
+            border-radius: 10px;
+            padding: 9px 14px;
+            min-height: 43px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.16s ease;
+        }
+
+        .word-chip:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .word-chip:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        .word-chip:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        /* ================================
+           ANSWER
+        ================================= */
+
+        .answer-area {
+            margin-top: 18px;
+        }
+
+        .answer-box {
+            min-height: 60px;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            gap: 8px;
+            padding: 10px;
+
+            background: #fffdf9;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+
+            transition: 0.2s ease;
+        }
+
+        .answer-box.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .answer-box.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .answer-chip {
+            border: 0;
+            background: var(--soft-brown);
+            color: var(--brown);
+            border-radius: 9px;
+            padding: 8px 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .answer-chip:hover {
+            background: #ead4bd;
+        }
+
+        .empty-answer {
+            color: #a08d80;
+            font-size: 14px;
+        }
+
+        /* ================================
+           GAME BUTTONS
+        ================================= */
+
+        .game-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .check-btn,
+        .reset-btn {
+            min-height: 46px;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .check-btn {
+            flex: 1;
+            background: var(--brown);
+            color: white;
+        }
+
+        .reset-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        /* ================================
+           FEEDBACK
+        ================================= */
+
+        .game-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .game-feedback.show {
+            display: block;
+        }
+
+        .game-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .game-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .correct-sentence {
+            margin-top: 5px;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* ================================
+           FINISHED
+        ================================= */
+
+        .game-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .game-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .game-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .footer-card {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            color: var(--brown);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 650px) {
+
+            .lesson-container {
+                padding: 20px 12px 45px;
+            }
+
+            .hero,
+            .video-card,
+            .quiz-card,
+            .conversation-card,
+            .game-card,
+            .footer-card {
+                padding: 20px 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .indonesian-text {
+                font-size: 17px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .conversation-actions,
+            .quiz-actions {
+                flex-direction: column;
+            }
+
+            .game-actions {
+                flex-direction: column;
+            }
+
+            .word-chip,
+            .answer-chip {
+                font-size: 15px;
+                padding: 10px 13px;
+            }
+
+            .speaker-name {
+                min-width: 53px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!--
+        Shared template akan memasukkan isi #page-source
+        ke dalam #app.
+    -->
+
+    <div id="app"></div>
+
+
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+
+            <!-- =============================================
+                 HERO
+            ============================================== -->
+
+            <section class="hero">
+
+                <div class="badge">
+                    Bahasa Indonesia • Pemula
+                </div>
+
+                <h1>
+                    🎂 Umur dan Anggota Keluarga（年齡與家庭成員）
+                </h1>
+
+                <p class="hero-description">
+                    這堂課會先複習印尼語的數字唸法，
+                    接著學習如何用印尼語詢問並回答「年齡」，
+                    以及介紹「家庭成員」的說法。
+                </p>
+
+                <div class="note">
+                    💡 點擊 🔊 可以使用手機或瀏覽器的語音功能，
+                    聽印尼語發音。
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 VIDEO
+            ============================================== -->
+
+            <section class="video-card">
+
+                <h2>
+                    🎬 開始之前
+                </h2>
+
+                <p class="section-subtitle">
+                    在進入年齡的對話之前，先透過這兩支短片，
+                    複習一下印尼語的數字唸法，
+                    這對接下來要學的「幾歲」會很有幫助。
+                </p>
+
+                <div class="video-grid">
+
+                    <div>
+
+                        <div class="video-frame-wrap">
+
+                            <iframe
+                                src="https://www.youtube.com/embed/28jbHsf3dWs"
+                                title="印尼語數字影片 1"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
+
+                        <div class="video-caption">
+                            數字影片 1
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="video-frame-wrap">
+
+                            <iframe
+                                src="https://www.youtube.com/embed/AorBJP7nQPE"
+                                title="印尼語數字影片 2"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+
+                        </div>
+
+                        <div class="video-caption">
+                            數字影片 2
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 QUIZ
+            ============================================== -->
+
+            <section class="quiz-card">
+
+                <h2>
+                    🔢 聽力小測驗
+                </h2>
+
+                <p class="section-subtitle">
+                    點擊 🔊 聽印尼語數字發音，
+                    再選出正確的數字。
+                </p>
+
+                <div id="quiz-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 CONVERSATION
+            ============================================== -->
+
+            <section class="conversation-card">
+
+                <h2>
+                    💬 Conversation
+                </h2>
+
+                <p class="section-subtitle">
+                    跟著對話學習如何詢問年齡、介紹父母，
+                    以及介紹兄弟姊妹。
+                </p>
+
+                <div id="conversation-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 GAME
+            ============================================== -->
+
+            <section class="game-card">
+
+                <h2>
+                    🧩 Sambung Kata（接續單字）
+                </h2>
+
+                <p class="section-subtitle">
+                    點擊單字聽發音，再把單字排列成正確的句子。
+                </p>
+
+                <div id="sentence-game-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 FOOTER
+            ============================================== -->
+
+            <footer class="footer-card">
+
+                <div class="footer-brand">
+                    ☕ Es Teh Break
+                </div>
+
+                <div>
+                    邊喝冰茶邊學印尼語 · 年齡與家庭成員篇
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================================
+           TEXT TO SPEECH
+           使用手機 / 瀏覽器本身的語音
+        ===================================================== */
+
+        let currentSpeech = null;
+
+
+        function playAudio(text, button = null) {
+
+            if (!("speechSynthesis" in window)) {
+
+                alert(
+                    "這個瀏覽器不支援語音播放功能。"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * 停止上一個正在播放的聲音
+             */
+
+            speechSynthesis.cancel();
+
+
+            /*
+             * 清除所有 playing 狀態
+             */
+
+            document
+                .querySelectorAll(".playing")
+                .forEach(element => {
+
+                    element.classList.remove(
+                        "playing"
+                    );
+
+                });
+
+
+            /*
+             * 建立語音
+             */
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            /*
+             * 印尼語
+             */
+
+            utterance.lang =
+                "id-ID";
+
+
+            /*
+             * 稍微放慢速度
+             * 適合初學者
+             */
+
+            utterance.rate =
+                0.85;
+
+
+            utterance.pitch =
+                1;
+
+
+            currentSpeech =
+                utterance;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            utterance.onend =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            utterance.onerror =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        }
+
+
+        /* =====================================================
+           QUIZ EXPLANATION (shared, quiz 1-8)
+        ===================================================== */
+
+        const quizExplanationHtml = `
+
+            <div class="explanation-section">
+
+                <h3>
+                    📚 1～10
+                </h3>
+
+                <p>
+                    印尼語的數字如下：
+                </p>
+
+                <ul class="explanation-list">
+
+                    <li><strong>1</strong>（satu）</li>
+                    <li><strong>2</strong>（dua）</li>
+                    <li><strong>3</strong>（tiga）</li>
+                    <li><strong>4</strong>（empat）</li>
+                    <li><strong>5</strong>（lima）</li>
+                    <li><strong>6</strong>（enam）</li>
+                    <li><strong>7</strong>（tujuh）</li>
+                    <li><strong>8</strong>（delapan）</li>
+                    <li><strong>9</strong>（sembilan）</li>
+                    <li><strong>10</strong>（sepuluh）</li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="explanation-section">
+
+                <h3>
+                    📚 Belasan（11～19）
+                </h3>
+
+                <p>
+                    在印尼語中，11～19 稱為
+                    <strong>belasan</strong>。
+                </p>
+
+                <p>
+                    11（<strong>sebelas</strong>） 是特殊形式。
+                </p>
+
+                <p>
+                    從 12 到 19，基本上是：
+                    <strong>個位數的名稱 + belas</strong>。
+                </p>
+
+                <ul class="explanation-list">
+
+                    <li><strong>12</strong> = dua belas</li>
+                    <li><strong>13</strong> = tiga belas</li>
+                    <li><strong>14</strong> = empat belas</li>
+                    <li><strong>15</strong> = lima belas</li>
+                    <li><strong>16</strong> = enam belas</li>
+                    <li><strong>17</strong> = tujuh belas</li>
+                    <li><strong>18</strong> = delapan belas</li>
+                    <li><strong>19</strong> = sembilan belas</li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="explanation-section">
+
+                <h3>
+                    📚 Puluhan（20～99）
+                </h3>
+
+                <p>
+                    20、30、40……這類數字稱為
+                    <strong>puluhan</strong>。
+                </p>
+
+                <p>
+                    如果最後一位是 0，使用：
+                    <strong>個位數的名稱 + puluh</strong>。
+                </p>
+
+                <ul class="explanation-list">
+
+                    <li><strong>20</strong> = dua puluh</li>
+                    <li><strong>30</strong> = tiga puluh</li>
+                    <li><strong>40</strong> = empat puluh</li>
+                    <li><strong>50</strong> = lima puluh</li>
+                    <li><strong>60</strong> = enam puluh</li>
+                    <li><strong>70</strong> = tujuh puluh</li>
+                    <li><strong>80</strong> = delapan puluh</li>
+                    <li><strong>90</strong> = sembilan puluh</li>
+
+                </ul>
+
+                <p>
+                    如果最後一位不是 0，使用：
+                    <strong>個位數的名稱 + puluh + 個位數的名稱</strong>。
+                </p>
+
+                <div class="example-box">
+
+                    <strong>
+                        21 = dua puluh satu
+                    </strong>
+
+                    <br>
+
+                    52 = lima puluh dua
+                    <br>
+                    99 = sembilan puluh sembilan
+
+                </div>
+
+                <p>
+                    在口語中，有時候也可以把
+                    <strong>puluh</strong> 省略，直接說：
+                    <strong>21 → dua satu</strong>、
+                    <strong>52 → lima dua</strong>。
+                </p>
+
+                <div class="explanation-note">
+                    不過 <strong>dua satu</strong>、<strong>lima dua</strong>
+                    比較像口語上的簡略說法，
+                    正式或完整地說數字時，
+                    使用 <strong>dua puluh satu</strong>、
+                    <strong>lima puluh dua</strong>
+                    會比較清楚。
+                </div>
+
+            </div>
+
+        `;
+
+
+        /* =====================================================
+           QUIZ DATA
+        ===================================================== */
+
+        const quizQuestions = [
+
+            {
+                sound: "lima",
+                options: ["3", "8", "5"],
+                answer: "5"
+            },
+
+            {
+                sound: "tujuh",
+                options: ["7", "1", "6"],
+                answer: "7"
+            },
+
+            {
+                sound: "sebelas",
+                options: ["19", "11", "21"],
+                answer: "11"
+            },
+
+            {
+                sound: "enam belas",
+                options: ["13", "18", "16"],
+                answer: "16"
+            },
+
+            {
+                sound: "tujuh puluh",
+                options: ["80", "70", "30"],
+                answer: "70"
+            },
+
+            {
+                sound: "sepuluh",
+                options: ["90", "10", "70"],
+                answer: "10"
+            },
+
+            {
+                sound: "lima puluh enam",
+                options: ["38", "76", "56"],
+                answer: "56"
+            },
+
+            {
+                sound: "tiga puluh sembilan",
+                options: ["29", "92", "39"],
+                answer: "39"
+            }
+
+        ];
+
+
+        /* =====================================================
+           QUIZ STATE
+        ===================================================== */
+
+        let currentQuizIndex =
+            0;
+
+        let quizLocked =
+            false;
+
+
+        /* =====================================================
+           RENDER QUIZ
+        ===================================================== */
+
+        function renderQuiz() {
+
+            const container =
+                document.getElementById(
+                    "quiz-container"
+                );
+
+
+            if (!container) return;
+
+
+            /*
+             * ALL FINISHED
+             */
+
+            if (
+                currentQuizIndex
+                >=
+                quizQuestions.length
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="quiz-finished">
+
+                        <div class="quiz-finished-icon">
+                            🎉
+                        </div>
+
+                        <h3>
+                            測驗完成！
+                        </h3>
+
+                        <p>
+                            你已完成全部
+                            ${quizQuestions.length}
+                            題。
+                        </p>
+
+                        <button
+                            class="quiz-restart-btn"
+                            id="restart-quiz"
+                            type="button">
+
+                            🔄 再測一次
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById(
+                        "restart-quiz"
+                    )
+                    .addEventListener(
+                        "click",
+                        () => {
+
+                            currentQuizIndex = 0;
+
+                            quizLocked = false;
+
+                            renderQuiz();
+
+                        }
+                    );
+
+
+                return;
+
+            }
+
+
+            quizLocked =
+                false;
+
+
+            const question =
+                quizQuestions[
+                    currentQuizIndex
+                ];
+
+
+            const total =
+                quizQuestions.length;
+
+
+            const progress =
+                (
+                    (currentQuizIndex + 1)
+                    /
+                    total
+                ) * 100;
+
+
+            container.innerHTML = `
+
+                <div class="quiz-progress-text">
+
+                    第
+                    ${currentQuizIndex + 1}
+                    題 / 共
+                    ${total}
+                    題
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${progress}%">
+
+                    </div>
+
+                </div>
+
+
+                <div class="quiz-question-row">
+
+                    <div class="quiz-question-text">
+
+                        點擊播放，聽聽看是哪個數字：
+
+                    </div>
+
+
+                    <button
+                        class="audio-btn"
+                        id="quiz-audio-btn"
+                        type="button"
+                        aria-label="播放印尼語數字">
+
+                        🔊
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="quiz-options"
+                    id="quiz-options">
+
+                    ${
+                        question.options
+                            .map(option => `
+
+                                <button
+                                    class="quiz-option-btn"
+                                    data-value="${option}"
+                                    type="button">
+
+                                    ${option}
+
+                                </button>
+
+                            `)
+                            .join("")
+                    }
+
+                </div>
+
+
+                <div
+                    class="quiz-feedback"
+                    id="quiz-feedback">
+
+                </div>
+
+
+                <div class="quiz-actions">
+
+                    <button
+                        class="conversation-action-btn explanation-btn"
+                        id="quiz-explanation-toggle"
+                        type="button">
+
+                        📖 說明
+
+                    </button>
+
+
+                    <button
+                        class="conversation-action-btn next-btn"
+                        id="quiz-next"
+                        type="button"
+                        disabled>
+
+                        ${
+                            currentQuizIndex === total - 1
+                                ? "✓ 完成"
+                                : "→ 下一題"
+                        }
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="explanation-panel"
+                    id="quiz-explanation-panel">
+
+                    ${quizExplanationHtml}
+
+                </div>
+
+            `;
+
+
+            /*
+             * 播放按鈕
+             */
+
+            const audioBtn =
+                document.getElementById(
+                    "quiz-audio-btn"
+                );
+
+
+            audioBtn.addEventListener(
+                "click",
+                () => {
+
+                    playAudio(
+                        question.sound,
+                        audioBtn
+                    );
+
+                }
+            );
+
+
+            /*
+             * 自動播放一次，方便使用者
+             */
+
+            playAudio(
+                question.sound,
+                audioBtn
+            );
+
+
+            /*
+             * 選項按鈕
+             */
+
+            const optionButtons =
+                container.querySelectorAll(
+                    ".quiz-option-btn"
+                );
+
+
+            optionButtons.forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            checkQuizAnswer(
+                                button,
+                                optionButtons,
+                                question.answer
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+             * 說明
+             */
+
+            const explanationButton =
+                document.getElementById(
+                    "quiz-explanation-toggle"
+                );
+
+
+            const explanationPanel =
+                document.getElementById(
+                    "quiz-explanation-panel"
+                );
+
+
+            explanationButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        explanationPanel.classList.toggle(
+                            "show"
+                        );
+
+
+                    explanationButton.textContent =
+                        isOpen
+                            ? "📖 關閉說明"
+                            : "📖 說明";
+
+                }
+            );
+
+
+            /*
+             * 下一題
+             */
+
+            const nextButton =
+                document.getElementById(
+                    "quiz-next"
+                );
+
+
+            nextButton.addEventListener(
+                "click",
+                () => {
+
+                    currentQuizIndex++;
+
+                    renderQuiz();
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           CHECK QUIZ ANSWER
+        ===================================================== */
+
+        function checkQuizAnswer(
+            selectedButton,
+            allButtons,
+            correctAnswer
+        ) {
+
+            if (quizLocked) {
+                return;
+            }
+
+
+            quizLocked =
+                true;
+
+
+            const feedback =
+                document.getElementById(
+                    "quiz-feedback"
+                );
+
+
+            const nextButton =
+                document.getElementById(
+                    "quiz-next"
+                );
+
+
+            const isCorrect =
+
+                selectedButton.dataset.value
+                ===
+                correctAnswer;
+
+
+            allButtons.forEach(
+                button => {
+
+                    button.disabled =
+                        true;
+
+
+                    if (
+                        button.dataset.value
+                        ===
+                        correctAnswer
+                    ) {
+
+                        button.classList.add(
+                            "correct"
+                        );
+
+                    } else if (
+                        button === selectedButton
+                    ) {
+
+                        button.classList.add(
+                            "incorrect"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            if (isCorrect) {
+
+                feedback.className =
+                    "quiz-feedback show correct";
+
+
+                feedback.innerHTML =
+                    "🎉 答對了！";
+
+            } else {
+
+                feedback.className =
+                    "quiz-feedback show incorrect";
+
+
+                feedback.innerHTML = `
+
+                    ❌ 還不對喔，
+                    正確答案是
+                    <strong>${correctAnswer}</strong>。
+
+                `;
+
+            }
+
+
+            nextButton.disabled =
+                false;
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION DATA
+        ===================================================== */
+
+        const sharedAgeExplanation = `
+
+            <div class="explanation-section">
+
+                <h3>
+                    📚 生詞
+                </h3>
+
+                <ul class="explanation-list">
+
+                    <li><strong>Dia</strong> ＝ 他／她</li>
+                    <li><strong>Umur</strong> ＝ 年齡，歲數</li>
+                    <li><strong>Berapa</strong> ＝ 幾，多少</li>
+                    <li><strong>Tahun</strong> ＝ 年／歲</li>
+
+                </ul>
+
+            </div>
+
+        `;
+
+
+        const conversations = [
+
+            {
+                speakerA: {
+                    name: "David",
+                    indonesian: "Kamu umur berapa?",
+                    mandarin: "你幾歲？"
+                },
+
+                speakerB: {
+                    name: "Anna",
+                    indonesian: "Aku dua puluh lima tahun",
+                    mandarin: "我25歲"
+                },
+
+                explanation: sharedAgeExplanation
+            },
+
+
+            {
+                speakerA: {
+                    name: "David",
+                    indonesian: "Dia umur berapa?",
+                    mandarin: "他幾歲？"
+                },
+
+                speakerB: {
+                    name: "Anna",
+                    indonesian: "Dia delapan belas tahun",
+                    mandarin: "他18歲"
+                },
+
+                explanation: sharedAgeExplanation
+            },
+
+
+            {
+                speakerA: {
+                    name: "David",
+                    indonesian: "Berapa umur orangtua-mu?",
+                    mandarin: "你的父母幾歲？"
+                },
+
+                speakerB: {
+                    name: "Anna",
+                    indonesian: "Papa-ku enam puluh tahun. Ibu-ku lima puluh tahun",
+                    mandarin: "我爸爸60歲，我媽媽50歲"
+                },
+
+                explanation: `
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            📚 生詞
+                        </h3>
+
+                        <ul class="explanation-list">
+
+                            <li><strong>Orang tua</strong> ＝ 父母</li>
+                            <li><strong>-mu</strong> ＝ 你的</li>
+                            <li><strong>-ku</strong> ＝ 我的</li>
+
+                        </ul>
+
+                    </div>
+
+                `
+            },
+
+
+            {
+                speakerA: {
+                    name: "David",
+                    indonesian: "Kamu berapa bersaudara?",
+                    mandarin: "你有幾個兄弟姊妹？"
+                },
+
+                speakerB: {
+                    name: "Anna",
+                    indonesian: "Aku punya kakak cowok satu, adik cewek satu",
+                    mandarin: "我有一個哥哥，一個妹妹"
+                },
+
+                explanation: `
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            📚 生詞
+                        </h3>
+
+                        <ul class="explanation-list">
+
+                            <li><strong>Bersaudara</strong> ＝ 兄弟姐妹</li>
+                            <li><strong>Kakak cowok</strong> ＝ 哥哥</li>
+                            <li><strong>Adik cewek</strong> ＝ 妹妹</li>
+                            <li><strong>Punya</strong> ＝ 有</li>
+                            <li><strong>Cowok</strong>（口語）＝ 男生</li>
+                            <li><strong>Cewek</strong>（口語）＝ 女生</li>
+                            <li><strong>Laki-laki</strong>（正式）＝ 男生</li>
+                            <li><strong>Perempuan</strong>（正式）＝ 女生</li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            📝 說明
+                        </h3>
+
+                        <div class="explanation-note">
+
+                            <p>
+                                「kakak」是對比自己年紀大、
+                                但看起來還比較年輕的人使用的稱呼。
+                            </p>
+
+                            <p>
+                                因為「kakak」這個詞本身沒有表示性別，
+                                所以如果要說得更清楚，
+                                通常會加上「男生」或「女生」來描述：
+                            </p>
+
+                            <ul class="explanation-list">
+
+                                <li>
+                                    kakak cowok / laki-laki
+                                    ＝ 哥哥
+                                </li>
+
+                                <li>
+                                    kakak cewek / perempuan
+                                    ＝ 姐姐
+                                </li>
+
+                            </ul>
+
+                            <p>
+                                但是在家庭以外，
+                                「kakak」有時候也可以用來稱呼
+                                比自己年長、但看起來比較年輕的人。
+                                這時候不一定是真的兄弟姊妹，
+                                比較像是一種比較禮貌的稱呼。
+                            </p>
+
+                            <p>
+                                「adik」則是對比自己年紀小的人
+                                使用的稱呼。
+                            </p>
+
+                            <p>
+                                因為「adik」本身也沒有表示性別，
+                                所以通常會用「男生」或「女生」來描述：
+                            </p>
+
+                            <ul class="explanation-list">
+
+                                <li>
+                                    adik cowok / laki-laki
+                                    ＝ 弟弟
+                                </li>
+
+                                <li>
+                                    adik cewek / perempuan
+                                    ＝ 妹妹
+                                </li>
+
+                            </ul>
+
+                            <p>
+                                在家庭以外，「adik」也可以用來稱呼
+                                比自己年輕的人。
+                                這種用法有點像「小朋友」，
+                                不一定代表真的有兄弟姊妹關係。
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `
+            }
+
+        ];
+
+
+        /* =====================================================
+           5 GAME QUESTIONS
+        ===================================================== */
+
+        const sentenceGames = [
+
+            {
+                sentence: [
+                    "Kamu",
+                    "umur",
+                    "berapa"
+                ],
+
+                translation:
+                    "你幾歲？"
+            },
+
+
+            {
+                sentence: [
+                    "Aku",
+                    "dua",
+                    "puluh",
+                    "lima",
+                    "tahun"
+                ],
+
+                translation:
+                    "我25歲。"
+            },
+
+
+            {
+                sentence: [
+                    "Dia",
+                    "umur",
+                    "berapa"
+                ],
+
+                translation:
+                    "他幾歲？"
+            },
+
+
+            {
+                sentence: [
+                    "Berapa",
+                    "umur",
+                    "orangtua-mu"
+                ],
+
+                translation:
+                    "你的父母幾歲？"
+            },
+
+
+            {
+                sentence: [
+                    "Kamu",
+                    "berapa",
+                    "bersaudara"
+                ],
+
+                translation:
+                    "你有幾個兄弟姊妹？"
+            }
+
+        ];
+
+
+        /* =====================================================
+           SHUFFLE
+        ===================================================== */
+
+        function shuffle(array) {
+
+            const result =
+                [...array];
+
+
+            for (
+                let i = result.length - 1;
+                i > 0;
+                i--
+            ) {
+
+                const j =
+                    Math.floor(
+                        Math.random() * (i + 1)
+                    );
+
+
+                [
+                    result[i],
+                    result[j]
+                ] = [
+                    result[j],
+                    result[i]
+                ];
+
+            }
+
+
+            return result;
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION STATE
+        ===================================================== */
+
+        let currentConversationIndex =
+            0;
+
+
+        /* =====================================================
+           RENDER CONVERSATION
+        ===================================================== */
+
+        function renderConversation() {
+
+            const container =
+                document.getElementById(
+                    "conversation-container"
+                );
+
+
+            if (!container) return;
+
+
+            const conversation =
+                conversations[
+                    currentConversationIndex
+                ];
+
+
+            const total =
+                conversations.length;
+
+
+            container.innerHTML = `
+
+                <div class="conversation-counter">
+
+                    對話
+                    ${currentConversationIndex + 1}
+                    / ${total}
+
+                </div>
+
+
+                ${renderSpeaker(
+                    conversation.speakerA
+                )}
+
+
+                <div class="dialogue-divider"></div>
+
+
+                ${renderSpeaker(
+                    conversation.speakerB
+                )}
+
+
+                <div class="conversation-actions">
+
+                    <button
+                        class="conversation-action-btn explanation-btn"
+                        id="explanation-toggle"
+                        type="button">
+
+                        📖 說明
+
+                    </button>
+
+
+                    <button
+                        class="conversation-action-btn next-btn"
+                        id="next-conversation"
+                        type="button">
+
+                        ${
+                            currentConversationIndex === total - 1
+                                ? "✓ 完成"
+                                : "→ 下一段"
+                        }
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="explanation-panel"
+                    id="explanation-panel">
+
+                    ${conversation.explanation}
+
+                </div>
+
+            `;
+
+
+            /*
+             * Conversation audio
+             */
+
+            container
+                .querySelectorAll(".audio-btn")
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            playAudio(
+                                button.dataset.text,
+                                button
+                            );
+
+                        }
+                    );
+
+                });
+
+
+            /*
+             * Explanation
+             */
+
+            const explanationButton =
+                document.getElementById(
+                    "explanation-toggle"
+                );
+
+
+            const explanationPanel =
+                document.getElementById(
+                    "explanation-panel"
+                );
+
+
+            explanationButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        explanationPanel.classList.toggle(
+                            "show"
+                        );
+
+
+                    explanationButton.textContent =
+                        isOpen
+                            ? "📖 關閉說明"
+                            : "📖 說明";
+
+                }
+            );
+
+
+            /*
+             * Next conversation
+             */
+
+            const nextButton =
+                document.getElementById(
+                    "next-conversation"
+                );
+
+
+            nextButton.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        currentConversationIndex
+                        <
+                        total - 1
+                    ) {
+
+                        currentConversationIndex++;
+
+                        renderConversation();
+
+                    } else {
+
+                        nextButton.textContent =
+                            "✓ 已完成";
+
+                        nextButton.disabled =
+                            true;
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           RENDER SPEAKER
+        ===================================================== */
+
+        function renderSpeaker(speaker) {
+
+            return `
+
+                <div class="speaker-row">
+
+                    <div class="speaker-name">
+
+                        ${speaker.name}
+
+                    </div>
+
+
+                    <div class="speaker-content">
+
+                        <div class="indonesian-row">
+
+                            <div class="indonesian-text">
+
+                                ${speaker.indonesian}
+
+                            </div>
+
+
+                            <button
+                                class="audio-btn"
+                                type="button"
+                                aria-label="播放印尼語"
+                                data-text="${escapeHtml(
+                                    speaker.indonesian
+                                )}">
+
+                                🔊
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="mandarin-text">
+
+                            ${speaker.mandarin}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           GAME STATE
+        ===================================================== */
+
+        let gameQuestions = [];
+
+        let currentGameIndex =
+            0;
+
+        let currentTokens = [];
+
+        let selectedWords = [];
+
+        let gameLocked = false;
+
+
+        /* =====================================================
+           START GAME
+        ===================================================== */
+
+        function startSentenceGame() {
+
+            /*
+             * 題目順序隨機
+             */
+
+            gameQuestions =
+                shuffle(
+                    sentenceGames
+                );
+
+
+            currentGameIndex =
+                0;
+
+
+            selectedWords = [];
+
+            currentTokens = [];
+
+            gameLocked = false;
+
+
+            renderSentenceGame();
+
+        }
+
+
+        /* =====================================================
+           RENDER GAME
+        ===================================================== */
+
+        function renderSentenceGame() {
+
+            const container =
+                document.getElementById(
+                    "sentence-game-container"
+                );
+
+
+            if (!container) return;
+
+
+            /*
+             * ALL FINISHED
+             */
+
+            if (
+                currentGameIndex
+                >=
+                gameQuestions.length
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="game-finished">
+
+                        <div class="game-finished-icon">
+                            🎉
+                        </div>
+
+                        <h3>
+                            全部完成！
+                        </h3>
+
+                        <p>
+                            你已完成全部
+                            ${gameQuestions.length}
+                            題。
+                        </p>
+
+                        <button
+                            class="game-restart-btn"
+                            id="restart-game"
+                            type="button">
+
+                            🔄 再玩一次
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById(
+                        "restart-game"
+                    )
+                    .addEventListener(
+                        "click",
+                        startSentenceGame
+                    );
+
+
+                return;
+
+            }
+
+
+            gameLocked =
+                false;
+
+
+            const question =
+                gameQuestions[
+                    currentGameIndex
+                ];
+
+
+            /*
+             * 建立 unique token
+             */
+
+            const tokens =
+                question.sentence.map(
+                    (word, index) => ({
+
+                        id: index,
+
+                        word: word
+
+                    })
+                );
+
+
+            /*
+             * 單字順序隨機
+             */
+
+            currentTokens =
+                shuffle(tokens);
+
+
+            /*
+             * 避免剛好和正確答案完全一樣
+             */
+
+            let attempts = 0;
+
+
+            while (
+
+                currentTokens.every(
+                    (token, index) =>
+                        token.id === index
+                )
+
+                &&
+
+                currentTokens.length > 1
+
+                &&
+
+                attempts < 20
+
+            ) {
+
+                currentTokens =
+                    shuffle(tokens);
+
+                attempts++;
+
+            }
+
+
+            selectedWords = [];
+
+
+            const progress =
+                (
+                    (currentGameIndex + 1)
+                    /
+                    gameQuestions.length
+                ) * 100;
+
+
+            container.innerHTML = `
+
+                <div class="game-progress">
+
+                    <div class="progress-text">
+
+                        第
+                        ${currentGameIndex + 1}
+                        題 / 共
+                        ${gameQuestions.length}
+                        題
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${progress}%">
+
+                    </div>
+
+                </div>
+
+
+                <div class="game-instruction">
+
+                    💡 點擊單字會播放印尼語發音，
+                    再依照正確順序組成句子。
+
+                </div>
+
+
+                <div class="game-question">
+
+                    請把下面的單字排列成正確的印尼語句子：
+
+                </div>
+
+
+                <div class="word-area-title">
+
+                    單字：
+
+                </div>
+
+
+                <div
+                    class="word-chips"
+                    id="available-words">
+
+                </div>
+
+
+                <div class="answer-area">
+
+                    <div class="word-area-title">
+
+                        你的答案：
+
+                    </div>
+
+
+                    <div
+                        class="answer-box"
+                        id="answer-box">
+
+                        <span class="empty-answer">
+
+                            請點擊上面的單字……
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="game-actions">
+
+                    <button
+                        class="check-btn"
+                        id="check-answer"
+                        type="button">
+
+                        ✓ 檢查答案
+
+                    </button>
+
+
+                    <button
+                        class="reset-btn"
+                        id="reset-answer"
+                        type="button">
+
+                        ↩ 重來
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="game-feedback"
+                    id="game-feedback">
+
+                </div>
+
+            `;
+
+
+            renderAvailableWords();
+
+
+            document
+                .getElementById(
+                    "check-answer"
+                )
+                .addEventListener(
+                    "click",
+                    checkSentenceAnswer
+                );
+
+
+            document
+                .getElementById(
+                    "reset-answer"
+                )
+                .addEventListener(
+                    "click",
+                    resetSentenceAnswer
+                );
+
+        }
+
+
+        /* =====================================================
+           AVAILABLE WORDS
+        ===================================================== */
+
+        function renderAvailableWords() {
+
+            const container =
+                document.getElementById(
+                    "available-words"
+                );
+
+
+            if (!container) return;
+
+
+            container.innerHTML = "";
+
+
+            currentTokens.forEach(
+                token => {
+
+                    const isSelected =
+                        selectedWords.some(
+                            selected =>
+                                selected.id ===
+                                token.id
+                        );
+
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "word-chip";
+
+
+                    button.textContent =
+                        token.word;
+
+
+                    button.disabled =
+                        isSelected;
+
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            if (gameLocked) {
+                                return;
+                            }
+
+
+                            /*
+                             * 🔊 播放該單字
+                             */
+
+                            playAudio(
+                                token.word,
+                                button
+                            );
+
+
+                            /*
+                             * 加入答案
+                             */
+
+                            selectWord(
+                                token
+                            );
+
+                        }
+                    );
+
+
+                    container.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           SELECT WORD
+        ===================================================== */
+
+        function selectWord(token) {
+
+            if (gameLocked) {
+                return;
+            }
+
+
+            const alreadySelected =
+                selectedWords.some(
+                    selected =>
+                        selected.id ===
+                        token.id
+                );
+
+
+            if (alreadySelected) {
+                return;
+            }
+
+
+            selectedWords.push(
+                token
+            );
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           RENDER ANSWER
+        ===================================================== */
+
+        function renderAnswer() {
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            if (!answerBox) return;
+
+
+            answerBox.innerHTML = "";
+
+
+            if (
+                selectedWords.length === 0
+            ) {
+
+                answerBox.innerHTML = `
+
+                    <span class="empty-answer">
+
+                        請點擊上面的單字……
+
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            selectedWords.forEach(
+                (token, index) => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "answer-chip";
+
+
+                    button.textContent =
+                        token.word;
+
+
+                    button.title =
+                        "點擊移除此單字";
+
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            if (gameLocked) {
+                                return;
+                            }
+
+
+                            /*
+                             * 點擊已選單字也播放一次
+                             */
+
+                            playAudio(
+                                token.word,
+                                button
+                            );
+
+
+                            removeSelectedWord(
+                                index
+                            );
+
+                        }
+                    );
+
+
+                    answerBox.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           REMOVE SELECTED WORD
+        ===================================================== */
+
+        function removeSelectedWord(
+            index
+        ) {
+
+            if (gameLocked) {
+                return;
+            }
+
+
+            selectedWords.splice(
+                index,
+                1
+            );
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           RESET ANSWER
+        ===================================================== */
+
+        function resetSentenceAnswer() {
+
+            if (gameLocked) {
+                return;
+            }
+
+
+            selectedWords = [];
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           CHECK ANSWER
+        ===================================================== */
+
+        function checkSentenceAnswer() {
+
+            if (gameLocked) {
+                return;
+            }
+
+
+            const question =
+                gameQuestions[
+                    currentGameIndex
+                ];
+
+
+            const userAnswer =
+                selectedWords.map(
+                    token =>
+                        token.word
+                );
+
+
+            const correctAnswer =
+                question.sentence;
+
+
+            const isCorrect =
+
+                userAnswer.length
+                ===
+                correctAnswer.length
+
+                &&
+
+                userAnswer.every(
+                    (word, index) =>
+                        word ===
+                        correctAnswer[index]
+                );
+
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            const feedback =
+                document.getElementById(
+                    "game-feedback"
+                );
+
+
+            /*
+             * CORRECT
+             */
+
+            if (isCorrect) {
+
+                gameLocked =
+                    true;
+
+
+                answerBox.classList.remove(
+                    "incorrect"
+                );
+
+
+                answerBox.classList.add(
+                    "correct"
+                );
+
+
+                feedback.className =
+                    "game-feedback show correct";
+
+
+                feedback.innerHTML = `
+
+                    🎉 答對了！
+
+                    <div class="correct-sentence">
+
+                        ${correctAnswer.join(" ")}
+
+                    </div>
+
+                    <div>
+
+                        ${question.translation}
+
+                    </div>
+
+                `;
+
+
+                /*
+                 * 播放完整句子
+                 */
+
+                setTimeout(
+                    () => {
+
+                        playAudio(
+                            correctAnswer.join(" ")
+                        );
+
+                    },
+                    100
+                );
+
+
+                /*
+                 * 下一題
+                 */
+
+                setTimeout(
+                    () => {
+
+                        currentGameIndex++;
+
+                        renderSentenceGame();
+
+                    },
+                    1500
+                );
+
+
+                return;
+
+            }
+
+
+            /*
+             * WRONG
+             */
+
+            answerBox.classList.remove(
+                "correct"
+            );
+
+
+            answerBox.classList.add(
+                "incorrect"
+            );
+
+
+            feedback.className =
+                "game-feedback show incorrect";
+
+
+            feedback.innerHTML = `
+
+                ❌ 還不對喔。
+
+                <br>
+
+                再試試看單字的順序！
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           CLEAR FEEDBACK
+        ===================================================== */
+
+        function clearFeedback() {
+
+            const feedback =
+                document.getElementById(
+                    "game-feedback"
+                );
+
+
+            const answerBox =
+                document.getElementById(
+                    "answer-box"
+                );
+
+
+            if (feedback) {
+
+                feedback.className =
+                    "game-feedback";
+
+                feedback.innerHTML =
+                    "";
+
+            }
+
+
+            if (answerBox) {
+
+                answerBox.classList.remove(
+                    "correct",
+                    "incorrect"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                );
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                renderQuiz();
+
+                renderConversation();
+
+                startSentenceGame();
+
+            }
+        );
+
+    </script>
+
+
+    <!--
+        Shared template
+        Karena file berada di /lessons/,
+        script.js berada satu folder di atas.
+    -->
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
