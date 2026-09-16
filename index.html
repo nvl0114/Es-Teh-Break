@@ -5,312 +5,282 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Es Teh Break｜輕鬆學印尼文</title>
+    <title>Es Teh Break</title>
 
-    <meta
-        name="description"
-        content="Es Teh Break 是一個以日常生活口語為主的印尼文學習網站。"
-    >
+    <!-- Font Awesome (sudah dipakai juga di template.html) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        body {
-            background-color: #f7f9fc;
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+
+        .courses-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
         }
 
-        .main {
-            width: 100%;
-            max-width: 680px;
-        }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        /* 共用卡片樣式 */
-        .card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 36px 32px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card h1,
-        .card h2 {
-            color: #333333;
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card p {
-            color: #555555;
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 14px;
-        }
-
-        .card p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* 歡迎卡片：黃色系 */
-        .intro-card {
-            border: 3px solid #ffe082;
-            box-shadow: 0 10px 25px rgba(255, 224, 130, 0.3);
-        }
-
-        .intro-card::before {
-            content: "✨";
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 24px;
-            opacity: 0.6;
-        }
-
-        /* 簡短介紹卡片：藍色系 */
-        .about-card {
-            border: 3px solid #90caf9;
-            box-shadow: 0 10px 25px rgba(144, 202, 249, 0.25);
-        }
-
-        .about-card::before {
-            content: "📖";
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 24px;
-            opacity: 0.6;
-        }
-
-        /* 為什麼學印尼文卡片：綠色系 */
-        .why-card {
-            border: 3px solid #a5d6a7;
-            box-shadow: 0 10px 25px rgba(165, 214, 167, 0.25);
-        }
-
-        .why-card::before {
-            content: "🌏";
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 24px;
-            opacity: 0.6;
-        }
-
-        .why-card ul {
-            color: #555555;
-            font-size: 16px;
-            line-height: 1.8;
-            padding-left: 20px;
-            margin: 0 0 14px 0;
-        }
-
-        .why-card li {
+        .courses-title {
+            text-align: center;
+            color: #5c4033;
             margin-bottom: 8px;
         }
 
-        /* 網站特色卡片：粉色系 */
-        .feature-card {
-            border: 3px solid #f48fb1;
-            box-shadow: 0 10px 25px rgba(244, 143, 177, 0.25);
+        .courses-subtitle {
+            text-align: center;
+            color: #9b7a65;
+            font-size: 14px;
+            margin-bottom: 25px;
         }
 
-        .feature-card::before {
-            content: "🧋";
+        /* Search bar */
+        .courses-search-wrap {
+            position: relative;
+            max-width: 480px;
+            margin: 0 auto 30px;
+        }
+
+        .courses-search-wrap i {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 24px;
-            opacity: 0.6;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            color: #b0937e;
         }
 
-        .feature-list {
+        #course-search {
+            width: 100%;
+            padding: 13px 16px 13px 42px;
+            border: 1px solid #e6d5c3;
+            border-radius: 30px;
+            background: #fff8ef;
+            color: #5c4033;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        #course-search:focus {
+            border-color: #b8865c;
+            box-shadow: 0 0 0 3px rgba(184, 134, 92, 0.15);
+        }
+
+        /* Card grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .course-card {
+            background: #fff8ef;
+            border: 1px solid #e6d5c3;
+            border-radius: 15px;
+            padding: 22px 20px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-bottom: 0;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(92, 64, 51, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .feature-item {
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(92, 64, 51, 0.12);
+        }
+
+        .course-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fff2e5;
+            color: #a87958;
+            font-size: 24px;
             display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .feature-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .feature-text {
-            color: #555555;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        .feature-text strong {
-            color: #333333;
-        }
-
-        /* 開始學習按鈕 */
-        .cta-wrapper {
-            display: flex;
+            align-items: center;
             justify-content: center;
+            margin-bottom: 14px;
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #ffb300;
-            color: #ffffff;
+        .course-name {
             font-size: 17px;
-            font-weight: 700;
+            font-weight: bold;
+            color: #5c4033;
+            margin-bottom: 8px;
+        }
+
+        .course-desc {
+            font-size: 13.5px;
+            color: #8b6d5c;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+
+        .course-start-btn {
+            border: none;
+            background: #b8865c;
+            color: #fff8ef;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
             text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 999px;
-            box-shadow: 0 8px 20px rgba(255, 179, 0, 0.35);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: background 0.2s ease;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(255, 179, 0, 0.45);
+        .course-start-btn:hover {
+            background: #a2724c;
         }
 
-        /* 底部小語的可愛提示框 */
-        .intro-note {
-            background-color: #fff9e6;
-            border-left: 5px solid #ffb300;
-            padding: 16px 20px;
-            border-radius: 0 16px 16px 0;
-            color: #795548;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* Empty state saat search tidak ketemu */
+        .courses-empty {
+            display: none;
+            text-align: center;
+            color: #9b7a65;
+            padding: 40px 10px;
         }
+
+        .courses-empty .emoji {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .courses-container { padding: 15px; }
+            .courses-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+            .course-card { padding: 18px 14px; }
+        }
+
     </style>
 </head>
 
 <body>
 
-    <!-- 共用模板 -->
+    <!-- 載入共用模板 -->
     <div id="app"></div>
 
+    <!-- Courses Content -->
+    <!-- id="page-source" wajib ada, supaya script.js bisa pindahkan
+         konten ini ke #page-content di dalam template -->
+    <main id="page-source" class="courses-container">
 
-    <!-- 首頁內容 -->
-    <main class="main">
+        <h1 class="courses-title">你想學什麼？</h1>
+        <p class="courses-subtitle">選一個主題，或直接搜尋你想學的內容 🧊🍵</p>
 
-        <div class="content">
+        <div class="courses-search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+                type="text"
+                id="course-search"
+                placeholder="搜尋課程，例如：點餐、問路...">
+        </div>
 
-            <!-- 歡迎 -->
-            <section class="card intro-card">
-                <h1>🧊🍵 歡迎來到 Es Teh Break！</h1>
-                <p>
-                    找一個舒服的角落，泡杯冰茶，
-                    我們一起用最輕鬆的方式，
-                    走進印尼文的日常生活。
-                </p>
-            </section>
+        <div class="courses-grid" id="courses-grid">
 
-            <!-- 簡短介紹 -->
-            <section class="card about-card">
-                <h2>📖 這是一個什麼樣的網站？</h2>
-                <p>
-                    Es Teh Break 主要教你日常生活中真的會用到的印尼文，
-                    從一開始，我們就以輕鬆、自然的口語為主。
-                </p>
-                <p>
-                    印尼文有比較正式的說法，通常會在學校、正式場合
-                    或書面文章中看到，但這些說法如果直接拿來日常聊天，
-                    聽起來可能會有點不自然。
-                </p>
-                <p>
-                    所以在這裡，我們更注重生活中實際會說的印尼文，
-                    讓你學到的不只是「正確的印尼文」，
-                    也能慢慢習慣印尼人平常聊天時的說法。
-                </p>
-            </section>
+            
+<div class="course-card" data-title="印尼文 ABC 字母" data-desc="從 A 到 Z 認識印尼文的字母與發音">
+    <div class="course-icon"><i class="fa-solid fa-font"></i></div>
+    <div class="course-name">印尼文 ABC 字母</div>
+    <div class="course-desc">從 A 到 Z 認識印尼文的字母、發音和基本拼讀方式，輕鬆學會印尼文的 ABC。</div>
+    <a class="course-start-btn" href="lessons/1-alfabet.html">開始學習</a>
+</div>
 
-            <!-- 為什麼要學印尼文 -->
-            <section class="card why-card">
-                <h2>🌏 為什麼要學印尼文？</h2>
-                <p>
-                    印尼是東南亞人口最多的國家，也是全世界使用人數
-                    數一數二的語言之一，但相較於英文、日文，
-                    學習資源卻少了很多。
-                </p>
-                <ul>
-                    <li>工作、生活或旅行在印尼會更方便、更自在</li>
-                    <li>能直接聽懂印尼朋友、同事平常在聊什麼</li>
-                    <li>印尼文文法相對簡單，發音也很直覺，入門門檻低</li>
-                    <li>學一個比較少人教的語言，反而更容易被看見、被需要</li>
-                </ul>
-                <p>
-                    這些都是值得花時間學印尼文的理由，
-                    而 Es Teh Break 想做的，就是把這條路走得輕鬆一點。
-                </p>
-            </section>
+<div class="course-card" data-title="打招呼與問候" data-desc="學習日常生活中常用的打招呼與問候用語">
+    <div class="course-icon"><i class="fa-solid fa-hand-peace"></i></div>
+    <div class="course-name">打招呼與問候</div>
+    <div class="course-desc">學習日常生活中常用的打招呼與問候用語。</div>
+    <a class="course-start-btn" href="lessons/2-salam.html">開始學習</a>
+</div>
 
-            <!-- 網站特色 -->
-            <section class="card feature-card">
-                <h2>🧋 這個網站有什麼特別的？</h2>
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <span class="feature-icon">🗣️</span>
-                        <span class="feature-text">
-                            <strong>生活口語優先：</strong>教你印尼人真正會說的話，不只是教科書用語。
-                        </span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🖼️</span>
-                        <span class="feature-text">
-                            <strong>Pilih Gambar 圖片互動測驗：</strong>用看圖選字的方式練習，記憶更直覺。
-                        </span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🈶</span>
-                        <span class="feature-text">
-                            <strong>全繁體中文講解：</strong>專為中文使用者設計，不用透過英文轉一手。
-                        </span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">💸</span>
-                        <span class="feature-text">
-                            <strong>完全免費：</strong>沒有廣告轟炸、沒有付費牆，想學隨時都能學。
-                        </span>
-                    </div>
-                </div>
-            </section>
+            <div class="course-card" data-title="自我介紹與道別" data-desc="學習介紹自己的名字、來自哪裡，以及日常生活中常用的道別與提醒用語">
+    <div class="course-icon"><i class="fa-solid fa-address-card"></i></div>
+    <div class="course-name">自我介紹與道別</div>
+    <div class="course-desc">學習介紹自己的名字、來自哪裡，以及日常生活中常用的道別與提醒用語。</div>
+    <a class="course-start-btn" href="lessons/3-perkenalan.html">開始學習</a>
+</div>
 
-            <div class="cta-wrapper">
-                <a class="cta-button" href="lessons.html">🚀 開始學習</a>
+            <div class="course-card" data-title="點餐與購物" data-desc="在餐廳點餐、市場或商店購物時的常用句子">
+                <div class="course-icon"><i class="fa-solid fa-utensils"></i></div>
+                <div class="course-name">點餐與購物</div>
+                <div class="course-desc">餐廳點餐、市場買東西、殺價，通通都能自己來。</div>
+                <a class="course-start-btn" href="survival.html">開始學習</a>
             </div>
 
-            <div class="intro-note">
-                🧊🍵 不用急，慢慢學，從生活中最常用的印尼文開始。
+            <div class="course-card" data-title="交通與問路" data-desc="搭車、問路、叫車常用的說法">
+                <div class="course-icon"><i class="fa-solid fa-route"></i></div>
+                <div class="course-name">交通與問路</div>
+                <div class="course-desc">迷路了怎麼問？搭計程車、公車怎麼說？這裡都有。</div>
+                <a class="course-start-btn" href="survival.html">開始學習</a>
+            </div>
+
+            <div class="course-card" data-title="工作場合溝通" data-desc="工作上簡單溝通、開會常用的表達">
+                <div class="course-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="course-name">工作場合溝通</div>
+                <div class="course-desc">在工作環境裡，跟印尼同事簡單溝通所需要的句子。</div>
+                <a class="course-start-btn" href="lessons.html">開始學習</a>
+            </div>
+
+            <div class="course-card" data-title="聽力練習" data-desc="練習聽懂印尼人平常說話的語速與語氣">
+                <div class="course-icon"><i class="fa-solid fa-headphones"></i></div>
+                <div class="course-name">聽力練習</div>
+                <div class="course-desc">練習聽懂印尼人平常聊天的語速，不再只聽得懂課本錄音。</div>
+                <a class="course-start-btn" href="listening.html">開始學習</a>
             </div>
 
         </div>
 
+        <div class="courses-empty" id="courses-empty">
+            <div class="emoji">🧊🍵</div>
+            <p>找不到符合的課程，換個關鍵字試試看～</p>
+        </div>
+
     </main>
 
+    <!-- 載入 script.js -->
+    <script src="script.js"></script>
+
+    <!-- Search Script -->
+    <!-- FIX: pakai event delegation di document, BUKAN ambil #course-search
+         langsung pas parsing. Soalnya script.js membongkar #page-source lalu
+         menyusun ulang jadi HTML string baru, jadi input & card yang ada
+         sekarang bakal jadi elemen baru yang belum ada listener-nya. -->
+    <script>
+        document.addEventListener("input", (event) => {
+
+            if (event.target.id !== "course-search") return;
+
+            const keyword = event.target.value.trim().toLowerCase();
+
+            const cards = document.querySelectorAll("#courses-grid .course-card");
+            const emptyState = document.getElementById("courses-empty");
+
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+
+                const title = (card.dataset.title || "").toLowerCase();
+                const desc = (card.dataset.desc || "").toLowerCase();
+
+                const isMatch =
+                    keyword === "" ||
+                    title.includes(keyword) ||
+                    desc.includes(keyword);
+
+                card.style.display = isMatch ? "" : "none";
+
+                if (isMatch) visibleCount++;
+
+            });
+
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? "block" : "none";
+            }
+
+        });
+    </script>
 
 </body>
 
