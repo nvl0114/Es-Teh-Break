@@ -10,6 +10,7 @@
     <title>Es Teh Break｜輕鬆學印尼語</title>
 
     <style>
+
         /* =====================================
            基本設定
         ===================================== */
@@ -26,9 +27,6 @@
             --brown: #96634d;
             --brown-dark: #704a35;
             --text: #191919;
-            --muted: #6e625b;
-            --green: #cceebd;
-            --blue: #8bc3df;
         }
 
         html {
@@ -46,6 +44,9 @@
             background: var(--cream);
             color: var(--text);
             min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
         }
 
         a {
@@ -57,31 +58,39 @@
             font: inherit;
         }
 
+
         /* =====================================
            頂部導覽列
         ===================================== */
 
         .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            width: 100%;
+            min-height: 76px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            min-height: 76px;
             padding: 0 6%;
 
-            background: rgba(255, 253, 249, 0.96);
+            background: #fffdf9;
             border-bottom: 1px solid #eaded2;
-            backdrop-filter: blur(12px);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
+
+
+        /* =====================================
+           品牌 LOGO
+        ===================================== */
 
         .brand {
             display: flex;
             align-items: center;
             gap: 10px;
+
             flex-shrink: 0;
         }
 
@@ -103,6 +112,11 @@
             color: #a08370;
         }
 
+
+        /* =====================================
+           導覽選單
+        ===================================== */
+
         .nav-links {
             display: flex;
             align-items: center;
@@ -112,7 +126,8 @@
         .nav-links a {
             font-size: 15px;
             font-weight: 600;
-            transition: color 0.2s;
+
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -121,6 +136,7 @@
 
         .nav-links .nav-cta {
             padding: 11px 22px;
+
             border-radius: 30px;
             background: var(--brown);
             color: white;
@@ -131,362 +147,85 @@
             color: white;
         }
 
+
+        /* =====================================
+           手機選單按鈕
+        ===================================== */
+
         .menu-button {
             display: none;
+
             width: 42px;
             height: 42px;
 
             border: none;
             border-radius: 12px;
+
             background: #fff0df;
             color: var(--brown-dark);
+
             font-size: 23px;
             cursor: pointer;
         }
 
-        /* =====================================
-           首頁主視覺
-        ===================================== */
-
-        .hero {
-            position: relative;
-            overflow: hidden;
-
-            display: grid;
-            grid-template-columns: 0.95fr 1.05fr;
-            align-items: center;
-
-            gap: 50px;
-            max-width: 1400px;
-            min-height: 660px;
-
-            margin: 0 auto;
-            padding: 65px 6% 80px;
-        }
-
-        /* 背景裝飾 */
-
-        .hero::before {
-            content: "";
-            position: absolute;
-
-            width: 450px;
-            height: 350px;
-
-            top: -150px;
-            left: -180px;
-
-            border-radius: 50%;
-            background: #f8e6c9;
-            opacity: 0.7;
-
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-
-            width: 550px;
-            height: 240px;
-
-            right: -180px;
-            bottom: -150px;
-
-            border-radius: 50%;
-            background: #f8e6c9;
-            opacity: 0.65;
-
-            pointer-events: none;
-        }
 
         /* =====================================
-           左側圖片區
+           空白內容區域
+           
+           其他 HTML 頁面可以在這裡
+           放入自己的內容。
         ===================================== */
 
-        .hero-visual {
-            position: relative;
-            min-width: 0;
-            z-index: 1;
-        }
-
-        .main-photo {
-            position: relative;
+        main {
+            flex: 1;
             width: 100%;
-            max-width: 510px;
-            aspect-ratio: 0.94;
-
-            overflow: hidden;
-            border: 12px solid var(--brown);
-            border-radius: 48% 48% 44% 44%;
-
-            background: #f2d18b;
-        }
-
-        .main-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .drink-photo {
-            position: absolute;
-            top: -65px;
-            right: -35px;
-
-            width: 175px;
-            aspect-ratio: 1;
-
-            overflow: hidden;
-            border: 9px solid var(--brown);
-            border-radius: 50%;
-
-            background: #e6c5a5;
-        }
-
-        .drink-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .visual-note {
-            position: absolute;
-            bottom: 30px;
-            left: -15px;
-
-            padding: 13px 19px;
-            border-radius: 18px;
-
-            background: #fffdf9;
-            color: var(--brown-dark);
-
-            font-size: 14px;
-            font-weight: 700;
-
-            box-shadow: 0 5px 20px rgba(92, 64, 51, 0.12);
-        }
-
-        /* =====================================
-           右側文字區
-        ===================================== */
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-
-            text-align: center;
             min-width: 0;
         }
 
-        .eyebrow {
-            display: inline-block;
-
-            margin-bottom: 18px;
-            padding: 9px 18px;
-
-            border-radius: 30px;
-            background: #f4e3cf;
-
-            color: var(--brown-dark);
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
+        #page-content {
+            width: 100%;
+            min-height: 0;
         }
 
-        .hero-title {
-            margin-bottom: 14px;
-
-            font-family:
-                Georgia,
-                "Noto Serif TC",
-                serif;
-
-            font-size: clamp(46px, 6vw, 82px);
-            font-weight: 900;
-            font-style: italic;
-            line-height: 1.05;
-
-            color: #080808;
-            letter-spacing: -2px;
-        }
-
-        .hero-heading {
-            margin-bottom: 25px;
-
-            font-size: clamp(20px, 2.5vw, 31px);
-            font-weight: 800;
-            line-height: 1.5;
-        }
-
-        .hero-description {
-            max-width: 580px;
-            margin: 0 auto 30px;
-
-            color: #514841;
-            font-size: 17px;
-            line-height: 2;
-        }
-
-        .hero-description strong {
-            color: var(--brown-dark);
-        }
-
-        /* =====================================
-           按鈕
-        ===================================== */
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-
-            margin-bottom: 32px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-width: 190px;
-            padding: 13px 24px;
-
-            border-radius: 30px;
-            border: 1px solid transparent;
-
-            font-size: 17px;
-            font-weight: 700;
-
-            transition:
-                transform 0.2s,
-                background 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .btn-green {
-            background: var(--green);
-            color: #20351c;
-        }
-
-        .btn-green:hover {
-            background: #b9e5a8;
-        }
-
-        .btn-blue {
-            background: var(--blue);
-            color: #173345;
-        }
-
-        .btn-blue:hover {
-            background: #76b5d5;
-        }
-
-        .hero-url {
-            display: inline-block;
-            color: #28211d;
-
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .hero-url:hover {
-            color: var(--brown);
-        }
-
-        /* =====================================
-           學習特色
-        ===================================== */
-
-        .features {
-            padding: 70px 6% 85px;
-            background: #fffdf9;
-        }
-
-        .section-heading {
-            margin-bottom: 12px;
-
-            color: var(--brown-dark);
-            font-size: 30px;
-            font-weight: 800;
-            text-align: center;
-        }
-
-        .section-description {
-            margin-bottom: 40px;
-
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            padding: 30px 24px;
-
-            border: 1px solid #f0dfcf;
-            border-radius: 24px;
-
-            background: var(--cream);
-            text-align: center;
-
-            transition: transform 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            margin-bottom: 16px;
-            font-size: 38px;
-        }
-
-        .feature-card h3 {
-            margin-bottom: 12px;
-            color: var(--brown-dark);
-            font-size: 19px;
-        }
-
-        .feature-card p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.9;
-        }
 
         /* =====================================
            頁尾
         ===================================== */
 
         .footer {
-            padding: 28px 6%;
-            background: #f8e6c9;
+            width: 100%;
 
+            padding: 28px 6%;
+
+            background: var(--cream-dark);
             color: var(--brown-dark);
+
             text-align: center;
         }
 
-        .footer p {
+        .footer-brand {
+            margin-bottom: 8px;
+
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            margin-bottom: 6px;
+
             font-size: 13px;
             line-height: 1.8;
         }
 
+        .footer-copyright {
+            font-size: 12px;
+            line-height: 1.8;
+            color: #806553;
+        }
+
+
         /* =====================================
-           手機版
+           平板與手機版
         ===================================== */
 
         @media (max-width: 850px) {
@@ -504,6 +243,7 @@
 
             .nav-links {
                 position: absolute;
+
                 top: 68px;
                 left: 0;
                 right: 0;
@@ -531,43 +271,12 @@
                 margin-top: 8px;
                 text-align: center;
             }
-
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 55px;
-
-                padding: 70px 7% 75px;
-            }
-
-            .hero-visual {
-                width: 100%;
-                max-width: 470px;
-                margin: 0 auto;
-            }
-
-            .main-photo {
-                max-width: 100%;
-            }
-
-            .drink-photo {
-                width: 145px;
-                right: -10px;
-            }
-
-            .hero-content {
-                max-width: 650px;
-                margin: 0 auto;
-            }
-
-            .hero-description {
-                font-size: 16px;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
         }
+
+
+        /* =====================================
+           小螢幕
+        ===================================== */
 
         @media (max-width: 480px) {
 
@@ -580,73 +289,26 @@
                 font-size: 17px;
             }
 
-            .hero {
-                padding: 55px 6% 65px;
-                gap: 45px;
+            .brand-subtitle {
+                font-size: 10px;
             }
 
-            .main-photo {
-                border-width: 8px;
+            .footer {
+                padding: 24px 5%;
             }
 
-            .drink-photo {
-                top: -35px;
-                right: -5px;
-                width: 105px;
-                border-width: 6px;
-            }
-
-            .visual-note {
-                bottom: 18px;
-                left: -5px;
-
-                padding: 10px 13px;
+            .footer-description {
                 font-size: 12px;
             }
-
-            .hero-title {
-                font-size: 48px;
-                letter-spacing: -1px;
-            }
-
-            .hero-heading {
-                font-size: 21px;
-            }
-
-            .hero-description {
-                font-size: 15px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-
-            .btn {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .hero-url {
-                font-size: 15px;
-                overflow-wrap: anywhere;
-            }
-
-            .features {
-                padding: 55px 6%;
-            }
-
-            .section-heading {
-                font-size: 25px;
-            }
         }
+
 
         /* =====================================
            減少動態效果
         ===================================== */
 
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
@@ -656,6 +318,7 @@
         }
 
     </style>
+
 </head>
 
 <body>
@@ -666,11 +329,16 @@
 
     <header class="topbar">
 
+        <!-- 品牌 LOGO -->
+
         <a href="index.html" class="brand">
 
-            <img src="logo.png" alt="Es Teh Break 標誌">
+            <img
+                src="logo.png"
+                alt="Es Teh Break 標誌">
 
             <div>
+
                 <div class="brand-name">
                     Es Teh Break
                 </div>
@@ -678,9 +346,13 @@
                 <div class="brand-subtitle">
                     輕鬆學印尼語
                 </div>
+
             </div>
 
         </a>
+
+
+        <!-- 手機選單按鈕 -->
 
         <button
             class="menu-button"
@@ -692,6 +364,9 @@
             ☰
 
         </button>
+
+
+        <!-- 導覽選單 -->
 
         <nav class="nav-links" id="navLinks">
 
@@ -721,164 +396,19 @@
 
 
     <!-- =====================================
-         首頁主視覺
+         主要內容區域
+
+         保持空白。
+         其他頁面的內容可以放在這裡。
     ===================================== -->
 
     <main>
 
-        <section class="hero" id="home">
+        <div id="page-content">
 
-            <!-- 左側圖片 -->
+            <!-- 頁面內容放在這裡 -->
 
-            <div class="hero-visual">
-
-                <div class="main-photo">
-
-                    <img
-                        src="hero-woman.png"
-                        alt="輕鬆學習印尼語的女孩">
-
-                </div>
-
-                <div class="drink-photo">
-
-                    <img
-                        src="es-teh.png"
-                        alt="印尼冰紅茶 Es Teh">
-
-                </div>
-
-                <div class="visual-note">
-                    🧊🍵 一杯冰茶，一點印尼語
-                </div>
-
-            </div>
-
-
-            <!-- 右側介紹 -->
-
-            <div class="hero-content">
-
-                <div class="eyebrow">
-                    SELAMAT DATANG！
-                </div>
-
-                <h1 class="hero-title">
-                    Es Teh Break
-                </h1>
-
-                <h2 class="hero-heading">
-                    用一杯冰茶的時間，<br>
-                    輕鬆學會印尼語！
-                </h2>
-
-                <p class="hero-description">
-
-                    歡迎來到 <strong>Es Teh Break</strong>！
-
-                    這是一個專為台灣學習者打造的印尼語學習空間。
-
-                    我們用生活化的例句、簡單的解說，
-                    帶你學會印尼人日常真正會說的
-                    <strong>印尼語口語表達</strong>。
-
-                    不用害怕說錯，也不用急著背完所有單字。
-                    讓我們一起從簡單的問候、聊天和日常對話開始，
-                    慢慢建立說印尼語的信心！
-
-                </p>
-
-                <div class="hero-buttons">
-
-                    <a href="lessons.html" class="btn btn-green">
-                        開始學習 →
-                    </a>
-
-                    <a href="about.html" class="btn btn-blue">
-                        認識 Es Teh Break
-                    </a>
-
-                </div>
-
-                <a href="index.html" class="hero-url">
-                    www.estehbreak.com
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================
-             學習特色
-        ===================================== -->
-
-        <section class="features" id="features">
-
-            <h2 class="section-heading">
-                在 Es Teh Break，你可以學到什麼？
-            </h2>
-
-            <p class="section-description">
-                不只是背單字，更要學會自然地用印尼語聊天。
-            </p>
-
-            <div class="feature-grid">
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        💬
-                    </div>
-
-                    <h3>
-                        日常生活會話
-                    </h3>
-
-                    <p>
-                        從打招呼、自我介紹到日常聊天，
-                        學會印尼人生活中常用的表達方式。
-                    </p>
-
-                </article>
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        📖
-                    </div>
-
-                    <h3>
-                        印尼語口語詞彙
-                    </h3>
-
-                    <p>
-                        認識正式用語與日常口語的差別，
-                        讓你更了解印尼人的說話習慣。
-                    </p>
-
-                </article>
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        🧊
-                    </div>
-
-                    <h3>
-                        輕鬆學習不緊張
-                    </h3>
-
-                    <p>
-                        透過簡單例句和生活情境，
-                        用自己的步調慢慢學會印尼語。
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
+        </div>
 
     </main>
 
@@ -889,15 +419,15 @@
 
     <footer class="footer">
 
-        <p>
+        <div class="footer-brand">
             🧊🍵 Es Teh Break
-        </p>
+        </div>
 
-        <p>
+        <p class="footer-description">
             輕鬆學印尼語，讓語言成為連結彼此的橋樑。
         </p>
 
-        <p>
+        <p class="footer-copyright">
             © 2026 Es Teh Break. All Rights Reserved.
         </p>
 
@@ -905,7 +435,7 @@
 
 
     <!-- =====================================
-         手機版選單
+         手機選單功能
     ===================================== -->
 
     <script>
@@ -916,6 +446,8 @@
         const navLinks =
             document.getElementById("navLinks");
 
+
+        // 開啟與關閉選單
 
         menuButton.addEventListener("click", function () {
 
@@ -938,7 +470,7 @@
         });
 
 
-        // 點選導覽連結後，自動關閉手機選單
+        // 點選選單後自動關閉
 
         navLinks.querySelectorAll("a").forEach(function (item) {
 
@@ -965,4 +497,5 @@
     </script>
 
 </body>
+
 </html>
