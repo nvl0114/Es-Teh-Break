@@ -1,157 +1,658 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Es Teh Break</title>
-
-    <!-- Font Awesome (sudah dipakai juga di template.html) -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Es Teh Break｜輕鬆學印尼語</title>
 
     <style>
+        /* =====================================
+           基本設定
+        ===================================== */
 
-        .courses-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            font-family: Arial, sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .courses-title {
-            text-align: center;
-            color: #5c4033;
-            margin-bottom: 8px;
+        :root {
+            --cream: #fff8ef;
+            --cream-dark: #f8e6c9;
+            --brown: #96634d;
+            --brown-dark: #704a35;
+            --text: #191919;
+            --muted: #6e625b;
+            --green: #cceebd;
+            --blue: #8bc3df;
         }
 
-        .courses-subtitle {
-            text-align: center;
-            color: #9b7a65;
-            font-size: 14px;
-            margin-bottom: 25px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Search bar */
-        .courses-search-wrap {
-            position: relative;
-            max-width: 480px;
-            margin: 0 auto 30px;
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Noto Sans TC",
+                sans-serif;
+
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        .courses-search-wrap i {
-            position: absolute;
-            top: 50%;
-            left: 16px;
-            transform: translateY(-50%);
-            color: #b0937e;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        #course-search {
-            width: 100%;
-            padding: 13px 16px 13px 42px;
-            border: 1px solid #e6d5c3;
-            border-radius: 30px;
-            background: #fff8ef;
-            color: #5c4033;
-            font-size: 15px;
-            outline: none;
-            transition: 0.2s ease;
+        button {
+            font: inherit;
         }
 
-        #course-search:focus {
-            border-color: #b8865c;
-            box-shadow: 0 0 0 3px rgba(184, 134, 92, 0.15);
-        }
+        /* =====================================
+           頂部導覽列
+        ===================================== */
 
-        /* Card grid */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 18px;
-        }
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
 
-        .course-card {
-            background: #fff8ef;
-            border: 1px solid #e6d5c3;
-            border-radius: 15px;
-            padding: 22px 20px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-align: center;
-            box-shadow: 0 3px 8px rgba(92, 64, 51, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            justify-content: space-between;
+
+            min-height: 76px;
+            padding: 0 6%;
+
+            background: rgba(255, 253, 249, 0.96);
+            border-bottom: 1px solid #eaded2;
+            backdrop-filter: blur(12px);
         }
 
-        .course-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(92, 64, 51, 0.12);
-        }
-
-        .course-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #fff2e5;
-            color: #a87958;
-            font-size: 24px;
+        .brand {
             display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--brown-dark);
+        }
+
+        .brand-subtitle {
+            margin-top: 3px;
+            font-size: 11px;
+            color: #a08370;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 38px;
+        }
+
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--brown);
+        }
+
+        .nav-links .nav-cta {
+            padding: 11px 22px;
+            border-radius: 30px;
+            background: var(--brown);
+            color: white;
+        }
+
+        .nav-links .nav-cta:hover {
+            background: var(--brown-dark);
+            color: white;
+        }
+
+        .menu-button {
+            display: none;
+            width: 42px;
+            height: 42px;
+
+            border: none;
+            border-radius: 12px;
+            background: #fff0df;
+            color: var(--brown-dark);
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        /* =====================================
+           首頁主視覺
+        ===================================== */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            align-items: center;
+
+            gap: 50px;
+            max-width: 1400px;
+            min-height: 660px;
+
+            margin: 0 auto;
+            padding: 65px 6% 80px;
+        }
+
+        /* 背景裝飾 */
+
+        .hero::before {
+            content: "";
+            position: absolute;
+
+            width: 450px;
+            height: 350px;
+
+            top: -150px;
+            left: -180px;
+
+            border-radius: 50%;
+            background: #f8e6c9;
+            opacity: 0.7;
+
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+
+            width: 550px;
+            height: 240px;
+
+            right: -180px;
+            bottom: -150px;
+
+            border-radius: 50%;
+            background: #f8e6c9;
+            opacity: 0.65;
+
+            pointer-events: none;
+        }
+
+        /* =====================================
+           左側圖片區
+        ===================================== */
+
+        .hero-visual {
+            position: relative;
+            min-width: 0;
+            z-index: 1;
+        }
+
+        .main-photo {
+            position: relative;
+            width: 100%;
+            max-width: 510px;
+            aspect-ratio: 0.94;
+
+            overflow: hidden;
+            border: 12px solid var(--brown);
+            border-radius: 48% 48% 44% 44%;
+
+            background: #f2d18b;
+        }
+
+        .main-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .drink-photo {
+            position: absolute;
+            top: -65px;
+            right: -35px;
+
+            width: 175px;
+            aspect-ratio: 1;
+
+            overflow: hidden;
+            border: 9px solid var(--brown);
+            border-radius: 50%;
+
+            background: #e6c5a5;
+        }
+
+        .drink-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .visual-note {
+            position: absolute;
+            bottom: 30px;
+            left: -15px;
+
+            padding: 13px 19px;
+            border-radius: 18px;
+
+            background: #fffdf9;
+            color: var(--brown-dark);
+
+            font-size: 14px;
+            font-weight: 700;
+
+            box-shadow: 0 5px 20px rgba(92, 64, 51, 0.12);
+        }
+
+        /* =====================================
+           右側文字區
+        ===================================== */
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+
+            text-align: center;
+            min-width: 0;
+        }
+
+        .eyebrow {
+            display: inline-block;
+
+            margin-bottom: 18px;
+            padding: 9px 18px;
+
+            border-radius: 30px;
+            background: #f4e3cf;
+
+            color: var(--brown-dark);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            margin-bottom: 14px;
+
+            font-family:
+                Georgia,
+                "Noto Serif TC",
+                serif;
+
+            font-size: clamp(46px, 6vw, 82px);
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1.05;
+
+            color: #080808;
+            letter-spacing: -2px;
+        }
+
+        .hero-heading {
+            margin-bottom: 25px;
+
+            font-size: clamp(20px, 2.5vw, 31px);
+            font-weight: 800;
+            line-height: 1.5;
+        }
+
+        .hero-description {
+            max-width: 580px;
+            margin: 0 auto 30px;
+
+            color: #514841;
+            font-size: 17px;
+            line-height: 2;
+        }
+
+        .hero-description strong {
+            color: var(--brown-dark);
+        }
+
+        /* =====================================
+           按鈕
+        ===================================== */
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
-        }
 
-        .course-name {
+            min-width: 190px;
+            padding: 13px 24px;
+
+            border-radius: 30px;
+            border: 1px solid transparent;
+
             font-size: 17px;
-            font-weight: bold;
-            color: #5c4033;
-            margin-bottom: 8px;
+            font-weight: 700;
+
+            transition:
+                transform 0.2s,
+                background 0.2s;
         }
 
-        .course-desc {
-            font-size: 13.5px;
-            color: #8b6d5c;
-            line-height: 1.6;
-            margin-bottom: 18px;
-            flex-grow: 1;
+        .btn:hover {
+            transform: translateY(-3px);
         }
 
-        .course-start-btn {
-            border: none;
-            background: #b8865c;
-            color: #fff8ef;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 10px 22px;
-            border-radius: 25px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s ease;
+        .btn-green {
+            background: var(--green);
+            color: #20351c;
         }
 
-        .course-start-btn:hover {
-            background: #a2724c;
+        .btn-green:hover {
+            background: #b9e5a8;
         }
 
-        /* Empty state saat search tidak ketemu */
-        .courses-empty {
-            display: none;
+        .btn-blue {
+            background: var(--blue);
+            color: #173345;
+        }
+
+        .btn-blue:hover {
+            background: #76b5d5;
+        }
+
+        .hero-url {
+            display: inline-block;
+            color: #28211d;
+
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .hero-url:hover {
+            color: var(--brown);
+        }
+
+        /* =====================================
+           學習特色
+        ===================================== */
+
+        .features {
+            padding: 70px 6% 85px;
+            background: #fffdf9;
+        }
+
+        .section-heading {
+            margin-bottom: 12px;
+
+            color: var(--brown-dark);
+            font-size: 30px;
+            font-weight: 800;
             text-align: center;
-            color: #9b7a65;
-            padding: 40px 10px;
         }
 
-        .courses-empty .emoji {
-            font-size: 26px;
-            margin-bottom: 10px;
+        .section-description {
+            margin-bottom: 40px;
+
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: center;
         }
 
-        @media (max-width: 600px) {
-            .courses-container { padding: 15px; }
-            .courses-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
-            .course-card { padding: 18px 14px; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 30px 24px;
+
+            border: 1px solid #f0dfcf;
+            border-radius: 24px;
+
+            background: var(--cream);
+            text-align: center;
+
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            margin-bottom: 16px;
+            font-size: 38px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 12px;
+            color: var(--brown-dark);
+            font-size: 19px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* =====================================
+           頁尾
+        ===================================== */
+
+        .footer {
+            padding: 28px 6%;
+            background: #f8e6c9;
+
+            color: var(--brown-dark);
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* =====================================
+           手機版
+        ===================================== */
+
+        @media (max-width: 850px) {
+
+            .topbar {
+                min-height: 68px;
+                padding: 0 5%;
+            }
+
+            .menu-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+
+                padding: 12px 5% 20px;
+
+                background: #fffdf9;
+                border-bottom: 1px solid #eaded2;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 14px 10px;
+            }
+
+            .nav-links .nav-cta {
+                margin-top: 8px;
+                text-align: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 55px;
+
+                padding: 70px 7% 75px;
+            }
+
+            .hero-visual {
+                width: 100%;
+                max-width: 470px;
+                margin: 0 auto;
+            }
+
+            .main-photo {
+                max-width: 100%;
+            }
+
+            .drink-photo {
+                width: 145px;
+                right: -10px;
+            }
+
+            .hero-content {
+                max-width: 650px;
+                margin: 0 auto;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .brand img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand-name {
+                font-size: 17px;
+            }
+
+            .hero {
+                padding: 55px 6% 65px;
+                gap: 45px;
+            }
+
+            .main-photo {
+                border-width: 8px;
+            }
+
+            .drink-photo {
+                top: -35px;
+                right: -5px;
+                width: 105px;
+                border-width: 6px;
+            }
+
+            .visual-note {
+                bottom: 18px;
+                left: -5px;
+
+                padding: 10px 13px;
+                font-size: 12px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+                letter-spacing: -1px;
+            }
+
+            .hero-heading {
+                font-size: 21px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .hero-url {
+                font-size: 15px;
+                overflow-wrap: anywhere;
+            }
+
+            .features {
+                padding: 55px 6%;
+            }
+
+            .section-heading {
+                font-size: 25px;
+            }
+        }
+
+        /* =====================================
+           減少動態效果
+        ===================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
         }
 
     </style>
@@ -159,129 +660,309 @@
 
 <body>
 
-    <!-- 載入共用模板 -->
-    <div id="app"></div>
+    <!-- =====================================
+         頂部導覽列
+    ===================================== -->
 
-    <!-- Courses Content -->
-    <!-- id="page-source" wajib ada, supaya script.js bisa pindahkan
-         konten ini ke #page-content di dalam template -->
-    <main id="page-source" class="courses-container">
+    <header class="topbar">
 
-        <h1 class="courses-title">你想學什麼？</h1>
-        <p class="courses-subtitle">選一個主題，或直接搜尋你想學的內容 🧊🍵</p>
+        <a href="index.html" class="brand">
 
-        <div class="courses-search-wrap">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input
-                type="text"
-                id="course-search"
-                placeholder="搜尋課程，例如：點餐、問路...">
-        </div>
+            <img src="logo.png" alt="Es Teh Break 標誌">
 
-        <div class="courses-grid" id="courses-grid">
+            <div>
+                <div class="brand-name">
+                    Es Teh Break
+                </div>
 
-            
-<div class="course-card" data-title="印尼文 ABC 字母" data-desc="從 A 到 Z 認識印尼文的字母與發音">
-    <div class="course-icon"><i class="fa-solid fa-font"></i></div>
-    <div class="course-name">印尼文 ABC 字母</div>
-    <div class="course-desc">從 A 到 Z 認識印尼文的字母、發音和基本拼讀方式，輕鬆學會印尼文的 ABC。</div>
-    <a class="course-start-btn" href="lessons/1-alfabet.html">開始學習</a>
-</div>
-
-<div class="course-card" data-title="打招呼與問候" data-desc="學習日常生活中常用的打招呼與問候用語">
-    <div class="course-icon"><i class="fa-solid fa-hand-peace"></i></div>
-    <div class="course-name">打招呼與問候</div>
-    <div class="course-desc">學習日常生活中常用的打招呼與問候用語。</div>
-    <a class="course-start-btn" href="lessons/2-salam.html">開始學習</a>
-</div>
-
-            <div class="course-card" data-title="自我介紹與道別" data-desc="學習介紹自己的名字、來自哪裡，以及日常生活中常用的道別與提醒用語">
-    <div class="course-icon"><i class="fa-solid fa-address-card"></i></div>
-    <div class="course-name">自我介紹與道別</div>
-    <div class="course-desc">學習介紹自己的名字、來自哪裡，以及日常生活中常用的道別與提醒用語。</div>
-    <a class="course-start-btn" href="lessons/3-perkenalan.html">開始學習</a>
-</div>
-
-            <div class="course-card" data-title="點餐與購物" data-desc="在餐廳點餐、市場或商店購物時的常用句子">
-                <div class="course-icon"><i class="fa-solid fa-utensils"></i></div>
-                <div class="course-name">點餐與購物</div>
-                <div class="course-desc">餐廳點餐、市場買東西、殺價，通通都能自己來。</div>
-                <a class="course-start-btn" href="survival.html">開始學習</a>
+                <div class="brand-subtitle">
+                    輕鬆學印尼語
+                </div>
             </div>
 
-            <div class="course-card" data-title="交通與問路" data-desc="搭車、問路、叫車常用的說法">
-                <div class="course-icon"><i class="fa-solid fa-route"></i></div>
-                <div class="course-name">交通與問路</div>
-                <div class="course-desc">迷路了怎麼問？搭計程車、公車怎麼說？這裡都有。</div>
-                <a class="course-start-btn" href="survival.html">開始學習</a>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="開啟選單"
+            aria-expanded="false"
+            aria-controls="navLinks">
+
+            ☰
+
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="index.html">
+                首頁
+            </a>
+
+            <a href="lessons.html">
+                開始學習
+            </a>
+
+            <a href="kosakata.html">
+                印尼語詞彙
+            </a>
+
+            <a href="about.html">
+                關於我們
+            </a>
+
+            <a href="lessons.html" class="nav-cta">
+                開始學印尼語
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================
+         首頁主視覺
+    ===================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+
+            <!-- 左側圖片 -->
+
+            <div class="hero-visual">
+
+                <div class="main-photo">
+
+                    <img
+                        src="hero-woman.png"
+                        alt="輕鬆學習印尼語的女孩">
+
+                </div>
+
+                <div class="drink-photo">
+
+                    <img
+                        src="es-teh.png"
+                        alt="印尼冰紅茶 Es Teh">
+
+                </div>
+
+                <div class="visual-note">
+                    🧊🍵 一杯冰茶，一點印尼語
+                </div>
+
             </div>
 
-            <div class="course-card" data-title="工作場合溝通" data-desc="工作上簡單溝通、開會常用的表達">
-                <div class="course-icon"><i class="fa-solid fa-briefcase"></i></div>
-                <div class="course-name">工作場合溝通</div>
-                <div class="course-desc">在工作環境裡，跟印尼同事簡單溝通所需要的句子。</div>
-                <a class="course-start-btn" href="lessons.html">開始學習</a>
+
+            <!-- 右側介紹 -->
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    SELAMAT DATANG！
+                </div>
+
+                <h1 class="hero-title">
+                    Es Teh Break
+                </h1>
+
+                <h2 class="hero-heading">
+                    用一杯冰茶的時間，<br>
+                    輕鬆學會印尼語！
+                </h2>
+
+                <p class="hero-description">
+
+                    歡迎來到 <strong>Es Teh Break</strong>！
+
+                    這是一個專為台灣學習者打造的印尼語學習空間。
+
+                    我們用生活化的例句、簡單的解說，
+                    帶你學會印尼人日常真正會說的
+                    <strong>印尼語口語表達</strong>。
+
+                    不用害怕說錯，也不用急著背完所有單字。
+                    讓我們一起從簡單的問候、聊天和日常對話開始，
+                    慢慢建立說印尼語的信心！
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="lessons.html" class="btn btn-green">
+                        開始學習 →
+                    </a>
+
+                    <a href="about.html" class="btn btn-blue">
+                        認識 Es Teh Break
+                    </a>
+
+                </div>
+
+                <a href="index.html" class="hero-url">
+                    www.estehbreak.com
+                </a>
+
             </div>
 
-            <div class="course-card" data-title="聽力練習" data-desc="練習聽懂印尼人平常說話的語速與語氣">
-                <div class="course-icon"><i class="fa-solid fa-headphones"></i></div>
-                <div class="course-name">聽力練習</div>
-                <div class="course-desc">練習聽懂印尼人平常聊天的語速，不再只聽得懂課本錄音。</div>
-                <a class="course-start-btn" href="listening.html">開始學習</a>
+        </section>
+
+
+        <!-- =====================================
+             學習特色
+        ===================================== -->
+
+        <section class="features" id="features">
+
+            <h2 class="section-heading">
+                在 Es Teh Break，你可以學到什麼？
+            </h2>
+
+            <p class="section-description">
+                不只是背單字，更要學會自然地用印尼語聊天。
+            </p>
+
+            <div class="feature-grid">
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        日常生活會話
+                    </h3>
+
+                    <p>
+                        從打招呼、自我介紹到日常聊天，
+                        學會印尼人生活中常用的表達方式。
+                    </p>
+
+                </article>
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        📖
+                    </div>
+
+                    <h3>
+                        印尼語口語詞彙
+                    </h3>
+
+                    <p>
+                        認識正式用語與日常口語的差別，
+                        讓你更了解印尼人的說話習慣。
+                    </p>
+
+                </article>
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        🧊
+                    </div>
+
+                    <h3>
+                        輕鬆學習不緊張
+                    </h3>
+
+                    <p>
+                        透過簡單例句和生活情境，
+                        用自己的步調慢慢學會印尼語。
+                    </p>
+
+                </article>
+
             </div>
 
-        </div>
-
-        <div class="courses-empty" id="courses-empty">
-            <div class="emoji">🧊🍵</div>
-            <p>找不到符合的課程，換個關鍵字試試看～</p>
-        </div>
+        </section>
 
     </main>
 
-    <!-- 載入 script.js -->
-    <script src="script.js"></script>
 
-    <!-- Search Script -->
-    <!-- FIX: pakai event delegation di document, BUKAN ambil #course-search
-         langsung pas parsing. Soalnya script.js membongkar #page-source lalu
-         menyusun ulang jadi HTML string baru, jadi input & card yang ada
-         sekarang bakal jadi elemen baru yang belum ada listener-nya. -->
+    <!-- =====================================
+         頁尾
+    ===================================== -->
+
+    <footer class="footer">
+
+        <p>
+            🧊🍵 Es Teh Break
+        </p>
+
+        <p>
+            輕鬆學印尼語，讓語言成為連結彼此的橋樑。
+        </p>
+
+        <p>
+            © 2026 Es Teh Break. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================
+         手機版選單
+    ===================================== -->
+
     <script>
-        document.addEventListener("input", (event) => {
 
-            if (event.target.id !== "course-search") return;
+        const menuButton =
+            document.getElementById("menuButton");
 
-            const keyword = event.target.value.trim().toLowerCase();
+        const navLinks =
+            document.getElementById("navLinks");
 
-            const cards = document.querySelectorAll("#courses-grid .course-card");
-            const emptyState = document.getElementById("courses-empty");
 
-            let visibleCount = 0;
+        menuButton.addEventListener("click", function () {
 
-            cards.forEach((card) => {
+            const isOpen =
+                navLinks.classList.toggle("open");
 
-                const title = (card.dataset.title || "").toLowerCase();
-                const desc = (card.dataset.desc || "").toLowerCase();
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
 
-                const isMatch =
-                    keyword === "" ||
-                    title.includes(keyword) ||
-                    desc.includes(keyword);
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "關閉選單" : "開啟選單"
+            );
 
-                card.style.display = isMatch ? "" : "none";
+            menuButton.textContent =
+                isOpen ? "✕" : "☰";
 
-                if (isMatch) visibleCount++;
+        });
+
+
+        // 點選導覽連結後，自動關閉手機選單
+
+        navLinks.querySelectorAll("a").forEach(function (item) {
+
+            item.addEventListener("click", function () {
+
+                navLinks.classList.remove("open");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "開啟選單"
+                );
+
+                menuButton.textContent = "☰";
 
             });
 
-            if (emptyState) {
-                emptyState.style.display = visibleCount === 0 ? "block" : "none";
-            }
-
         });
+
     </script>
 
 </body>
-
 </html>
