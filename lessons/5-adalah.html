@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break｜Adalah（是）</title>
+
+    <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+            --red: #c8756d;
+            --muted: #806b5d;
+            --border: #ead8c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .lesson-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+
+        .hero,
+        .quiz-card,
+        .summary-card,
+        .game-card,
+        .footer-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .hero-description {
+            color: var(--muted);
+        }
+
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .section-subtitle {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ================================
+           TTS BUTTON
+        ================================= */
+
+        .audio-btn {
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: #fffaf4;
+            color: var(--brown);
+            border-radius: 50%;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            transition: 0.18s ease;
+            touch-action: manipulation;
+        }
+
+        .audio-btn:hover {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .audio-btn.playing {
+            background: var(--soft-brown);
+            transform: scale(1.08);
+        }
+
+        /* ================================
+           QUIZ
+        ================================= */
+
+        .quiz-progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: var(--soft-brown);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--light-brown);
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        .quiz-question-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 15px;
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+
+        .quiz-question-text {
+            flex: 1;
+        }
+
+        .quiz-question-main {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .quiz-question-sub {
+            margin-top: 4px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option-btn {
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--brown);
+            border-radius: 13px;
+            padding: 13px 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.16s ease;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .quiz-option-btn:disabled {
+            cursor: default;
+        }
+
+        .quiz-option-btn.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .quiz-option-btn.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .quiz-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .quiz-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .quiz-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .quiz-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .next-btn {
+            flex: 1;
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--brown);
+            color: white;
+            transition: 0.18s ease;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ================================
+           EXPLANATION
+        ================================= */
+
+        .explanation-panel {
+            display: none;
+            margin-top: 15px;
+            background: #fffaf4;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .explanation-panel.show {
+            display: block;
+        }
+
+        .explanation-label {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .explanation-list {
+            margin: 6px 0 0;
+            padding-left: 21px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 6px;
+        }
+
+        .explanation-note {
+            background: #fff4df;
+            border-left: 4px solid var(--light-brown);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        /* ================================
+           SUMMARY TABLE
+        ================================= */
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-table th {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .summary-table td strong {
+            color: var(--brown);
+        }
+
+        /* ================================
+           GAME
+        ================================= */
+
+        .game-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .game-instruction {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 13px 15px;
+            border-radius: 11px;
+            margin-bottom: 20px;
+        }
+
+        .game-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .word-area-title {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .word-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            min-height: 55px;
+            padding: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 13px;
+        }
+
+        .word-chip {
+            border: 1px solid #dfc8b0;
+            background: white;
+            color: var(--brown);
+            border-radius: 10px;
+            padding: 9px 14px;
+            min-height: 43px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.16s ease;
+        }
+
+        .word-chip:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .word-chip:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+
+        .word-chip:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .answer-area {
+            margin-top: 18px;
+        }
+
+        .answer-box {
+            min-height: 60px;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            gap: 8px;
+            padding: 10px;
+
+            background: #fffdf9;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+
+            transition: 0.2s ease;
+        }
+
+        .answer-box.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .answer-box.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .answer-chip {
+            border: 0;
+            background: var(--soft-brown);
+            color: var(--brown);
+            border-radius: 9px;
+            padding: 8px 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .answer-chip:hover {
+            background: #ead4bd;
+        }
+
+        .empty-answer {
+            color: #a08d80;
+            font-size: 14px;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .check-btn,
+        .reset-btn {
+            min-height: 46px;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .check-btn {
+            flex: 1;
+            background: var(--brown);
+            color: white;
+        }
+
+        .reset-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        .game-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .game-feedback.show {
+            display: block;
+        }
+
+        .game-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .game-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .correct-sentence {
+            margin-top: 5px;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .game-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .game-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .game-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .footer-card {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            color: var(--brown);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 650px) {
+
+            .lesson-container {
+                padding: 20px 12px 45px;
+            }
+
+            .hero,
+            .quiz-card,
+            .summary-card,
+            .game-card,
+            .footer-card {
+                padding: 20px 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .quiz-actions,
+            .game-actions {
+                flex-direction: column;
+            }
+
+            .word-chip,
+            .answer-chip {
+                font-size: 15px;
+                padding: 10px 13px;
+            }
+
+            .summary-table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div id="app"></div>
+
+
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+
+            <!-- =============================================
+                 HERO
+            ============================================== -->
+
+            <section class="hero">
+
+                <div class="badge">
+                    Bahasa Indonesia • Pemula
+                </div>
+
+                <h1>
+                    🧭 Adalah（是）
+                </h1>
+
+                <p class="hero-description">
+                    這堂課要學習印尼語中「是」的說法 —— <strong>adalah</strong>。
+                    我們會先了解「adalah」在正式語境中怎麼用，
+                    接著看看在日常口語裡，印尼人其實常常直接省略「adalah」，
+                    改用動詞（例如「上學」「工作」「讀大學」）來說明自己的身分。
+                    透過選擇題，練習分辨正式與口語兩種說法；
+                    最後再用單字排列遊戲，練習把句子組合起來。
+                </p>
+
+                <div class="note">
+                    💡 點擊 🔊 可以使用手機或瀏覽器的語音功能，聽印尼語發音。
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 QUIZ
+            ============================================== -->
+
+            <section class="quiz-card">
+
+                <h2>
+                    ✏️ 選擇題
+                </h2>
+
+                <p class="section-subtitle">
+                    閱讀題目，選出正確的印尼語說法。選完後會顯示解說，
+                    再點擊「下一題」繼續。
+                </p>
+
+                <div id="quiz-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 SUMMARY
+            ============================================== -->
+
+            <section class="summary-card">
+
+                <h2>
+                    📌 重點整理
+                </h2>
+
+                <p class="section-subtitle">
+                    正式與口語說法的對照表，複習完選擇題後可以參考這裡。
+                </p>
+
+                <table class="summary-table">
+
+                    <thead>
+                        <tr>
+                            <th>中文</th>
+                            <th>正式</th>
+                            <th>口語</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>我</td>
+                            <td><strong>Saya</strong></td>
+                            <td><strong>Aku</strong></td>
+                        </tr>
+                        <tr>
+                            <td>你</td>
+                            <td><strong>Anda</strong></td>
+                            <td><strong>Kamu</strong></td>
+                        </tr>
+                        <tr>
+                            <td>是</td>
+                            <td><strong>Adalah</strong></td>
+                            <td>（非正式不需要）</td>
+                        </tr>
+                        <tr>
+                            <td>學生</td>
+                            <td><strong>Pelajar</strong></td>
+                            <td>用「上學」表示：<strong>Sekolah</strong></td>
+                        </tr>
+                        <tr>
+                            <td>大學生</td>
+                            <td><strong>Mahasiswa</strong></td>
+                            <td>用「讀大學」表示：<strong>Kuliah</strong></td>
+                        </tr>
+                        <tr>
+                            <td>工人</td>
+                            <td><strong>Pekerja</strong></td>
+                            <td>用「工作」表示：<strong>Kerja</strong></td>
+                        </tr>
+                        <tr>
+                            <td>觀光客</td>
+                            <td><strong>Turis</strong></td>
+                            <td>用「旅遊」表示：<strong>Liburan</strong></td>
+                        </tr>
+                        <tr>
+                            <td>企業家</td>
+                            <td><strong>Pengusaha</strong></td>
+                            <td>用「開業」表示：<strong>Buka usaha</strong></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </section>
+
+
+            <!-- =============================================
+                 GAME
+            ============================================== -->
+
+            <section class="game-card">
+
+                <h2>
+                    🧩 Sambung Kata（接續單字）
+                </h2>
+
+                <p class="section-subtitle">
+                    點擊單字聽發音，再把單字排列成正確的句子。
+                </p>
+
+                <div id="sentence-game-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 FOOTER
+            ============================================== -->
+
+            <footer class="footer-card">
+
+                <div class="footer-brand">
+                    ☕ Es Teh Break
+                </div>
+
+                <div>
+                    邊喝冰茶邊學印尼語 · Adalah（是）篇
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================================
+           TEXT TO SPEECH
+           使用手機 / 瀏覽器本身的語音
+        ===================================================== */
+
+        function playAudio(text, button = null) {
+
+            if (!("speechSynthesis" in window)) {
+
+                alert(
+                    "這個瀏覽器不支援語音播放功能。"
+                );
+
+                return;
+
+            }
+
+
+            speechSynthesis.cancel();
+
+
+            document
+                .querySelectorAll(".playing")
+                .forEach(element => {
+
+                    element.classList.remove(
+                        "playing"
+                    );
+
+                });
+
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            utterance.lang =
+                "id-ID";
+
+
+            utterance.rate =
+                0.85;
+
+
+            utterance.pitch =
+                1;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            utterance.onend =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            utterance.onerror =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+        }
+
+
+        /* =====================================================
+           QUIZ DATA
+           （解說內容皆保留原始草稿文字，未更動）
+        ===================================================== */
+
+        const quizItems = [
+
+            {
+                type: "mc",
+                question: "「是」的意思是什麼？",
+                sound: "adalah",
+                options: ["Itulah", "Adalah", "Terserah"],
+                answer: "Adalah",
+                explanation: `
+                    <p>「是」在印尼語中相當於「adalah」，通常用於正式的語境中，用來描述或說明某個人或事物。</p>
+                    <p>不過，在印尼語的日常對話中，「adalah」很少使用，通常會直接省略。</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "怎麼用正式的方式說「我是學生」？",
+                sound: "Saya adalah pelajar",
+                options: ["Saya adalah pelajar", "Anda adalah mahasiswa", "Dia adalah pekerja"],
+                answer: "Saya adalah pelajar",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>Saya</strong>（正式）＝ 我</li>
+                        <li><strong>Pelajar</strong> ＝ 學生</li>
+                    </ul>
+                    <p>正式用語中，描述自己、某個人或某個事物時，可以使用以下句型 (主詞 + adalah + 描述)</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "怎麼用正式的方式說「你是一位大學生」？",
+                sound: "Anda adalah seorang mahasiswa",
+                options: ["Kita adalah pekerja", "Kamu pelajar", "Anda adalah seorang mahasiswa"],
+                answer: "Anda adalah seorang mahasiswa",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>Anda</strong>（正式）＝ 你</li>
+                        <li><strong>Seorang</strong> ＝ 一位（用於人）</li>
+                        <li><strong>Mahasiswa</strong> = 大學生</li>
+                    </ul>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "怎麼用正式的方式說「他是工人」？",
+                sound: "Dia adalah pekerja",
+                options: ["Kita adalah cewek", "Dia adalah pekerja", "Anda adalah seorang mahasiswa"],
+                answer: "Dia adalah pekerja",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>Pekerja</strong>＝ 工人</li>
+                        <li><strong>Dia</strong> ＝ 他／她</li>
+                    </ul>
+                `
+            },
+
+            {
+                type: "info",
+                question: "Kamu disini kerja, sekolah, atau kuliah?",
+                mandarinQuestion: "你在這裡是工作、上學，還是讀大學？",
+                sound: "Kamu disini kerja, sekolah, atau kuliah?",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>Disini</strong> = 這裡</li>
+                        <li><strong>Atau</strong> = 還是 / 或</li>
+                        <li><strong>Kerja</strong> = 工作</li>
+                        <li><strong>Kuliah</strong> = 讀大學</li>
+                    </ul>
+                    <div class="explanation-note">
+                        上面這個問題是印尼當地人經常問外國人的，用來詢問對方來印尼的目的。
+                    </div>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如何用比較口語的方式表達「我在這裡是學生」？",
+                sound: "Aku sekolah di sini",
+                options: ["Aku sekolah di sini", "Aku pekerja", "Aku adalah mahasiswa"],
+                answer: "Aku sekolah di sini",
+                explanation: `
+                    <ol class="explanation-list">
+                        <li>在日常對話中，通常可以省略「adalah」，直接接描述性的詞語或句子。</li>
+                        <li>如果你是小學到高中階段的學生，用印尼語自然地描述自己時，通常不會直接使用「pelajar」這個詞（雖然當地人都知道它的意思），而是會說自己在這裡上學。</li>
+                        <li>在印尼語中，像「di sini」（在這裡）這類表示地點或時間的詞語，可以放在句子的不同位置，例如主詞前面、主詞後面，或句子的最後面。</li>
+                    </ol>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如何用比較口語的方式表達「我在這裡是大學生」？",
+                sound: "Aku kuliah di sini",
+                options: ["Saya sekolah di sini", "Aku kuliah di sini", "Saya adalah mahasiswa"],
+                answer: "Aku kuliah di sini",
+                explanation: `
+                    <p>和上一題一樣，想要表達自己是大學生時，口語上通常會說自己在這裡讀大學，也就是「Aku kuliah di sini」。</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如何用比較口語的方式表達「我在這裡是工人」？",
+                sound: "Aku kerja di sini",
+                options: ["Saya sekolah di sini", "Aku kuliah di sini", "Aku kerja di sini"],
+                answer: "Aku kerja di sini",
+                explanation: `
+                    <p>和上一題一樣，想要表達自己是工作者時，口語上通常會說自己在這裡工作，也就是「Aku kerja di sini」。</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如何用比較口語的方式表達「我是一位來這裡旅遊的觀光客」？",
+                sound: "Aku liburan di sini",
+                options: ["Aku liburan di sini", "Aku kuliah di sini", "Saya adalah mahasiswa"],
+                answer: "Aku liburan di sini",
+                explanation: `
+                    <p><strong>Liburan</strong> ＝ 度假／旅遊</p>
+                    <p>如果你是來這裡旅遊的觀光客，可以直接說自己是來這裡度假的，也就是「Aku liburan di sini」。</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如何用正式的方式表達「我是一位觀光客」？",
+                sound: "Saya adalah turis",
+                options: ["Saya adalah turis", "Aku kuliah di sini", "Saya adalah mahasiswa"],
+                answer: "Saya adalah turis",
+                explanation: `
+                    <p><strong>Turis</strong> ＝ 觀光客</p>
+                    <p>記住！正式用語會使用「adalah」，並且選用正式的詞彙。</p>
+                    <ul class="explanation-list">
+                        <li><strong>Saya</strong>（正式）＝ 我</li>
+                        <li><strong>Aku</strong>（半口語）＝ 我</li>
+                        <li><strong>Anda</strong>（正式）＝ 你</li>
+                        <li><strong>Kamu</strong>（半口語）＝ 你</li>
+                    </ul>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如果要正式地說「我是企業家／我在這裡開業」，要怎麼說？",
+                sound: "Saya adalah pengusaha",
+                options: ["Saya adalah mahasiswa", "Saya adalah pengusaha", "Anda adalah pengusaha"],
+                answer: "Saya adalah pengusaha",
+                explanation: `
+                    <p><strong>Pengusaha</strong> : 企業家</p>
+                `
+            },
+
+            {
+                type: "mc",
+                question: "如果要用比較口語的方式說「我是企業家／我在這裡做生意」，要怎麼說？",
+                sound: "Aku buka usaha di sini",
+                options: ["Aku buka usaha disini", "Kamu mahasiswa", "Dia adalah pelajar"],
+                answer: "Aku buka usaha disini",
+                explanation: `
+                    <p><strong>Buka</strong> : 開</p>
+                    <p><strong>Usaha</strong> = 商業</p>
+                `
+            }
+
+        ];
+
+
+        /* =====================================================
+           QUIZ STATE
+        ===================================================== */
+
+        let currentQuizIndex = 0;
+
+        let quizAnswered = false;
+
+
+        /* =====================================================
+           RENDER QUIZ
+        ===================================================== */
+
+        function renderQuiz() {
+
+            const container =
+                document.getElementById("quiz-container");
+
+
+            if (!container) return;
+
+
+            if (currentQuizIndex >= quizItems.length) {
+
+                container.innerHTML = `
+
+                    <div class="quiz-finished">
+
+                        <div class="quiz-finished-icon">🎉</div>
+
+                        <h3>測驗完成！</h3>
+
+                        <p>你已完成全部 ${quizItems.length} 題。</p>
+
+                        <button class="quiz-restart-btn" id="restart-quiz" type="button">
+                            🔄 再測一次
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById("restart-quiz")
+                    .addEventListener("click", () => {
+
+                        currentQuizIndex = 0;
+
+                        renderQuiz();
+
+                    });
+
+
+                return;
+
+            }
+
+
+            quizAnswered = false;
+
+
+            const item = quizItems[currentQuizIndex];
+
+            const total = quizItems.length;
+
+            const progress = ((currentQuizIndex + 1) / total) * 100;
+
+            const isInfo = item.type === "info";
+
+
+            container.innerHTML = `
+
+                <div class="quiz-progress-text">
+                    第 ${currentQuizIndex + 1} 題 / 共 ${total} 題
+                </div>
+
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${progress}%"></div>
+                </div>
+
+
+                <div class="quiz-question-row">
+
+                    <div class="quiz-question-text">
+
+                        <div class="quiz-question-main">
+                            ${
+                                isInfo
+                                    ? escapeHtml(item.question)
+                                    : item.question
+                            }
+                        </div>
+
+                        ${
+                            isInfo
+                                ? `<div class="quiz-question-sub">${item.mandarinQuestion}</div>`
+                                : ""
+                        }
+
+                    </div>
+
+
+                    <button class="audio-btn" id="quiz-audio-btn" type="button" aria-label="播放印尼語發音">
+                        🔊
+                    </button>
+
+                </div>
+
+
+                ${
+                    isInfo
+                        ? ""
+                        : `
+                            <div class="quiz-options" id="quiz-options">
+                                ${
+                                    item.options
+                                        .map(option => `
+                                            <button class="quiz-option-btn" data-value="${escapeHtml(option)}" type="button">
+                                                ${option}
+                                            </button>
+                                        `)
+                                        .join("")
+                                }
+                            </div>
+                        `
+                }
+
+
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+
+
+                <div class="explanation-panel ${isInfo ? "show" : ""}" id="quiz-explanation-panel">
+                    <div class="explanation-label">📖 解說</div>
+                    ${item.explanation}
+                </div>
+
+
+                <div class="quiz-actions">
+                    <button class="next-btn" id="quiz-next" type="button" ${isInfo ? "" : "disabled"}>
+                        ${currentQuizIndex === total - 1 ? "✓ 完成" : "→ 下一題"}
+                    </button>
+                </div>
+
+            `;
+
+
+            const audioBtn = document.getElementById("quiz-audio-btn");
+
+            audioBtn.addEventListener("click", () => {
+
+                playAudio(item.sound, audioBtn);
+
+            });
+
+
+            if (!isInfo) {
+
+                const optionButtons =
+                    container.querySelectorAll(".quiz-option-btn");
+
+
+                optionButtons.forEach(button => {
+
+                    button.addEventListener("click", () => {
+
+                        checkQuizAnswer(button, optionButtons, item);
+
+                    });
+
+                });
+
+            }
+
+
+            document
+                .getElementById("quiz-next")
+                .addEventListener("click", () => {
+
+                    currentQuizIndex++;
+
+                    renderQuiz();
+
+                });
+
+        }
+
+
+        /* =====================================================
+           CHECK QUIZ ANSWER
+        ===================================================== */
+
+        function checkQuizAnswer(selectedButton, allButtons, item) {
+
+            if (quizAnswered) return;
+
+
+            quizAnswered = true;
+
+
+            const feedback = document.getElementById("quiz-feedback");
+
+            const explanationPanel = document.getElementById("quiz-explanation-panel");
+
+            const nextButton = document.getElementById("quiz-next");
+
+
+            const isCorrect =
+                selectedButton.dataset.value === item.answer;
+
+
+            allButtons.forEach(button => {
+
+                button.disabled = true;
+
+
+                if (button.dataset.value === item.answer) {
+
+                    button.classList.add("correct");
+
+                } else if (button === selectedButton) {
+
+                    button.classList.add("incorrect");
+
+                }
+
+            });
+
+
+            if (isCorrect) {
+
+                feedback.className = "quiz-feedback show correct";
+
+                feedback.innerHTML = "🎉 答對了！";
+
+            } else {
+
+                feedback.className = "quiz-feedback show incorrect";
+
+                feedback.innerHTML = `
+                    ❌ 還不對喔，正確答案是 <strong>${escapeHtml(item.answer)}</strong>。
+                `;
+
+            }
+
+
+            explanationPanel.classList.add("show");
+
+            nextButton.disabled = false;
+
+        }
+
+
+        /* =====================================================
+           SHUFFLE
+        ===================================================== */
+
+        function shuffle(array) {
+
+            const result = [...array];
+
+
+            for (let i = result.length - 1; i > 0; i--) {
+
+                const j = Math.floor(Math.random() * (i + 1));
+
+
+                [result[i], result[j]] = [result[j], result[i]];
+
+            }
+
+
+            return result;
+
+        }
+
+
+        /* =====================================================
+           GAME DATA
+        ===================================================== */
+
+        const sentenceGames = [
+
+            {
+                sentence: ["Anda", "adalah", "seorang", "pelajar"],
+                translation: "你是一位學生。"
+            },
+
+            {
+                sentence: ["Dia", "adalah", "mahasiswa"],
+                translation: "他是大學生。"
+            },
+
+            {
+                sentence: ["Saya", "adalah", "pekerja"],
+                translation: "我是工人。"
+            },
+
+            {
+                sentence: ["Kamu", "kerja", "disini"],
+                translation: "你在這裡工作。"
+            },
+
+            {
+                sentence: ["Aku", "kuliah", "disini"],
+                translation: "我在這裡讀大學。"
+            },
+
+            {
+                sentence: ["Dia", "sekolah", "disini"],
+                translation: "他在這裡上學。"
+            },
+
+            {
+                sentence: ["Dia", "adalah", "turis"],
+                translation: "他是觀光客。"
+            },
+
+            {
+                sentence: ["Aku", "liburan", "disini"],
+                translation: "我在這裡旅遊。"
+            },
+
+            {
+                sentence: ["Anda", "adalah", "pengusaha"],
+                translation: "你是企業家。"
+            },
+
+            {
+                sentence: ["Aku", "buka", "usaha"],
+                translation: "我做生意／我開業。"
+            }
+
+        ];
+
+
+        /* =====================================================
+           GAME STATE
+        ===================================================== */
+
+        let gameQuestions = [];
+
+        let currentGameIndex = 0;
+
+        let currentTokens = [];
+
+        let selectedWords = [];
+
+        let gameLocked = false;
+
+
+        /* =====================================================
+           START GAME
+        ===================================================== */
+
+        function startSentenceGame() {
+
+            gameQuestions = shuffle(sentenceGames);
+
+            currentGameIndex = 0;
+
+            selectedWords = [];
+
+            currentTokens = [];
+
+            gameLocked = false;
+
+
+            renderSentenceGame();
+
+        }
+
+
+        /* =====================================================
+           RENDER GAME
+        ===================================================== */
+
+        function renderSentenceGame() {
+
+            const container =
+                document.getElementById("sentence-game-container");
+
+
+            if (!container) return;
+
+
+            if (currentGameIndex >= gameQuestions.length) {
+
+                container.innerHTML = `
+
+                    <div class="game-finished">
+
+                        <div class="game-finished-icon">🎉</div>
+
+                        <h3>全部完成！</h3>
+
+                        <p>你已完成全部 ${gameQuestions.length} 題。</p>
+
+                        <button class="game-restart-btn" id="restart-game" type="button">
+                            🔄 再玩一次
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById("restart-game")
+                    .addEventListener("click", startSentenceGame);
+
+
+                return;
+
+            }
+
+
+            gameLocked = false;
+
+
+            const question = gameQuestions[currentGameIndex];
+
+
+            const tokens = question.sentence.map((word, index) => ({
+
+                id: index,
+
+                word: word
+
+            }));
+
+
+            currentTokens = shuffle(tokens);
+
+
+            let attempts = 0;
+
+
+            while (
+
+                currentTokens.every((token, index) => token.id === index)
+
+                &&
+
+                currentTokens.length > 1
+
+                &&
+
+                attempts < 20
+
+            ) {
+
+                currentTokens = shuffle(tokens);
+
+                attempts++;
+
+            }
+
+
+            selectedWords = [];
+
+
+            const progress =
+                ((currentGameIndex + 1) / gameQuestions.length) * 100;
+
+
+            container.innerHTML = `
+
+                <div class="game-progress">
+
+                    <div class="progress-text">
+                        第 ${currentGameIndex + 1} 題 / 共 ${gameQuestions.length} 題
+                    </div>
+
+                </div>
+
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${progress}%"></div>
+                </div>
+
+
+                <div class="game-instruction">
+                    💡 點擊單字會播放印尼語發音，再依照正確順序組成句子。
+                </div>
+
+
+                <div class="game-question">
+                    請把下面的單字排列成正確的印尼語句子：
+                </div>
+
+
+                <div class="word-area-title">單字：</div>
+
+
+                <div class="word-chips" id="available-words"></div>
+
+
+                <div class="answer-area">
+
+                    <div class="word-area-title">你的答案：</div>
+
+                    <div class="answer-box" id="answer-box">
+                        <span class="empty-answer">請點擊上面的單字……</span>
+                    </div>
+
+                </div>
+
+
+                <div class="game-actions">
+
+                    <button class="check-btn" id="check-answer" type="button">✓ 檢查答案</button>
+
+                    <button class="reset-btn" id="reset-answer" type="button">↩ 重來</button>
+
+                </div>
+
+
+                <div class="game-feedback" id="game-feedback"></div>
+
+            `;
+
+
+            renderAvailableWords();
+
+
+            document
+                .getElementById("check-answer")
+                .addEventListener("click", checkSentenceAnswer);
+
+
+            document
+                .getElementById("reset-answer")
+                .addEventListener("click", resetSentenceAnswer);
+
+        }
+
+
+        /* =====================================================
+           AVAILABLE WORDS
+        ===================================================== */
+
+        function renderAvailableWords() {
+
+            const container =
+                document.getElementById("available-words");
+
+
+            if (!container) return;
+
+
+            container.innerHTML = "";
+
+
+            currentTokens.forEach(token => {
+
+                const isSelected =
+                    selectedWords.some(selected => selected.id === token.id);
+
+
+                const button = document.createElement("button");
+
+
+                button.type = "button";
+
+                button.className = "word-chip";
+
+                button.textContent = token.word;
+
+                button.disabled = isSelected;
+
+
+                button.addEventListener("click", () => {
+
+                    if (gameLocked) return;
+
+
+                    playAudio(token.word, button);
+
+
+                    selectWord(token);
+
+                });
+
+
+                container.appendChild(button);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           SELECT WORD
+        ===================================================== */
+
+        function selectWord(token) {
+
+            if (gameLocked) return;
+
+
+            const alreadySelected =
+                selectedWords.some(selected => selected.id === token.id);
+
+
+            if (alreadySelected) return;
+
+
+            selectedWords.push(token);
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           RENDER ANSWER
+        ===================================================== */
+
+        function renderAnswer() {
+
+            const answerBox = document.getElementById("answer-box");
+
+
+            if (!answerBox) return;
+
+
+            answerBox.innerHTML = "";
+
+
+            if (selectedWords.length === 0) {
+
+                answerBox.innerHTML = `
+                    <span class="empty-answer">請點擊上面的單字……</span>
+                `;
+
+                return;
+
+            }
+
+
+            selectedWords.forEach((token, index) => {
+
+                const button = document.createElement("button");
+
+
+                button.type = "button";
+
+                button.className = "answer-chip";
+
+                button.textContent = token.word;
+
+                button.title = "點擊移除此單字";
+
+
+                button.addEventListener("click", () => {
+
+                    if (gameLocked) return;
+
+
+                    playAudio(token.word, button);
+
+
+                    removeSelectedWord(index);
+
+                });
+
+
+                answerBox.appendChild(button);
+
+            });
+
+        }
+
+
+        /* =====================================================
+           REMOVE SELECTED WORD
+        ===================================================== */
+
+        function removeSelectedWord(index) {
+
+            if (gameLocked) return;
+
+
+            selectedWords.splice(index, 1);
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           RESET ANSWER
+        ===================================================== */
+
+        function resetSentenceAnswer() {
+
+            if (gameLocked) return;
+
+
+            selectedWords = [];
+
+
+            renderAnswer();
+
+            renderAvailableWords();
+
+            clearFeedback();
+
+        }
+
+
+        /* =====================================================
+           CHECK ANSWER
+        ===================================================== */
+
+        function checkSentenceAnswer() {
+
+            if (gameLocked) return;
+
+
+            const question = gameQuestions[currentGameIndex];
+
+
+            const userAnswer = selectedWords.map(token => token.word);
+
+
+            const correctAnswer = question.sentence;
+
+
+            const isCorrect =
+
+                userAnswer.length === correctAnswer.length
+
+                &&
+
+                userAnswer.every((word, index) => word === correctAnswer[index]);
+
+
+            const answerBox = document.getElementById("answer-box");
+
+            const feedback = document.getElementById("game-feedback");
+
+
+            if (isCorrect) {
+
+                gameLocked = true;
+
+
+                answerBox.classList.remove("incorrect");
+
+                answerBox.classList.add("correct");
+
+
+                feedback.className = "game-feedback show correct";
+
+                feedback.innerHTML = `
+
+                    🎉 答對了！
+
+                    <div class="correct-sentence">${correctAnswer.join(" ")}</div>
+
+                    <div>${question.translation}</div>
+
+                `;
+
+
+                setTimeout(() => {
+
+                    playAudio(correctAnswer.join(" "));
+
+                }, 100);
+
+
+                setTimeout(() => {
+
+                    currentGameIndex++;
+
+                    renderSentenceGame();
+
+                }, 1500);
+
+
+                return;
+
+            }
+
+
+            answerBox.classList.remove("correct");
+
+            answerBox.classList.add("incorrect");
+
+
+            feedback.className = "game-feedback show incorrect";
+
+            feedback.innerHTML = `
+                ❌ 還不對喔。
+                <br>
+                再試試看單字的順序！
+            `;
+
+        }
+
+
+        /* =====================================================
+           CLEAR FEEDBACK
+        ===================================================== */
+
+        function clearFeedback() {
+
+            const feedback = document.getElementById("game-feedback");
+
+            const answerBox = document.getElementById("answer-box");
+
+
+            if (feedback) {
+
+                feedback.className = "game-feedback";
+
+                feedback.innerHTML = "";
+
+            }
+
+
+            if (answerBox) {
+
+                answerBox.classList.remove("correct", "incorrect");
+
+            }
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            renderQuiz();
+
+            startSentenceGame();
+
+        });
+
+    </script>
+
+
+    <!--
+        Shared template
+        Karena file berada di /lessons/,
+        script.js berada satu folder di atas.
+    -->
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
