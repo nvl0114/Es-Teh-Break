@@ -62,6 +62,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             );
         }
 
+        // Ambil CSS dari template (style untuk .topbar, .nav-links,
+        // .footer, dll) dan pasang ke <head> halaman ini.
+        // Tanpa ini, header/footer akan tampil tanpa gaya sama sekali.
+        const templateStyle = templateDoc.querySelector("style");
+
+        if (templateStyle) {
+
+            const style = document.createElement("style");
+            style.textContent = templateStyle.textContent;
+
+            document.head.appendChild(style);
+        }
+
         // Perbaiki path logo & link menu di header/footer
         // supaya tetap benar walau halaman dibuka dari folder lessons.
         fixRelativePaths(header);
