@@ -1,3 +1,21 @@
+// =====================================
+// LOKASI SCRIPT INI SENDIRI
+//
+// Diambil sekali saat script pertama kali
+// dijalankan (masih synchronous), supaya
+// kita tahu di folder mana script.js berada.
+// template.html, logo.png, dan halaman lain
+// dianggap berada di folder yang SAMA
+// dengan script.js ini (biasanya folder root).
+// =====================================
+
+const scriptSrc =
+    document.currentScript
+        ? document.currentScript.src
+        : "script.js";
+
+const baseDir = new URL(".", scriptSrc);
+
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -12,7 +30,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
 
         // Ambil template desain
-        const response = await fetch("template.html");
+        // Path dihitung dari lokasi script.js, jadi tetap benar
+        // walau halaman ini ada di folder root ATAU folder lesson.
+        const templateUrl = new URL("template.html", baseDir);
+
+        const response = await fetch(templateUrl);
 
         if (!response.ok) {
             throw new Error("Gagal memuat template.html");
@@ -48,6 +70,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             );
         }
 
+        // Perbaiki path logo & link menu di header
+        // supaya tetap mengarah ke lokasi yang benar
+        // walau halaman ini dibuka dari folder lesson.
+        fixRelativePaths(header);
+        fixRelativePaths(footer);
+
         // Masukkan header ke halaman
         document.body.prepend(
             document.importNode(header, true)
@@ -67,6 +95,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
 
         console.error("Template gagal dimuat:", error);
+
+    }
+
+
+    // =====================================
+    // PERBAIKAN PATH RELATIF (logo, link menu)
+    // =====================================
+
+    function fixRelativePaths(rootEl) {
+
+        // Perbaiki src gambar (mis. logo.png)
+        rootEl.querySelectorAll("img[src]").forEach(function (img) {
+
+            const src = img.getAttribute("src");
+
+            if (!/^https?:\/\//i.test(src)) {
+                img.setAttribute("src", new URL(src, baseDir).href);
+            }
+
+        });
+
+        // Perbaiki href link (mis. index.html, lessons.html)
+        rootEl.querySelectorAll("a[href]").forEach(function (link) {
+
+            const href = link.getAttribute("href");
+
+            if (
+                href &&
+                !/^https?:\/\//i.test(href) &&
+                !href.startsWith("#")
+            ) {
+                link.setAttribute("href", new URL(href, baseDir).href);
+            }
+
+        });
 
     }
 
@@ -162,8 +225,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.querySelectorAll(".nav-links a")
             .forEach(function (link) {
 
+                // Bandingkan berdasarkan nama file saja,
+                // karena href sekarang sudah jadi URL absolut.
                 const linkPage =
-                    link.getAttribute("href");
+                    (link.getAttribute("href") || "")
+                        .split("/").pop();
 
                 if (linkPage === currentPage) {
 
