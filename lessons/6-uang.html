@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break｜Angka Besar（大數字）</title>
+
+    <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+            --red: #c8756d;
+            --muted: #806b5d;
+            --border: #ead8c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .lesson-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+
+        .hero,
+        .video-card,
+        .quiz-card,
+        .summary-card,
+        .footer-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .hero-description {
+            color: var(--muted);
+        }
+
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        .section-subtitle {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ================================
+           VIDEO
+        ================================= */
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ================================
+           TTS BUTTON
+        ================================= */
+
+        .audio-btn {
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: #fffaf4;
+            color: var(--brown);
+            border-radius: 50%;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            transition: 0.18s ease;
+            touch-action: manipulation;
+        }
+
+        .audio-btn:hover {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .audio-btn.playing {
+            background: var(--soft-brown);
+            transform: scale(1.08);
+        }
+
+        /* ================================
+           QUIZ
+        ================================= */
+
+        .quiz-progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: var(--soft-brown);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--light-brown);
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        .quiz-question-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 15px;
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+
+        .quiz-question-text {
+            flex: 1;
+        }
+
+        .quiz-question-main {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option-btn {
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--brown);
+            border-radius: 13px;
+            padding: 13px 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.16s ease;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .quiz-option-btn:disabled {
+            cursor: default;
+        }
+
+        .quiz-option-btn.correct {
+            border-color: var(--green);
+            background: #f3f7ef;
+        }
+
+        .quiz-option-btn.incorrect {
+            border-color: var(--red);
+            background: #fff2f0;
+        }
+
+        .quiz-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .quiz-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .quiz-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .quiz-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .next-btn {
+            flex: 1;
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            background: var(--brown);
+            color: white;
+            transition: 0.18s ease;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ================================
+           EXPLANATION
+        ================================= */
+
+        .explanation-panel {
+            display: none;
+            margin-top: 15px;
+            background: #fffaf4;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .explanation-panel.show {
+            display: block;
+        }
+
+        .explanation-label {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .explanation-list {
+            margin: 6px 0 0;
+            padding-left: 21px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 6px;
+        }
+
+        .explanation-note {
+            background: #fff4df;
+            border-left: 4px solid var(--light-brown);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        /* ================================
+           SUMMARY TABLE
+        ================================= */
+
+        .summary-group-title {
+            margin: 22px 0 8px;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--brown);
+        }
+
+        .summary-group-title:first-of-type {
+            margin-top: 4px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            text-align: left;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-table th {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .summary-table td strong {
+            color: var(--brown);
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .footer-card {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            font-weight: 800;
+            color: var(--brown);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 650px) {
+
+            .lesson-container {
+                padding: 20px 12px 45px;
+            }
+
+            .hero,
+            .video-card,
+            .quiz-card,
+            .summary-card,
+            .footer-card {
+                padding: 20px 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+            }
+
+            .summary-table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div id="app"></div>
+
+
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+
+            <!-- =============================================
+                 HERO
+            ============================================== -->
+
+            <section class="hero">
+
+                <div class="badge">
+                    Bahasa Indonesia • Angka
+                </div>
+
+                <h1>
+                    🔢 Angka Besar（大數字）
+                </h1>
+
+                <p class="hero-description">
+                    這堂課要學習印尼語中「大數字」的說法，也就是百、千、萬、百萬、億等單位。
+                    印尼語的數字系統是以「三個零一組」的方式在變化，
+                    只要掌握 <strong>ratus（百）</strong>、<strong>ribu（千）</strong>、
+                    <strong>juta（百萬）</strong>、<strong>milyar（十億）</strong> 這幾個單位，
+                    就能唸出日常生活中常見的價格、金額與大數字。
+                    先看影片建立概念，再透過選擇題練習聽力與判斷，
+                    最後可以參考下方的整理表複習。
+                </p>
+
+                <div class="note">
+                    💡 點擊 🔊 可以使用手機或瀏覽器的語音功能，聽印尼語發音。
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 VIDEO
+            ============================================== -->
+
+            <section class="video-card">
+
+                <h2>
+                    🎬 教學影片
+                </h2>
+
+                <p class="section-subtitle">
+                    先看看影片，了解印尼語大數字的唸法規則。
+                </p>
+
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/qMO03j5fKgc"
+                        title="Angka Besar dalam Bahasa Indonesia"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 QUIZ
+            ============================================== -->
+
+            <section class="quiz-card">
+
+                <h2>
+                    ✏️ 選擇題
+                </h2>
+
+                <p class="section-subtitle">
+                    點擊 🔊 聽發音，選出正確的數字。選完後才會顯示解說，
+                    再點擊「下一題」繼續。
+                </p>
+
+                <div id="quiz-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 SUMMARY
+            ============================================== -->
+
+            <section class="summary-card">
+
+                <h2>
+                    📌 重點整理
+                </h2>
+
+                <p class="section-subtitle">
+                    印尼語的大數字單位對照表，複習完選擇題後可以參考這裡。
+                </p>
+
+                <div class="summary-group-title">Ratus（0²，百）</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>數字</th><th>印尼語</th><th>中文</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>100</td><td><strong>seratus</strong></td><td>一百</td></tr>
+                        <tr><td>500</td><td><strong>lima ratus</strong></td><td>五百</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="summary-group-title">Ribu（0³，千）</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>數字</th><th>印尼語</th><th>中文</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1,000</td><td><strong>seribu</strong></td><td>一千</td></tr>
+                        <tr><td>5,000</td><td><strong>lima ribu</strong></td><td>五千</td></tr>
+                        <tr><td>10,000</td><td><strong>sepuluh ribu</strong></td><td>一萬</td></tr>
+                        <tr><td>20,000</td><td><strong>dua puluh ribu</strong></td><td>兩萬</td></tr>
+                        <tr><td>50,000</td><td><strong>lima puluh ribu</strong></td><td>五萬</td></tr>
+                        <tr><td>100,000</td><td><strong>seratus ribu</strong></td><td>十萬</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="summary-group-title">Juta（0⁶，百萬）</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>數字</th><th>印尼語</th><th>中文</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1,000,000</td><td><strong>sejuta</strong></td><td>一百萬</td></tr>
+                        <tr><td>10,000,000</td><td><strong>sepuluh juta</strong></td><td>一千萬</td></tr>
+                        <tr><td>100,000,000</td><td><strong>seratus juta</strong></td><td>一億</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="summary-group-title">Milyar（0⁹，十億）</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>數字</th><th>印尼語</th><th>中文</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1,000,000,000</td><td><strong>satu milyar</strong></td><td>十億</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="summary-group-title">Triliun（0¹²，兆）</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr><th>數字</th><th>印尼語</th><th>中文</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1,000,000,000,000</td><td><strong>satu triliun</strong></td><td>一兆</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    💡 記憶小技巧：印尼盾的金額通常以「三個零一組」來計算，最常用的單位是百、千和百萬（也就是百位、千位、百萬位），組合起來就能唸出百、千、萬、十萬、百萬、千萬、億等數字。
+                    <br><br>
+                    另外，印尼人在日常生活中通常很少直接說「Rupiah」，而是直接說數字。例如「一百萬」通常就直接說「sejuta」，不會特別說「一百萬印尼盾」。
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 FOOTER
+            ============================================== -->
+
+            <footer class="footer-card">
+
+                <div class="footer-brand">
+                    ☕ Es Teh Break
+                </div>
+
+                <div>
+                    邊喝冰茶邊學印尼語 · Angka Besar（大數字）篇
+                </div>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================================
+           TEXT TO SPEECH
+        ===================================================== */
+
+        function playAudio(text, button = null) {
+
+            if (!("speechSynthesis" in window)) {
+
+                alert(
+                    "這個瀏覽器不支援語音播放功能。"
+                );
+
+                return;
+
+            }
+
+
+            speechSynthesis.cancel();
+
+
+            document
+                .querySelectorAll(".playing")
+                .forEach(element => {
+
+                    element.classList.remove(
+                        "playing"
+                    );
+
+                });
+
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            utterance.lang =
+                "id-ID";
+
+
+            utterance.rate =
+                0.85;
+
+
+            utterance.pitch =
+                1;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            utterance.onend =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            utterance.onerror =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                };
+
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+        }
+
+
+        /* =====================================================
+           QUIZ DATA
+        ===================================================== */
+
+        const quizItems = [
+
+            {
+                question: "Tiga ratus 是多少？",
+                sound: "Tiga ratus",
+                options: ["100", "500", "300"],
+                answer: "300",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>3</strong> = tiga</li>
+                        <li><strong>00</strong> = ratus</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Delapan ratus 是多少？",
+                sound: "Delapan ratus",
+                options: ["800", "300", "900"],
+                answer: "800",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>8</strong> = delapan</li>
+                        <li><strong>00</strong> = ratus</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Dua puluh ribu 是多少？",
+                sound: "Dua puluh ribu",
+                options: ["200,000", "22,000", "20,000"],
+                answer: "20,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>20</strong> = dua puluh</li>
+                        <li><strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Dua puluh lima ribu 是多少？",
+                sound: "Dua puluh lima ribu",
+                options: ["20,000", "25,000", "20,500"],
+                answer: "25,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>25</strong> = dua puluh lima</li>
+                        <li><strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Seratus ribu 是多少？",
+                sound: "Seratus ribu",
+                options: ["100,000", "10,000", "11,000"],
+                answer: "100,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>100</strong> = seratus</li>
+                        <li><strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Seratus lima puluh ribu 是多少？",
+                sound: "Seratus lima puluh ribu",
+                options: ["500,000", "150,000", "105,000"],
+                answer: "150,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>100</strong> = seratus</li>
+                        <li><strong>50</strong> = lima puluh</li>
+                        <li><strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Seratus dua puluh lima ribu 是多少？",
+                sound: "Seratus dua puluh lima ribu",
+                options: ["125,000", "251,000", "300,000"],
+                answer: "125,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>100</strong> = seratus</li>
+                        <li><strong>25</strong> = dua puluh lima</li>
+                        <li><strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Sejuta 是多少？",
+                sound: "Sejuta",
+                options: ["1,000,000", "100,000,000", "10,000,000"],
+                answer: "1,000,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>1</strong> = satu / se-</li>
+                        <li><strong>000,000</strong> = juta</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Sepuluh juta lima ratus ribu 是多少？",
+                sound: "Sepuluh juta lima ratus ribu",
+                options: ["15,000,000", "10,000,500", "10,500,000"],
+                answer: "10,500,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>10</strong> = sepuluh，<strong>000,000</strong> = juta</li>
+                        <li><strong>500</strong> = lima ratus，<strong>000</strong> = ribu</li>
+                        <li>10,000,000 + 500,000 = <strong>10,500,000</strong></li>
+                    </ul>
+                    <div class="explanation-note">
+                        在印尼語中，說「百萬」以上的數字時，如果後面還有「十萬、千、百」等數字，前面的「juta（百萬）」仍然要說出來。
+                        <br><br>
+                        例如：12,550,000 → <strong>dua belas juta lima ratus lima puluh ribu</strong> → 一千二百五十五萬
+                        <br><br>
+                        也就是：dua belas juta＝一千二百萬，lima ratus lima puluh ribu＝五十五萬，
+                        所以完整讀法是 dua belas juta lima ratus lima puluh ribu ＝ 一千二百五十五萬。
+                    </div>
+                `
+            },
+
+            {
+                question: "Lima belas juta 是多少？",
+                sound: "Lima belas juta",
+                options: ["15,000,000", "10,000,000", "5,000,000"],
+                answer: "15,000,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>15</strong> = lima belas</li>
+                        <li><strong>000,000</strong> = juta</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Enam ratus juta 是多少？",
+                sound: "Enam ratus juta",
+                options: ["800,000", "600,000", "600,000,000"],
+                answer: "600,000,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>600</strong> = enam ratus</li>
+                        <li><strong>000,000</strong> = juta</li>
+                    </ul>
+                `
+            },
+
+            {
+                question: "Seratus dua puluh lima juta tiga ratus lima puluh ribu 是多少？",
+                sound: "Seratus dua puluh lima juta tiga ratus lima puluh ribu",
+                options: ["152,530,000", "125,350,000", "135,250,000"],
+                answer: "125,350,000",
+                explanation: `
+                    <ul class="explanation-list">
+                        <li><strong>100</strong> = seratus，<strong>25</strong> = dua puluh lima，<strong>000,000</strong> = juta</li>
+                        <li><strong>300</strong> = tiga ratus，<strong>50</strong> = lima puluh，<strong>000</strong> = ribu</li>
+                    </ul>
+                `
+            }
+
+        ];
+
+
+        /* =====================================================
+           QUIZ STATE
+        ===================================================== */
+
+        let currentQuizIndex = 0;
+
+        let quizAnswered = false;
+
+
+        /* =====================================================
+           RENDER QUIZ
+        ===================================================== */
+
+        function renderQuiz() {
+
+            const container =
+                document.getElementById("quiz-container");
+
+
+            if (!container) return;
+
+
+            if (currentQuizIndex >= quizItems.length) {
+
+                container.innerHTML = `
+
+                    <div class="quiz-finished">
+
+                        <div class="quiz-finished-icon">🎉</div>
+
+                        <h3>測驗完成！</h3>
+
+                        <p>你已完成全部 ${quizItems.length} 題。</p>
+
+                        <button class="quiz-restart-btn" id="restart-quiz" type="button">
+                            🔄 再測一次
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById("restart-quiz")
+                    .addEventListener("click", () => {
+
+                        currentQuizIndex = 0;
+
+                        renderQuiz();
+
+                    });
+
+
+                return;
+
+            }
+
+
+            quizAnswered = false;
+
+
+            const item = quizItems[currentQuizIndex];
+
+            const total = quizItems.length;
+
+            const progress = ((currentQuizIndex + 1) / total) * 100;
+
+
+            container.innerHTML = `
+
+                <div class="quiz-progress-text">
+                    第 ${currentQuizIndex + 1} 題 / 共 ${total} 題
+                </div>
+
+
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${progress}%"></div>
+                </div>
+
+
+                <div class="quiz-question-row">
+
+                    <div class="quiz-question-text">
+
+                        <div class="quiz-question-main">
+                            ${item.question}
+                        </div>
+
+                    </div>
+
+
+                    <button class="audio-btn" id="quiz-audio-btn" type="button" aria-label="播放印尼語發音">
+                        🔊
+                    </button>
+
+                </div>
+
+
+                <div class="quiz-options" id="quiz-options">
+                    ${
+                        item.options
+                            .map(option => `
+                                <button class="quiz-option-btn" data-value="${escapeHtml(option)}" type="button">
+                                    ${option}
+                                </button>
+                            `)
+                            .join("")
+                    }
+                </div>
+
+
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+
+
+                <div class="explanation-panel" id="quiz-explanation-panel">
+                    <div class="explanation-label">📖 解說</div>
+                    ${item.explanation}
+                </div>
+
+
+                <div class="quiz-actions">
+                    <button class="next-btn" id="quiz-next" type="button" disabled>
+                        ${currentQuizIndex === total - 1 ? "✓ 完成" : "→ 下一題"}
+                    </button>
+                </div>
+
+            `;
+
+
+            const audioBtn = document.getElementById("quiz-audio-btn");
+
+            audioBtn.addEventListener("click", () => {
+
+                playAudio(item.sound, audioBtn);
+
+            });
+
+
+            const optionButtons =
+                container.querySelectorAll(".quiz-option-btn");
+
+
+            optionButtons.forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    checkQuizAnswer(button, optionButtons, item);
+
+                });
+
+            });
+
+
+            document
+                .getElementById("quiz-next")
+                .addEventListener("click", () => {
+
+                    currentQuizIndex++;
+
+                    renderQuiz();
+
+                });
+
+        }
+
+
+        /* =====================================================
+           CHECK QUIZ ANSWER
+        ===================================================== */
+
+        function checkQuizAnswer(selectedButton, allButtons, item) {
+
+            if (quizAnswered) return;
+
+
+            quizAnswered = true;
+
+
+            const feedback = document.getElementById("quiz-feedback");
+
+            const explanationPanel = document.getElementById("quiz-explanation-panel");
+
+            const nextButton = document.getElementById("quiz-next");
+
+
+            const isCorrect =
+                selectedButton.dataset.value === item.answer;
+
+
+            allButtons.forEach(button => {
+
+                button.disabled = true;
+
+
+                if (button.dataset.value === item.answer) {
+
+                    button.classList.add("correct");
+
+                } else if (button === selectedButton) {
+
+                    button.classList.add("incorrect");
+
+                }
+
+            });
+
+
+            if (isCorrect) {
+
+                feedback.className = "quiz-feedback show correct";
+
+                feedback.innerHTML = "☑️ 答對了！";
+
+            } else {
+
+                feedback.className = "quiz-feedback show incorrect";
+
+                feedback.innerHTML = `
+                    ❌ 答錯了，正確答案是 <strong>${escapeHtml(item.answer)}</strong>。
+                `;
+
+            }
+
+
+            explanationPanel.classList.add("show");
+
+            nextButton.disabled = false;
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            renderQuiz();
+
+        });
+
+    </script>
+
+
+    <!--
+        Shared template
+        Karena file berada di /lessons/,
+        script.js berada satu folder di atas.
+    -->
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
