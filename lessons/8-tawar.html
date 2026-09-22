@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Es Teh Break｜購物殺價</title>
+
+    <style>
+        :root {
+            --cream: #fff8ef;
+            --brown: #5c4033;
+            --light-brown: #b8865c;
+            --soft-brown: #f3e4d3;
+            --white: #ffffff;
+            --green: #7b9b76;
+            --red: #c8756d;
+            --muted: #806b5d;
+            --border: #ead8c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--brown);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Noto Sans TC",
+                "Microsoft JhengHei",
+                sans-serif;
+            line-height: 1.8;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .lesson-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 30px 18px 60px;
+        }
+
+        .hero,
+        .conversation-card,
+        .game-card,
+        .summary-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px rgba(92, 64, 51, 0.07);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .badge {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        p {
+            margin: 8px 0;
+        }
+
+        .hero-description {
+            color: var(--muted);
+        }
+
+        .note {
+            background: #fff4df;
+            border-left: 5px solid var(--light-brown);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+        }
+
+        /* ================================
+           CONVERSATION
+        ================================= */
+
+        .section-subtitle {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .conversation-counter {
+            display: inline-block;
+            background: var(--soft-brown);
+            color: var(--brown);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .speaker-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .speaker-name {
+            flex: 0 0 auto;
+            min-width: 60px;
+            min-height: 38px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: var(--soft-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .speaker-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .indonesian-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .indonesian-text {
+            flex: 1;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .mandarin-text {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ================================
+           TTS BUTTON
+        ================================= */
+
+        .audio-btn {
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: #fffaf4;
+            color: var(--brown);
+            border-radius: 50%;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            transition: 0.18s ease;
+            touch-action: manipulation;
+        }
+
+        .audio-btn:hover {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .audio-btn.playing {
+            background: var(--soft-brown);
+            transform: scale(1.08);
+        }
+
+        .dialogue-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 21px 0;
+        }
+
+        /* ================================
+           CONVERSATION BUTTONS
+        ================================= */
+
+        .conversation-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .conversation-action-btn {
+            flex: 1;
+            min-height: 46px;
+            border: 0;
+            border-radius: 13px;
+            padding: 10px 15px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.18s ease;
+        }
+
+        .explanation-btn {
+            background: var(--soft-brown);
+            color: var(--brown);
+        }
+
+        .next-btn {
+            background: var(--brown);
+            color: white;
+        }
+
+        .conversation-action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .conversation-action-btn:disabled {
+            opacity: 0.55;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ================================
+           EXPLANATION
+        ================================= */
+
+        .explanation-panel {
+            display: none;
+            margin-top: 15px;
+            background: #fffaf4;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 18px;
+        }
+
+        .explanation-panel.show {
+            display: block;
+        }
+
+        .explanation-section {
+            margin-bottom: 18px;
+        }
+
+        .explanation-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-list {
+            margin: 6px 0 0;
+            padding-left: 21px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 6px;
+        }
+
+        .explanation-note {
+            background: #fff4df;
+            border-left: 4px solid var(--light-brown);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        .example-box {
+            background: #f3f7ef;
+            border-left: 4px solid var(--green);
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .example-box strong {
+            font-size: 16px;
+        }
+
+        /* ================================
+           GAME (shared progress/feedback)
+        ================================= */
+
+        .game-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 7px;
+            background: var(--soft-brown);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--light-brown);
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        .game-instruction {
+            background: #f3f7ef;
+            border-left: 5px solid var(--green);
+            padding: 13px 15px;
+            border-radius: 11px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question-box {
+            text-align: center;
+            padding: 20px 15px;
+            background: #fffaf4;
+            border: 1px dashed #dbc4ad;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-question-label {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .quiz-question-text {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            border: 1px solid #dfc8b0;
+            background: white;
+            color: var(--brown);
+            border-radius: 13px;
+            padding: 13px 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.16s ease;
+        }
+
+        .quiz-option:hover:not(:disabled) {
+            background: var(--soft-brown);
+            transform: translateY(-1px);
+        }
+
+        .quiz-option:disabled {
+            cursor: default;
+        }
+
+        .quiz-option.correct-choice {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        .quiz-option.wrong-choice {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+            opacity: 0.85;
+        }
+
+        /* ================================
+           FEEDBACK
+        ================================= */
+
+        .game-feedback {
+            display: none;
+            margin-top: 14px;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .game-feedback.show {
+            display: block;
+        }
+
+        .game-feedback.correct {
+            background: #f3f7ef;
+            border: 1px solid #b7c9b2;
+            color: #557151;
+        }
+
+        .game-feedback.incorrect {
+            background: #fff2f0;
+            border: 1px solid #e2aaa5;
+            color: #9b514b;
+        }
+
+        .correct-sentence {
+            margin-top: 5px;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* ================================
+           FINISHED
+        ================================= */
+
+        .game-finished {
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+        .game-finished-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+        .game-restart-btn {
+            margin-top: 13px;
+            border: 0;
+            background: var(--brown);
+            color: white;
+            padding: 11px 19px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ================================
+           SUMMARY
+        ================================= */
+
+        .summary-list {
+            padding-left: 21px;
+        }
+
+        .summary-list li {
+            margin-bottom: 7px;
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 650px) {
+
+            .lesson-container {
+                padding: 20px 12px 45px;
+            }
+
+            .hero,
+            .conversation-card,
+            .game-card,
+            .summary-card {
+                padding: 20px 17px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .indonesian-text {
+                font-size: 17px;
+            }
+
+            .conversation-actions {
+                flex-direction: column;
+            }
+
+            .quiz-question-text {
+                font-size: 25px;
+            }
+
+            .speaker-name {
+                min-width: 53px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!--
+        Shared template akan memasukkan isi #page-source
+        ke dalam #app.
+    -->
+
+    <div id="app"></div>
+
+
+    <div id="page-source">
+
+        <main class="lesson-container">
+
+
+            <!-- =============================================
+                 HERO
+            ============================================== -->
+
+            <section class="hero">
+
+                <div class="badge">
+                    Bahasa Indonesia • Belanja
+                </div>
+
+                <h1>
+                    🛍️ 購物殺價（Belanja & Tawar-menawar）
+                </h1>
+
+                <p class="hero-description">
+                    學習如何用印尼語詢問價錢、殺價、詢問折扣，
+                    以及選擇付款方式和道謝。
+                </p>
+
+                <div class="note">
+                    💡 點擊 🔊 可以使用手機或瀏覽器的語音功能，
+                    聽印尼語發音。
+                </div>
+
+            </section>
+
+
+            <!-- =============================================
+                 CONVERSATION
+            ============================================== -->
+
+            <section class="conversation-card">
+
+                <h2>
+                    💬 Conversation
+                </h2>
+
+                <p class="section-subtitle">
+                    跟著店員和客人的購物對話學習。
+                </p>
+
+                <div id="conversation-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 GAME
+            ============================================== -->
+
+            <section class="game-card">
+
+                <h2>
+                    🌏 Tebak Terjemahan（猜猜怎麼翻）
+                </h2>
+
+                <p class="section-subtitle">
+                    看中文，選出正確的印尼語翻譯。
+                </p>
+
+                <div id="translate-game-container"></div>
+
+            </section>
+
+
+            <!-- =============================================
+                 SUMMARY
+            ============================================== -->
+
+            <section class="summary-card">
+
+                <h2>
+                    ☕ 小結
+                </h2>
+
+                <ul class="summary-list">
+
+                    <li>
+                        <strong>Selamat datang!</strong>
+                        ＝ 歡迎光臨！
+                    </li>
+
+                    <li>
+                        <strong>Ini / Itu berapa harganya?</strong>
+                        ＝ 這個／那個多少錢？
+                    </li>
+
+                    <li>
+                        <strong>Ini bisa kurang gak?</strong>
+                        ＝ 這個可以算便宜一點嗎？
+                    </li>
+
+                    <li>
+                        <strong>Ada diskon?</strong>
+                        ＝ 有折扣嗎？
+                    </li>
+
+                    <li>
+                        <strong>Beli satu gratis satu</strong>
+                        ＝ 買一送一
+                    </li>
+
+                    <li>
+                        <strong>Mau pakai tunai, kartu kredit atau QRIS?</strong>
+                        ＝ 要付現金、信用卡，還是用 QRIS？
+                    </li>
+
+                    <li>
+                        <strong>Makasih / Sama-sama</strong>
+                        ＝ 謝謝／不客氣
+                    </li>
+
+                </ul>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================================
+           TEXT TO SPEECH
+           使用手機 / 瀏覽器本身的語音
+        ===================================================== */
+
+        let currentSpeech = null;
+
+
+        function playAudio(text, button = null) {
+
+            if (!("speechSynthesis" in window)) {
+
+                alert(
+                    "這個瀏覽器不支援語音播放功能。"
+                );
+
+                return;
+
+            }
+
+
+            speechSynthesis.cancel();
+
+
+            document
+                .querySelectorAll(".playing")
+                .forEach(element => {
+
+                    element.classList.remove(
+                        "playing"
+                    );
+
+                });
+
+
+            const utterance =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            utterance.lang =
+                "id-ID";
+
+
+            utterance.rate =
+                0.85;
+
+
+            utterance.pitch =
+                1;
+
+
+            currentSpeech =
+                utterance;
+
+
+            if (button) {
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            utterance.onend =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            utterance.onerror =
+                () => {
+
+                    if (button) {
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+                    }
+
+                    currentSpeech =
+                        null;
+
+                };
+
+
+            speechSynthesis.speak(
+                utterance
+            );
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION DATA
+        ===================================================== */
+
+        const conversations = [
+
+            {
+                speakerA: {
+                    name: "店員",
+                    indonesian: "Selamat datang, kakak! Ada yang bisa kami bantu?",
+                    mandarin: "歡迎光臨！請問有什麼可以幫您的嗎？"
+                },
+
+                speakerB: {
+                    name: "客人",
+                    indonesian: "Saya lihat-lihat dulu",
+                    mandarin: "我先看看"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Selamat datang", meaning: "歡迎光臨" },
+                        { word: "Kakak", meaning: "先生 / 小姐" },
+                        { word: "Ada", meaning: "有" },
+                        { word: "Bisa", meaning: "可以" },
+                        { word: "Kami", meaning: "我們" },
+                        { word: "Bantu", meaning: "幫忙" },
+                        { word: "Lihat-lihat", meaning: "看看" },
+                        { word: "Dulu", meaning: "先" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            「Kakak」在印尼語中不一定是指親生的哥哥或姐姐，
+                            也可以用來稱呼比自己年長的人，
+                            類似中文的「先生」或「小姐」，
+                            語氣比較親切、自然。
+                        </p>
+
+                        <p>
+                            「Ada yang...」是印尼語中很常見的說法，
+                            可以理解成「有沒有……」、「有什麼……」
+                            或「有人……」，要根據後面的句子來決定意思。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Ada yang bisa kami bantu?
+                            </strong>
+
+                            <br>
+
+                            有什麼可以幫您的嗎？／
+                            有沒有什麼我們可以幫忙的？
+
+                        </div>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Ini berapa harga nya?",
+                    mandarin: "這個多少錢？"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Ini dua ratus ribu",
+                    mandarin: "這個二十萬"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Ini", meaning: "這個" }
+                    ],
+
+                    phrases: [],
+
+                    usage: null
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Kalau itu?",
+                    mandarin: "那個呢"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Itu lima ratus enam puluh ribu",
+                    mandarin: "那個五十六萬"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Itu", meaning: "那個" },
+                        { word: "Kalau", meaning: "如果" },
+                        { word: "Kalau .....?", meaning: "……呢？" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            <strong>「Kalau」</strong>
+                            在印尼語中有兩種常見用法：
+                        </p>
+
+                        <p>
+                            <strong>1. Kalau ＝ 如果</strong>
+                            <br>
+                            表示假設或條件，類似中文的「如果」。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Kalau pedas, aku gak makan.
+                            </strong>
+
+                            <br>
+
+                            如果辣，我就不吃。
+
+                        </div>
+
+                        <p>
+                            <strong>2. Kalau……? ＝ ……呢？</strong>
+                            <br>
+                            在對話中，當我們想詢問另一個東西或另一個選項時，
+                            可以用「Kalau……?」，相當於中文的「……呢？」。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Kalau itu?
+                            </strong>
+
+                            <br>
+
+                            那個呢？
+
+                        </div>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Kalau ini?
+                            </strong>
+
+                            <br>
+
+                            這個呢？
+
+                        </div>
+
+                        <p>
+                            在購物對話中，Kalau itu? 是很自然的問法，
+                            用來詢問另一件商品的價格或情況。
+                        </p>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Ini bisa kurang gak?",
+                    mandarin: "這個可以算便宜一點嗎？"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Ini ada diskon 20%, jadi cuma bayar seratus enam puluh ribu",
+                    mandarin: "這個有打八折，所以只要十六萬印尼盾。"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Kurang", meaning: "少" },
+                        { word: "Diskon", meaning: "打折 / 折扣" },
+                        { word: "Jadi", meaning: "所以" },
+                        { word: "Cuma", meaning: "只" },
+                        { word: "Bayar", meaning: "付錢" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            「Ini bisa kurang nggak?」在印尼語的購物情境中，
+                            是在詢問價格能不能再便宜一點，
+                            也就是在要求折扣、殺價。
+                        </p>
+
+                        <p>
+                            這裡的「kurang」不是單純的「少」，
+                            而是指價格降低、少一點錢。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Ini bisa kurang nggak?
+                            </strong>
+
+                            <br>
+
+                            這個可以便宜一點嗎？／
+                            這個可以算便宜一點嗎？
+
+                        </div>
+
+                        <p>
+                            在印尼，商品的折扣通常用百分比（%）來表示，
+                            而這個百分比代表的是從原價中減少多少錢。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Diskon 20%
+                            </strong>
+
+                            <br>
+
+                            打八折，意思是從原價中減少 20%，
+                            最後支付原價的 80%。
+
+                        </div>
+
+                        <p>
+                            例如原價 200,000 印尼盾：
+                            <br>
+                            200,000 × 20% ＝ 40,000 印尼盾（折扣金額）
+                            <br>
+                            200,000 − 40,000 ＝ 160,000 印尼盾（折後價格）
+                        </p>
+
+                        <p>
+                            所以：Diskon 20% ＝ 減少原價的 20%
+                            ＝ 最後付原價的 80%。
+                        </p>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Kalo itu ada diskon?",
+                    mandarin: "那個有折扣嗎？"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Ini beli satu gratis satu",
+                    mandarin: "這個買一送一"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Gratis", meaning: "免費" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            「Beli satu gratis satu」在印尼語中，
+                            字面意思是「買一個，免費得到一個」。
+                        </p>
+
+                        <p>
+                            在中文裡最自然的說法是：
+                            <strong>買一送一</strong>
+                        </p>
+
+                        <p>
+                            字面上可以理解為：買一個，送一個。
+                            這裡的「送」不是「送到某個地方」的意思，
+                            而是指免費贈送。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Beli satu gratis satu
+                            </strong>
+
+                            <br>
+
+                            買一送一，買一個，免費再得到一個。
+
+                        </div>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Kalau gitu, aku ambil yang itu",
+                    mandarin: "那我就拿那個"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Boleh, totalnya lima ratus enam puluh ribu",
+                    mandarin: "可以的，總共五十六萬"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Kalau gitu", meaning: "那......" },
+                        { word: "Ambil", meaning: "拿" },
+                        { word: "Boleh", meaning: "可以" },
+                        { word: "Total", meaning: "總共" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            「Kalau gitu」在印尼語口語中，
+                            可以理解成中文的「那……」
+                            或「那這樣的話……」。
+                        </p>
+
+                        <p>
+                            kalau：如果、假如　
+                            gitu：那樣、那麼（begitu 的口語說法）
+                        </p>
+
+                        <p>
+                            但在日常對話中，kalau gitu 合起來
+                            常常不是單純的「如果那樣」，
+                            而是用來表示根據前面的情況做出決定，
+                            所以中文很自然地翻成「那……」。
+                        </p>
+
+                        <div class="example-box">
+
+                            <strong>
+                                Kalau gitu, aku ambil yang itu.
+                            </strong>
+
+                            <br>
+
+                            那，我就拿那個。
+
+                        </div>
+
+                        <p>
+                            也可以理解成：「既然這樣，那我就……」
+                        </p>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "店員",
+                    indonesian: "Pembayaran nya mau pakai tunai / cash, kartu kredit atau QRIS?",
+                    mandarin: "請問要付現金、信用卡，還是用 QRIS？"
+                },
+
+                speakerB: {
+                    name: "客人",
+                    indonesian: "Cash",
+                    mandarin: "現金"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Pembayaran", meaning: "付款" },
+                        { word: "Pakai", meaning: "用" },
+                        { word: "Tunai / Cash", meaning: "現金" },
+                        { word: "Kartu Kredit", meaning: "信用卡" },
+                        { word: "QRIS", meaning: "QRIS 支付" }
+                    ],
+
+                    phrases: [],
+
+                    usage: `
+                        <p>
+                            QRIS 是印尼的一種電子支付方式，
+                            可以用手機掃 QR Code 付款。
+                        </p>
+                    `
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Ini uang enam ratus ribu",
+                    mandarin: "（遞出 60 萬印尼盾付款）"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Kembalian nya 40,000",
+                    mandarin: "找您四萬"
+                },
+
+                explanation: {
+
+                    vocabulary: [
+                        { word: "Kembalian", meaning: "找錢" }
+                    ],
+
+                    phrases: [],
+
+                    usage: null
+
+                }
+            },
+
+
+            {
+                speakerA: {
+                    name: "客人",
+                    indonesian: "Terima kasih",
+                    mandarin: "謝謝"
+                },
+
+                speakerB: {
+                    name: "店員",
+                    indonesian: "Sama-sama",
+                    mandarin: "不客氣"
+                },
+
+                explanation: {
+
+                    vocabulary: [],
+
+                    phrases: [],
+
+                    usage: null
+
+                }
+            }
+
+        ];
+
+
+        /* =====================================================
+           SHUFFLE
+        ===================================================== */
+
+        function shuffle(array) {
+
+            const result =
+                [...array];
+
+
+            for (
+                let i = result.length - 1;
+                i > 0;
+                i--
+            ) {
+
+                const j =
+                    Math.floor(
+                        Math.random() * (i + 1)
+                    );
+
+
+                [
+                    result[i],
+                    result[j]
+                ] = [
+                    result[j],
+                    result[i]
+                ];
+
+            }
+
+
+            return result;
+
+        }
+
+
+        /* =====================================================
+           CONVERSATION STATE
+        ===================================================== */
+
+        let currentConversationIndex =
+            0;
+
+
+        /* =====================================================
+           RENDER CONVERSATION
+        ===================================================== */
+
+        function renderConversation() {
+
+            const container =
+                document.getElementById(
+                    "conversation-container"
+                );
+
+
+            if (!container) return;
+
+
+            const conversation =
+                conversations[
+                    currentConversationIndex
+                ];
+
+
+            const total =
+                conversations.length;
+
+
+            container.innerHTML = `
+
+                <div class="conversation-counter">
+
+                    對話
+                    ${currentConversationIndex + 1}
+                    / ${total}
+
+                </div>
+
+
+                ${renderSpeaker(
+                    conversation.speakerA
+                )}
+
+
+                <div class="dialogue-divider"></div>
+
+
+                ${renderSpeaker(
+                    conversation.speakerB
+                )}
+
+
+                <div class="conversation-actions">
+
+                    <button
+                        class="conversation-action-btn explanation-btn"
+                        id="explanation-toggle"
+                        type="button">
+
+                        📖 說明
+
+                    </button>
+
+
+                    <button
+                        class="conversation-action-btn next-btn"
+                        id="next-conversation"
+                        type="button">
+
+                        ${
+                            currentConversationIndex === total - 1
+                                ? "✓ 完成"
+                                : "→ 下一段"
+                        }
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="explanation-panel"
+                    id="explanation-panel">
+
+                    ${renderExplanation(
+                        conversation.explanation
+                    )}
+
+                </div>
+
+            `;
+
+
+            container
+                .querySelectorAll(".audio-btn")
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            playAudio(
+                                button.dataset.text,
+                                button
+                            );
+
+                        }
+                    );
+
+                });
+
+
+            const explanationButton =
+                document.getElementById(
+                    "explanation-toggle"
+                );
+
+
+            const explanationPanel =
+                document.getElementById(
+                    "explanation-panel"
+                );
+
+
+            explanationButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        explanationPanel.classList.toggle(
+                            "show"
+                        );
+
+
+                    explanationButton.textContent =
+                        isOpen
+                            ? "📖 關閉說明"
+                            : "📖 說明";
+
+                }
+            );
+
+
+            const nextButton =
+                document.getElementById(
+                    "next-conversation"
+                );
+
+
+            nextButton.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        currentConversationIndex
+                        <
+                        total - 1
+                    ) {
+
+                        currentConversationIndex++;
+
+                        renderConversation();
+
+                    } else {
+
+                        nextButton.textContent =
+                            "✓ 已完成";
+
+                        nextButton.disabled =
+                            true;
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           RENDER SPEAKER
+        ===================================================== */
+
+        function renderSpeaker(speaker) {
+
+            return `
+
+                <div class="speaker-row">
+
+                    <div class="speaker-name">
+
+                        ${speaker.name}
+
+                    </div>
+
+
+                    <div class="speaker-content">
+
+                        <div class="indonesian-row">
+
+                            <div class="indonesian-text">
+
+                                ${speaker.indonesian}
+
+                            </div>
+
+
+                            <button
+                                class="audio-btn"
+                                type="button"
+                                aria-label="播放印尼語"
+                                data-text="${escapeHtml(
+                                    speaker.indonesian
+                                )}">
+
+                                🔊
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="mandarin-text">
+
+                            ${speaker.mandarin}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           RENDER EXPLANATION
+        ===================================================== */
+
+        function renderExplanation(
+            explanation
+        ) {
+
+            let html = "";
+
+
+            if (
+                explanation.vocabulary &&
+                explanation.vocabulary.length > 0
+            ) {
+
+                html += `
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            📚 生詞
+                        </h3>
+
+                        <ul class="explanation-list">
+
+                            ${
+                                explanation.vocabulary
+                                    .map(item => `
+
+                                        <li>
+
+                                            <strong>
+                                                ${item.word}
+                                            </strong>
+
+                                            ＝
+                                            ${item.meaning}
+
+                                        </li>
+
+                                    `)
+                                    .join("")
+                            }
+
+                        </ul>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            if (
+                explanation.phrases &&
+                explanation.phrases.length > 0
+            ) {
+
+                html += `
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            💬 短語
+                        </h3>
+
+                        <ul class="explanation-list">
+
+                            ${
+                                explanation.phrases
+                                    .map(item => `
+
+                                        <li>
+
+                                            <strong>
+                                                ${item.phrase}
+                                            </strong>
+
+                                            ＝
+                                            ${item.explanation}
+
+                                        </li>
+
+                                    `)
+                                    .join("")
+                            }
+
+                        </ul>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            if (explanation.usage) {
+
+                html += `
+
+                    <div class="explanation-section">
+
+                        <h3>
+                            📝 說明
+                        </h3>
+
+                        <div class="explanation-note">
+
+                            ${explanation.usage}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            return html;
+
+        }
+
+
+        /* =====================================================
+           TRANSLATE QUIZ DATA
+           中文 → 印尼語
+        ===================================================== */
+
+        const translateGames = [
+
+            { question: "謝謝", answer: "Terima kasih" },
+            { question: "不客氣", answer: "Sama-sama" },
+            { question: "現金", answer: "Cash" },
+            { question: "那.....", answer: "Kalau gitu" },
+            { question: "買一送一", answer: "Beli satu gratis satu" },
+            { question: "付錢", answer: "Bayar" },
+            { question: "打折", answer: "Diskon" },
+            { question: "歡迎光臨", answer: "Selamat datang" },
+            { question: "這個", answer: "Ini" },
+            { question: "那個", answer: "Itu" }
+
+        ];
+
+
+        /* =====================================================
+           TRANSLATE GAME STATE
+        ===================================================== */
+
+        let translateQuestions = [];
+
+        let currentTranslateIndex =
+            0;
+
+        let translateLocked = false;
+
+
+        /* =====================================================
+           START TRANSLATE GAME
+        ===================================================== */
+
+        function startTranslateGame() {
+
+            translateQuestions =
+                shuffle(
+                    translateGames
+                );
+
+
+            currentTranslateIndex =
+                0;
+
+
+            translateLocked = false;
+
+
+            renderTranslateGame();
+
+        }
+
+
+        /* =====================================================
+           BUILD OPTIONS
+        ===================================================== */
+
+        function buildOptions(question) {
+
+            const others =
+                translateGames
+                    .filter(
+                        item =>
+                            item.answer !==
+                            question.answer
+                    )
+                    .map(
+                        item =>
+                            item.answer
+                    );
+
+
+            const distractors =
+                shuffle(others)
+                    .slice(0, 3);
+
+
+            return shuffle([
+                question.answer,
+                ...distractors
+            ]);
+
+        }
+
+
+        /* =====================================================
+           RENDER TRANSLATE GAME
+        ===================================================== */
+
+        function renderTranslateGame() {
+
+            const container =
+                document.getElementById(
+                    "translate-game-container"
+                );
+
+
+            if (!container) return;
+
+
+            if (
+                currentTranslateIndex
+                >=
+                translateQuestions.length
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="game-finished">
+
+                        <div class="game-finished-icon">
+                            🎉
+                        </div>
+
+                        <h3>
+                            全部完成！
+                        </h3>
+
+                        <p>
+                            你已完成全部
+                            ${translateQuestions.length}
+                            題。
+                        </p>
+
+                        <button
+                            class="game-restart-btn"
+                            id="restart-game"
+                            type="button">
+
+                            🔄 再玩一次
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                document
+                    .getElementById(
+                        "restart-game"
+                    )
+                    .addEventListener(
+                        "click",
+                        startTranslateGame
+                    );
+
+
+                return;
+
+            }
+
+
+            translateLocked =
+                false;
+
+
+            const question =
+                translateQuestions[
+                    currentTranslateIndex
+                ];
+
+
+            const options =
+                buildOptions(
+                    question
+                );
+
+
+            const progress =
+                (
+                    (currentTranslateIndex + 1)
+                    /
+                    translateQuestions.length
+                ) * 100;
+
+
+            container.innerHTML = `
+
+                <div class="game-progress">
+
+                    <div class="progress-text">
+
+                        第
+                        ${currentTranslateIndex + 1}
+                        題 / 共
+                        ${translateQuestions.length}
+                        題
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width:${progress}%">
+
+                    </div>
+
+                </div>
+
+
+                <div class="game-instruction">
+
+                    💡 看中文，選出正確的印尼語翻譯，
+                    點選後會播放發音。
+
+                </div>
+
+
+                <div class="quiz-question-box">
+
+                    <div class="quiz-question-label">
+                        這句話的印尼語是？
+                    </div>
+
+                    <div class="quiz-question-text">
+                        ${question.question}
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="quiz-options"
+                    id="quiz-options">
+
+                    ${
+                        options
+                            .map(
+                                (option, index) => `
+
+                                    <button
+                                        class="quiz-option"
+                                        type="button"
+                                        data-answer="${escapeHtml(option)}"
+                                        id="quiz-option-${index}">
+
+                                        ${option}
+
+                                    </button>
+
+                                `
+                            )
+                            .join("")
+                    }
+
+                </div>
+
+
+                <div
+                    class="game-feedback"
+                    id="game-feedback">
+
+                </div>
+
+            `;
+
+
+            document
+                .querySelectorAll(".quiz-option")
+                .forEach(button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            checkTranslateAnswer(
+                                button,
+                                question
+                            );
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+        /* =====================================================
+           CHECK TRANSLATE ANSWER
+        ===================================================== */
+
+        function checkTranslateAnswer(
+            button,
+            question
+        ) {
+
+            if (translateLocked) {
+                return;
+            }
+
+
+            const chosen =
+                button.dataset.answer;
+
+
+            playAudio(
+                chosen,
+                button
+            );
+
+
+            const feedback =
+                document.getElementById(
+                    "game-feedback"
+                );
+
+
+            const isCorrect =
+                chosen ===
+                question.answer;
+
+
+            if (isCorrect) {
+
+                translateLocked =
+                    true;
+
+
+                button.classList.add(
+                    "correct-choice"
+                );
+
+
+                document
+                    .querySelectorAll(".quiz-option")
+                    .forEach(option => {
+
+                        option.disabled =
+                            true;
+
+                    });
+
+
+                feedback.className =
+                    "game-feedback show correct";
+
+
+                feedback.innerHTML = `
+
+                    🎉 答對了！
+
+                    <div class="correct-sentence">
+
+                        ${question.question}
+                        ＝
+                        ${question.answer}
+
+                    </div>
+
+                `;
+
+
+                setTimeout(
+                    () => {
+
+                        currentTranslateIndex++;
+
+                        renderTranslateGame();
+
+                    },
+                    1500
+                );
+
+            } else {
+
+                button.classList.add(
+                    "wrong-choice"
+                );
+
+
+                button.disabled =
+                    true;
+
+
+                feedback.className =
+                    "game-feedback show incorrect";
+
+
+                feedback.innerHTML = `
+
+                    ❌ 還不對喔，再試試看其他選項！
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                );
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                renderConversation();
+
+                startTranslateGame();
+
+            }
+        );
+
+    </script>
+
+
+    <!--
+        Shared template
+        Karena file berada di /lessons/,
+        script.js berada satu folder di atas.
+    -->
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
