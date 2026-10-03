@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Es Teh Break｜想要做什麼：mau</title>
+<style>
+:root{--cream:#fff8ef;--brown:#5c4033;--light-brown:#b8865c;--soft-brown:#f3e4d3;--white:#fff;--green:#7b9b76;--red:#c8756d;--muted:#806b5d;--border:#ead8c5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+button{font-family:inherit}
+.lesson-container{max-width:850px;margin:0 auto;padding:30px 18px 60px}
+.card{background:var(--white);border-radius:22px;padding:25px;margin-bottom:22px;box-shadow:0 5px 18px rgba(92,64,51,.07)}
+.badge{display:inline-block;background:var(--soft-brown);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:10px}
+h1{margin:0 0 10px;font-size:30px}h2{margin:0 0 8px;font-size:23px}h3{margin:0 0 8px;font-size:17px}p{margin:8px 0}
+.hero-description,.section-subtitle{color:var(--muted)}
+.section-subtitle{margin:0 0 18px;font-size:14px}
+.note{background:#fff4df;border-left:5px solid var(--light-brown);padding:14px 16px;border-radius:12px;margin-top:16px}
+.formula{background:#f3f7ef;border-left:5px solid var(--green);padding:13px 15px;border-radius:11px;margin:10px 0 18px;font-size:15px}
+.formula strong{font-size:17px}
+.progress-text{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.progress-bar{height:7px;background:var(--soft-brown);border-radius:999px;overflow:hidden;margin-bottom:20px}
+.progress-fill{height:100%;background:var(--light-brown);border-radius:999px;transition:width .25s ease}
+.q-text{font-size:17px;font-weight:700;background:#fffaf4;border:1px dashed #dbc4ad;border-radius:15px;padding:15px 16px;margin-bottom:16px}
+.q-text .zh{font-size:20px}
+/* picture quiz */
+.pic-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pic-btn{border:2px solid var(--border);background:var(--white);border-radius:16px;min-height:110px;padding:10px;font-size:44px;line-height:1.2;cursor:pointer;transition:.16s ease;display:flex;align-items:center;justify-content:center;text-align:center}
+.pic-btn:hover:not(:disabled){background:var(--soft-brown);transform:translateY(-1px)}
+.pic-btn:disabled{cursor:default}
+.pic-btn.correct{border-color:var(--green);background:#f3f7ef}
+.pic-btn.incorrect{border-color:var(--red);background:#fff2f0}
+/* feedback */
+.feedback{display:none;margin-top:14px;padding:13px 15px;border-radius:11px;font-size:14px;font-weight:600}
+.feedback.show{display:block}
+.feedback.correct{background:#f3f7ef;border:1px solid #b7c9b2;color:#557151}
+.feedback.incorrect{background:#fff2f0;border:1px solid #e2aaa5;color:#9b514b}
+.correct-sentence{margin-top:5px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.audio-btn{flex:0 0 auto;width:40px;height:40px;border:1px solid var(--border);background:#fffaf4;color:var(--brown);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:.18s ease;touch-action:manipulation}
+.audio-btn:hover{background:var(--soft-brown)}
+.audio-btn.playing{background:var(--soft-brown);transform:scale(1.08)}
+.actions{display:flex;gap:10px;margin-top:16px}
+.btn{flex:1;min-height:46px;border:0;border-radius:12px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-main{background:var(--brown);color:#fff}
+.btn-soft{background:var(--soft-brown);color:var(--brown);flex:0 0 auto}
+.btn:disabled{opacity:.5;cursor:default}
+/* sentence game */
+.word-area-title{color:var(--muted);font-size:14px;font-weight:700;margin-bottom:8px}
+.word-chips{display:flex;flex-wrap:wrap;gap:9px;min-height:55px;padding:12px;background:#fffaf4;border:1px dashed #dbc4ad;border-radius:13px}
+.word-chip{border:1px solid #dfc8b0;background:#fff;color:var(--brown);border-radius:10px;padding:9px 14px;min-height:43px;font-size:16px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.word-chip:hover:not(:disabled){background:var(--soft-brown)}
+.word-chip:disabled{opacity:.3;cursor:default}
+.answer-area{margin-top:18px}
+.answer-box{min-height:60px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px;background:#fffdf9;border:2px solid var(--border);border-radius:13px}
+.answer-box.correct{border-color:var(--green);background:#f3f7ef}
+.answer-box.incorrect{border-color:var(--red);background:#fff2f0}
+.answer-chip{border:0;background:var(--soft-brown);color:var(--brown);border-radius:9px;padding:8px 12px;font-size:16px;font-weight:700;cursor:pointer}
+.empty-answer{color:#a08d80;font-size:14px}
+.finished{text-align:center;padding:25px 10px}
+.finished-icon{font-size:42px}
+/* carousel */
+.carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;border-radius:18px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.vocab-card{flex:0 0 100%;scroll-snap-align:start;background:#fffaf4;border:1px solid var(--border);border-radius:18px;padding:26px 16px;text-align:center}
+.vocab-tag{display:inline-block;background:var(--soft-brown);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.vocab-pic{font-size:72px;line-height:1.3}
+.vocab-id{font-size:28px;font-weight:800}
+.vocab-zh{font-size:19px;color:var(--muted);margin:2px 0 10px}
+.car-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.car-count{font-weight:700;font-size:14px;color:var(--muted)}
+.footer-card{text-align:center;color:var(--muted);font-size:13px}
+.footer-brand{font-weight:800;color:var(--brown);font-size:15px;margin-bottom:4px}
+.explain ul{margin:6px 0;padding-left:21px}
+@media(max-width:650px){.lesson-container{padding:20px 12px 45px}.card{padding:20px 16px}h1{font-size:25px}h2{font-size:21px}.pic-btn{font-size:38px;min-height:96px}.actions{flex-direction:column}.btn-soft{flex:1}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="page-source">
+<main class="lesson-container">
+
+<section class="card">
+  <div class="badge">Bahasa Indonesia • Pemula</div>
+  <h1>🙋 想要做什麼：mau（想／要）</h1>
+  <p class="hero-description">這堂課會學印尼語的「<strong>mau</strong>」，意思是「想」或「要」。我們會先認識「我們、他們、他」和幾個常用動詞，再一步一步組成完整的句子，最後還有可以滑動複習的單字卡。</p>
+  <div class="note">💡 點擊 🔊 或單字，可以使用手機或瀏覽器的語音功能聽印尼語發音。</div>
+</section>
+
+<!-- 1. pronouns -->
+<section class="card">
+  <h2>👀 看圖選答案：我們、他們、他</h2>
+  <p class="section-subtitle">根據中文，選出最能代表那個人稱的圖片。</p>
+  <div id="pic-pron"></div>
+</section>
+
+<!-- 2. verbs -->
+<section class="card">
+  <h2>👀 看圖選答案：動詞</h2>
+  <p class="section-subtitle">根據中文，選出代表那個動作的圖片。</p>
+  <div id="pic-verb"></div>
+</section>
+
+<!-- 3. mau + verb -->
+<section class="card">
+  <h2>🧩 排排看：主詞 + mau + 動詞</h2>
+  <div class="formula"><strong>主詞 + mau + 動詞</strong><br>「mau」＝ 想／要（口語常用）。例如：Saya mau makan ＝ 我想吃。<br>Saya（我）比較正式，口語也常說 aku。</div>
+  <div id="sent-1"></div>
+</section>
+
+<!-- 4. objects -->
+<section class="card">
+  <h2>👀 看圖選答案：名詞與指示詞</h2>
+  <p class="section-subtitle">這些是等一下句子裡會用到的單字。</p>
+  <div id="pic-obj"></div>
+</section>
+
+<section class="card">
+  <h2>🧩 排排看：主詞 + mau + 動詞 + 受詞</h2>
+  <div class="formula"><strong>主詞 + mau + 動詞 + 受詞</strong><br>受詞放在動詞後面，跟中文的順序一樣。</div>
+  <div id="sent-2"></div>
+</section>
+
+<!-- 5. places -->
+<section class="card">
+  <h2>👀 看圖選答案：地點與活動</h2>
+  <p class="section-subtitle">根據中文，選出正確的圖片。</p>
+  <div id="pic-place"></div>
+</section>
+
+<section class="card">
+  <h2>🧩 排排看：加上地點（di / ke）</h2>
+  <div class="formula"><strong>主詞 + mau + 動詞 + 受詞 + di/ke + 地方</strong>
+    <p>「<strong>di</strong>」相當於中文的「在」，用來表示動作或事情發生的地點。</p>
+    <p>「<strong>ke</strong>」則表示前往某個地方的「目的地」，通常用在表示移動、前往某個地方的情況。</p>
+  </div>
+  <div id="sent-3"></div>
+</section>
+
+<!-- 6. here / there -->
+<section class="card">
+  <h2>👀 看圖選答案：這裡與那裡</h2>
+  <p class="section-subtitle">看看人和地點之間的距離。</p>
+  <div id="pic-here"></div>
+</section>
+
+<section class="card">
+  <h2>🧩 排排看：sini 與 sana</h2>
+  <div class="formula">注意：第二句沒有 mau，意思是「他在那裡吃」（已經在做的事）。</div>
+  <div id="sent-4"></div>
+</section>
+
+<!-- 7. negation -->
+<section class="card">
+  <h2>👀 看圖選答案：gak 與 pergi</h2>
+  <p class="section-subtitle">「gak」是口語的否定詞，正式說法是 tidak。</p>
+  <div id="pic-neg"></div>
+</section>
+
+<section class="card">
+  <h2>🧩 排排看：不想（gak mau）</h2>
+  <div class="formula"><strong>主詞 + gak + mau + 動詞 + 受詞 + ke/di + 地點</strong><br>gak 放在 mau 前面，表示「不想」。</div>
+  <div id="sent-5"></div>
+</section>
+
+<section class="card">
+  <h2>🧩 排排看：用 gak 問問題</h2>
+  <div class="formula"><strong>主詞 + mau + 動詞 + 受詞 + ke/di + 地點 + gak?</strong><br>句尾的 gak 相當於中文的「嗎／要不要」。<br>Kamu mau makan gak? ＝ 你想吃嗎？（你想不想吃？）</div>
+  <div id="sent-6"></div>
+</section>
+
+<!-- carousel -->
+<section class="card">
+  <h2>🗂️ 單字卡複習</h2>
+  <p class="section-subtitle">左右滑動，複習前面看圖題出現的所有單字。</p>
+  <div class="carousel" id="carousel"></div>
+  <div class="car-nav">
+    <button class="btn btn-soft" id="car-prev" type="button">← 上一張</button>
+    <div class="car-count" id="car-count"></div>
+    <button class="btn btn-soft" id="car-next" type="button">下一張 →</button>
+  </div>
+</section>
+
+<footer class="card footer-card">
+  <div class="footer-brand">☕ Es Teh Break</div>
+  <div>邊喝冰茶邊學印尼語 · mau 篇</div>
+</footer>
+
+</main>
+</div>
+
+<script>
+/* ===== helpers ===== */
+const $ = id => document.getElementById(id);
+function shuffle(arr){const r=[...arr];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+function escapeHtml(v){return String(v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#039;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function playAudio(text, button=null){
+  if(!("speechSynthesis" in window)){alert("這個瀏覽器不支援語音播放功能。");return;}
+  speechSynthesis.cancel();
+  document.querySelectorAll(".playing").forEach(e=>e.classList.remove("playing"));
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="id-ID";u.rate=0.85;u.pitch=1;
+  if(button)button.classList.add("playing");
+  const done=()=>{if(button)button.classList.remove("playing");};
+  u.onend=done;u.onerror=done;
+  speechSynthesis.speak(u);
+}
+
+/* ===== PICTURE DATA ===== */
+const P = {
+  // pronouns
+  saya:{id:"Saya",zh:"我",pic:"🙋"},
+  kamu:{id:"Kamu",zh:"你",pic:"🫵"},
+  kita:{id:"Kita",zh:"我們",pic:"🙋🧑‍🤝‍🧑",tag:"人稱"},
+  mereka:{id:"Mereka",zh:"他們",pic:"👉👥",tag:"人稱"},
+  dia:{id:"Dia",zh:"他／她／它",pic:"👉🧍",tag:"人稱"},
+  // verbs
+  makan:{id:"Makan",zh:"吃",pic:"😋🍴",tag:"動詞"},
+  minum:{id:"Minum",zh:"喝",pic:"🥤😌",tag:"動詞"},
+  beli:{id:"Beli",zh:"買",pic:"🛒💰",tag:"動詞"},
+  coba:{id:"Coba",zh:"試試看",pic:"🥄😮",tag:"動詞"},
+  pesan:{id:"Pesan",zh:"訂／點",pic:"🛎️📝",tag:"動詞"},
+  // objects
+  nasi:{id:"Nasi",zh:"飯／米飯",pic:"🍚",tag:"名詞"},
+  airputih:{id:"Air putih",zh:"白開水",pic:"🚰",tag:"名詞"},
+  nasigoreng:{id:"Nasi goreng",zh:"炒飯",pic:"🍳🍚",tag:"名詞"},
+  ini:{id:"Ini",zh:"這個",pic:"🙋📦",tag:"指示詞"},
+  itu:{id:"Itu",zh:"那個",pic:"🙋 ··· 📦",tag:"指示詞"},
+  // places
+  restoran:{id:"Restoran",zh:"餐廳",pic:"🍽️🏠",tag:"地點"},
+  oleh:{id:"Oleh-oleh",zh:"伴手禮",pic:"🎁🧳",tag:"名詞"},
+  toko:{id:"Toko",zh:"商店",pic:"🏪",tag:"地點"},
+  hotel:{id:"Hotel",zh:"飯店",pic:"🏨",tag:"地點"},
+  jalan:{id:"Jalan-jalan",zh:"逛逛／出去玩",pic:"🚶‍♀️🌳",tag:"動詞"},
+  bandung:{id:"Bandung",zh:"萬隆",pic:"🌋🏙️",tag:"地點"},
+  // here / there
+  sini:{id:"Sini",zh:"這裡",pic:"📍🙋",tag:"地點"},
+  sana:{id:"Sana",zh:"那裡",pic:"🙋 ··· 📍",tag:"地點"},
+  // neg
+  gak:{id:"Gak",zh:"不／沒／嗎",pic:"🙅",tag:"否定詞"},
+  pergi:{id:"Pergi",zh:"去",pic:"🚶‍♂️➡️",tag:"動詞"}
+};
+
+const picSets = {
+  "pic-pron":{items:[P.kita,P.mereka,P.dia],extra:[P.saya,P.kamu]},
+  "pic-verb":{items:[P.makan,P.minum,P.beli,P.coba,P.pesan]},
+  "pic-obj":{items:[P.nasi,P.airputih,P.nasigoreng,P.ini,P.itu]},
+  "pic-place":{items:[P.restoran,P.oleh,P.toko,P.hotel,P.jalan,P.bandung]},
+  "pic-here":{items:[P.sini,P.sana]},
+  "pic-neg":{items:[P.gak,P.pergi]}
+};
+
+/* ===== PICTURE QUIZ ENGINE ===== */
+function createPicQuiz(containerId,set){
+  const box=$(containerId);
+  const pool=[...set.items,...(set.extra||[])];
+  let order,idx,locked;
+
+  function start(){order=shuffle(set.items);idx=0;render();}
+
+  function render(){
+    if(idx>=order.length){
+      box.innerHTML=`<div class="finished"><div class="finished-icon">🎉</div><h3>完成！</h3><p>你已完成全部 ${order.length} 題。</p><button class="btn btn-main" type="button" style="flex:none">🔄 再玩一次</button></div>`;
+      box.querySelector("button").onclick=start;return;
+    }
+    locked=false;
+    const q=order[idx];
+    const others=shuffle(pool.filter(p=>p.id!==q.id)).slice(0,Math.min(3,pool.length-1));
+    const opts=shuffle([q,...others]);
+    const pct=((idx+1)/order.length)*100;
+    box.innerHTML=`
+      <div class="progress-text">第 ${idx+1} 題 / 共 ${order.length} 題</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="q-text">哪一個代表 <span class="zh">${q.zh}</span> ？</div>
+      <div class="pic-grid">${opts.map(o=>`<button class="pic-btn" type="button" data-id="${o.id}">${o.pic}</button>`).join("")}</div>
+      <div class="feedback"></div>
+      <div class="actions"><button class="btn btn-main next" type="button" disabled>${idx===order.length-1?"✓ 完成":"→ 下一題"}</button></div>`;
+    const btns=box.querySelectorAll(".pic-btn");
+    const fb=box.querySelector(".feedback");
+    const next=box.querySelector(".next");
+    btns.forEach(b=>b.onclick=()=>{
+      if(locked)return;locked=true;
+      const ok=b.dataset.id===q.id;
+      btns.forEach(x=>{x.disabled=true;if(x.dataset.id===q.id)x.classList.add("correct");else if(x===b)x.classList.add("incorrect");});
+      fb.className="feedback show "+(ok?"correct":"incorrect");
+      fb.innerHTML=`${ok?"🎉 答對了！":"❌ 還不對喔，正確答案是綠色的那個。"}
+        <div class="correct-sentence">${q.id} ＝ ${q.zh}<button class="audio-btn" type="button">🔊</button></div>`;
+      const ab=fb.querySelector(".audio-btn");
+      ab.onclick=()=>playAudio(q.id,ab);
+      playAudio(q.id,ab);
+      next.disabled=false;
+    });
+    next.onclick=()=>{idx++;render();};
+  }
+  start();
+}
+
+/* ===== SENTENCE DATA ===== */
+const sentSets = {
+  "sent-1":[
+    {w:["Saya","mau","makan"],zh:"我想吃"},
+    {w:["Kamu","mau","minum"],zh:"你想喝"},
+    {w:["Kita","mau","beli"],zh:"我們想買"},
+    {w:["Mereka","mau","coba"],zh:"他們想試試看"},
+    {w:["Dia","mau","pesan"],zh:"他想點餐"}
+  ],
+  "sent-2":[
+    {w:["Saya","mau","makan","nasi"],zh:"我想吃飯"},
+    {w:["Kamu","mau","minum","air putih"],zh:"你想喝白開水"},
+    {w:["Kita","mau","beli","ini"],zh:"我們想買這個"},
+    {w:["Mereka","mau","coba","itu"],zh:"他們想試試那個"},
+    {w:["Dia","mau","pesan","nasi goreng"],zh:"他想點炒飯"}
+  ],
+  "sent-3":[
+    {w:["Saya","mau","makan","nasi","di","restoran"],zh:"我想在餐廳吃飯"},
+    {w:["Kamu","mau","beli","oleh-oleh","di","toko"],zh:"你想在商店買伴手禮"},
+    {w:["Mereka","mau","pergi","ke","hotel"],zh:"他們想去飯店"},
+    {w:["Kita","mau","jalan-jalan","ke","Bandung"],zh:"我們想去萬隆玩"}
+  ],
+  "sent-4":[
+    {w:["Saya","mau","ke","sini"],zh:"我想來這裡"},
+    {w:["Dia","makan","di","sana"],zh:"他在那裡吃飯"}
+  ],
+  "sent-5":[
+    {w:["Aku","gak","mau","makan"],zh:"我不想吃"},
+    {w:["Dia","gak","mau","beli","ini"],zh:"他不想買這個"},
+    {w:["Kita","gak","mau","pergi","ke","Jakarta"],zh:"我們不想去雅加達"},
+    {w:["Mereka","gak","mau","coba","itu"],zh:"他們不想試試那個"}
+  ],
+  "sent-6":[
+    {w:["Kamu","mau","makan","gak"],zh:"你想吃嗎？",end:"?"},
+    {w:["Kamu","mau","beli","ini","gak"],zh:"你想買這個嗎？",end:"?"},
+    {w:["Mereka","mau","pergi","ke","Jakarta","gak"],zh:"他們想去雅加達嗎？",end:"?"},
+    {w:["Kamu","mau","coba","itu","gak"],zh:"你想試試那個嗎？",end:"?"}
+  ]
+};
+
+/* ===== SENTENCE QUIZ ENGINE ===== */
+function createSentenceQuiz(containerId,items){
+  const box=$(containerId);
+  let order,idx,tokens,selected,locked;
+
+  function start(){order=shuffle(items);idx=0;render();}
+
+  function render(){
+    if(idx>=order.length){
+      box.innerHTML=`<div class="finished"><div class="finished-icon">🎉</div><h3>全部完成！</h3><p>你已完成全部 ${order.length} 題。</p><button class="btn btn-main" type="button" style="flex:none">🔄 再玩一次</button></div>`;
+      box.querySelector("button").onclick=start;return;
+    }
+    locked=false;selected=[];
+    const q=order[idx];
+    const base=q.w.map((word,i)=>({id:i,word}));
+    tokens=shuffle(base);
+    let tries=0;
+    while(tokens.length>1&&tokens.every((t,i)=>t.id===i)&&tries<20){tokens=shuffle(base);tries++;}
+    const pct=((idx+1)/order.length)*100;
+    box.innerHTML=`
+      <div class="progress-text">第 ${idx+1} 題 / 共 ${order.length} 題</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="q-text">請排出這句話的印尼語：<br><span class="zh">「${q.zh}」</span></div>
+      <div class="word-area-title">單字（點擊會播放發音）：</div>
+      <div class="word-chips" id="${containerId}-chips"></div>
+      <div class="answer-area">
+        <div class="word-area-title">你的答案：</div>
+        <div class="answer-box" id="${containerId}-answer"></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-main check" type="button">✓ 檢查答案</button>
+        <button class="btn btn-soft reset" type="button">↩ 重來</button>
+      </div>
+      <div class="feedback" id="${containerId}-fb"></div>
+      <div class="actions"><button class="btn btn-main next" type="button" disabled>${idx===order.length-1?"✓ 完成":"→ 下一題"}</button></div>`;
+    drawChips();drawAnswer();
+    box.querySelector(".check").onclick=check;
+    box.querySelector(".reset").onclick=()=>{if(locked)return;selected=[];drawChips();drawAnswer();clearFb();};
+    box.querySelector(".next").onclick=()=>{idx++;render();};
+  }
+
+  function drawChips(){
+    const c=$(containerId+"-chips");c.innerHTML="";
+    tokens.forEach(t=>{
+      const b=document.createElement("button");
+      b.type="button";b.className="word-chip";b.textContent=t.word;
+      b.disabled=selected.some(s=>s.id===t.id);
+      b.onclick=()=>{
+        if(locked)return;
+        playAudio(t.word,b);
+        selected.push(t);drawAnswer();drawChips();clearFb();
+      };
+      c.appendChild(b);
+    });
+  }
+
+  function drawAnswer(){
+    const a=$(containerId+"-answer");a.innerHTML="";
+    if(!selected.length){a.innerHTML='<span class="empty-answer">請點擊上面的單字……</span>';return;}
+    selected.forEach((t,i)=>{
+      const b=document.createElement("button");
+      b.type="button";b.className="answer-chip";b.textContent=t.word;b.title="點擊移除此單字";
+      b.onclick=()=>{if(locked)return;playAudio(t.word,b);selected.splice(i,1);drawAnswer();drawChips();clearFb();};
+      a.appendChild(b);
+    });
+  }
+
+  function clearFb(){
+    const fb=$(containerId+"-fb");const a=$(containerId+"-answer");
+    if(fb){fb.className="feedback";fb.innerHTML="";}
+    if(a)a.classList.remove("correct","incorrect");
+  }
+
+  function check(){
+    if(locked)return;
+    const q=order[idx];
+    const ok=selected.length===q.w.length&&selected.every((t,i)=>t.word===q.w[i]);
+    const a=$(containerId+"-answer");const fb=$(containerId+"-fb");
+    if(ok){
+      locked=true;
+      a.classList.remove("incorrect");a.classList.add("correct");
+      const sentence=q.w.join(" ")+(q.end||"");
+      fb.className="feedback show correct";
+      fb.innerHTML=`🎉 答對了！<div class="correct-sentence">${sentence}<button class="audio-btn" type="button">🔊</button></div><div>${q.zh}</div>`;
+      const ab=fb.querySelector(".audio-btn");
+      ab.onclick=()=>playAudio(q.w.join(" "),ab);
+      setTimeout(()=>playAudio(q.w.join(" "),ab),100);
+      box.querySelector(".next").disabled=false;
+    }else{
+      a.classList.remove("correct");a.classList.add("incorrect");
+      fb.className="feedback show incorrect";
+      fb.innerHTML="❌ 還不對喔。<br>再試試看單字的順序！";
+    }
+  }
+  start();
+}
+
+/* ===== CAROUSEL ===== */
+function initCarousel(){
+  const car=$("carousel");
+  const seen=new Set();const vocab=[];
+  Object.values(picSets).forEach(s=>s.items.forEach(i=>{if(!seen.has(i.id)){seen.add(i.id);vocab.push(i);}}));
+  car.innerHTML=vocab.map(v=>`
+    <div class="vocab-card">
+      <div class="vocab-tag">${v.tag||""}</div>
+      <div class="vocab-pic">${v.pic}</div>
+      <div class="vocab-id">${v.id}</div>
+      <div class="vocab-zh">${v.zh}</div>
+      <button class="audio-btn" type="button" data-text="${escapeHtml(v.id)}" style="margin:0 auto">🔊</button>
+    </div>`).join("");
+  car.querySelectorAll(".audio-btn").forEach(b=>b.onclick=()=>playAudio(b.dataset.text,b));
+  const count=$("car-count");
+  const cur=()=>Math.round(car.scrollLeft/car.clientWidth);
+  const upd=()=>{count.textContent=`${Math.min(cur()+1,vocab.length)} / ${vocab.length}`;};
+  car.addEventListener("scroll",upd);
+  $("car-prev").onclick=()=>car.scrollBy({left:-car.clientWidth,behavior:"smooth"});
+  $("car-next").onclick=()=>car.scrollBy({left:car.clientWidth,behavior:"smooth"});
+  upd();
+}
+
+/* ===== INIT ===== */
+document.addEventListener("DOMContentLoaded",()=>{
+  Object.entries(picSets).forEach(([id,set])=>createPicQuiz(id,set));
+  Object.entries(sentSets).forEach(([id,items])=>createSentenceQuiz(id,items));
+  initCarousel();
+});
+</script>
+
+<!--
+    Shared template
+    Karena file berada di /lessons/,
+    script.js berada satu folder di atas.
+-->
+<script src="../script.js"></script>
+</body>
+</html>
