@@ -26,6 +26,8 @@ h1{margin:0 0 10px;font-size:30px}h2{margin:0 0 8px;font-size:23px}h3{margin:0 0
 /* picture quiz */
 .pic-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .pic-btn{border:2px solid var(--border);background:var(--white);border-radius:16px;min-height:110px;padding:10px;font-size:44px;line-height:1.2;cursor:pointer;transition:.16s ease;display:flex;align-items:center;justify-content:center;text-align:center}
+.pic-btn{flex-direction:column;gap:6px}
+.pic-label{font-size:15px;font-weight:700;line-height:1.3;color:var(--brown)}
 .pic-btn:hover:not(:disabled){background:var(--soft-brown);transform:translateY(-1px)}
 .pic-btn:disabled{cursor:default}
 .pic-btn.correct{border-color:var(--green);background:#f3f7ef}
@@ -273,7 +275,7 @@ function createPicQuiz(containerId,set){
       <div class="progress-text">第 ${idx+1} 題 / 共 ${order.length} 題</div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
       <div class="q-text">哪一個代表 <span class="zh">${q.zh}</span> ？</div>
-      <div class="pic-grid">${opts.map(o=>`<button class="pic-btn" type="button" data-id="${o.id}">${o.pic}</button>`).join("")}</div>
+      <div class="pic-grid">${opts.map(o=>`<button class="pic-btn" type="button" data-id="${o.id}"><span class="pic-emoji">${o.pic}</span><span class="pic-label">${o.id}</span></button>`).join("")}</div>
       <div class="feedback"></div>
       <div class="actions"><button class="btn btn-main next" type="button" disabled>${idx===order.length-1?"✓ 完成":"→ 下一題"}</button></div>`;
     const btns=box.querySelectorAll(".pic-btn");
