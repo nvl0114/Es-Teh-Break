@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Es Teh Break｜形容詞與 -nya</title>
+<style>
+:root{--cream:#fff8ef;--brown:#5c4033;--light-brown:#b8865c;--soft-brown:#f3e4d3;--white:#fff;--green:#7b9b76;--red:#c8756d;--muted:#806b5d;--border:#ead8c5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+button{font-family:inherit}
+.lesson-container{max-width:850px;margin:0 auto;padding:30px 18px 60px}
+.card{background:var(--white);border-radius:22px;padding:25px;margin-bottom:22px;box-shadow:0 5px 18px rgba(92,64,51,.07)}
+.badge{display:inline-block;background:var(--soft-brown);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700;margin-bottom:10px}
+h1{margin:0 0 10px;font-size:30px}h2{margin:0 0 8px;font-size:23px}h3{margin:0 0 8px;font-size:17px}p{margin:8px 0}
+.hero-description,.section-subtitle{color:var(--muted)}
+.section-subtitle{margin:0 0 18px;font-size:14px}
+.note{background:#fff4df;border-left:5px solid var(--light-brown);padding:14px 16px;border-radius:12px;margin-top:16px}
+.formula{background:#f3f7ef;border-left:5px solid var(--green);padding:13px 15px;border-radius:11px;margin:10px 0 18px;font-size:15px}
+.formula strong{font-size:17px}
+.formula p{margin:6px 0}
+.examples{background:#fffaf4;border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin:10px 0 18px;font-size:15px}
+.examples div{padding:2px 0}
+.examples b{font-size:16px}
+.progress-text{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.progress-bar{height:7px;background:var(--soft-brown);border-radius:999px;overflow:hidden;margin-bottom:20px}
+.progress-fill{height:100%;background:var(--light-brown);border-radius:999px;transition:width .25s ease}
+.q-text{font-size:17px;font-weight:700;background:#fffaf4;border:1px dashed #dbc4ad;border-radius:15px;padding:15px 16px;margin-bottom:16px}
+.q-text .zh{font-size:20px}
+.feedback{display:none;margin-top:14px;padding:13px 15px;border-radius:11px;font-size:14px;font-weight:600}
+.feedback.show{display:block}
+.feedback.correct{background:#f3f7ef;border:1px solid #b7c9b2;color:#557151}
+.feedback.incorrect{background:#fff2f0;border:1px solid #e2aaa5;color:#9b514b}
+.correct-sentence{margin-top:5px;font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.audio-btn{flex:0 0 auto;width:40px;height:40px;border:1px solid var(--border);background:#fffaf4;color:var(--brown);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:.18s ease;touch-action:manipulation}
+.audio-btn:hover{background:var(--soft-brown)}
+.audio-btn.playing{background:var(--soft-brown);transform:scale(1.08)}
+.actions{display:flex;gap:10px;margin-top:16px}
+.btn{flex:1;min-height:46px;border:0;border-radius:12px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-main{background:var(--brown);color:#fff}
+.btn-soft{background:var(--soft-brown);color:var(--brown);flex:0 0 auto}
+.btn:disabled{opacity:.5;cursor:default}
+.word-area-title{color:var(--muted);font-size:14px;font-weight:700;margin-bottom:8px}
+.word-chips{display:flex;flex-wrap:wrap;gap:9px;min-height:55px;padding:12px;background:#fffaf4;border:1px dashed #dbc4ad;border-radius:13px}
+.word-chip{border:1px solid #dfc8b0;background:#fff;color:var(--brown);border-radius:10px;padding:9px 14px;min-height:43px;font-size:16px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.word-chip:hover:not(:disabled){background:var(--soft-brown)}
+.word-chip:disabled{opacity:.3;cursor:default}
+.answer-area{margin-top:18px}
+.answer-box{min-height:60px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px;background:#fffdf9;border:2px solid var(--border);border-radius:13px}
+.answer-box.correct{border-color:var(--green);background:#f3f7ef}
+.answer-box.incorrect{border-color:var(--red);background:#fff2f0}
+.answer-chip{border:0;background:var(--soft-brown);color:var(--brown);border-radius:9px;padding:8px 12px;font-size:16px;font-weight:700;cursor:pointer}
+.empty-answer{color:#a08d80;font-size:14px}
+.finished{text-align:center;padding:25px 10px}
+.finished-icon{font-size:42px}
+.carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;border-radius:18px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.vocab-card{flex:0 0 100%;scroll-snap-align:start;background:#fffaf4;border:1px solid var(--border);border-radius:18px;padding:26px 16px;text-align:center}
+.vocab-tag{display:inline-block;background:var(--soft-brown);font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.vocab-pic{font-size:72px;line-height:1.3}
+.vocab-id{font-size:28px;font-weight:800}
+.vocab-zh{font-size:19px;color:var(--muted);margin:2px 0 10px}
+.car-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.car-count{font-weight:700;font-size:14px;color:var(--muted)}
+.footer-card{text-align:center;color:var(--muted);font-size:13px}
+.footer-brand{font-weight:800;color:var(--brown);font-size:15px;margin-bottom:4px}
+@media(max-width:650px){.lesson-container{padding:20px 12px 45px}.card{padding:20px 16px}h1{font-size:25px}h2{font-size:21px}.actions{flex-direction:column}.btn-soft{flex:1}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<div id="page-source">
+<main class="lesson-container">
+
+<section class="card">
+  <div class="badge">Bahasa Indonesia • Pemula</div>
+  <h1>✨ 形容詞與 -nya：描述人、事、物</h1>
+  <p class="hero-description">這堂課要學怎麼用印尼語描述人事物。我們會依序學習「名詞＋ini／itu」、「名詞＋-nya＋形容詞」、「gak＋形容詞」（不……）和「形容詞＋gak？」（……嗎？），每個句型都有排字遊戲，最後還有可以滑動複習的單字卡。</p>
+  <div class="note">💡 遊戲的玩法：上面會出現繁體中文，請從下面打亂順序的印尼語單字中，排出正確的句子。點擊單字或 🔊 可以聽發音。</div>
+</section>
+
+<!-- 1 -->
+<section class="card">
+  <h2>📌 名詞＋ini／itu（這個／那個）</h2>
+  <p>在印尼文中，<strong>ini</strong> 和 <strong>itu</strong> 放在名詞的<strong>後面</strong>，用來表示「這個／這位」或「那個／那位」。</p>
+  <div class="formula"><strong>🔹基本句型</strong><br>名詞 ＋ ini → 這個／這位＋名詞<br>名詞 ＋ itu → 那個／那位＋名詞</div>
+  <div class="examples">
+    <div><b>Cewek ini</b>　這個女生</div>
+    <div><b>Cowok itu</b>　那個男生</div>
+    <div><b>Orang itu</b>　那個人</div>
+    <div><b>Anak ini</b>　這個小孩</div>
+  </div>
+  <div id="sent-1"></div>
+</section>
+
+<!-- 2 -->
+<section class="card">
+  <h2>🧩 主詞＋形容詞</h2>
+  <p class="section-subtitle">印尼文的形容詞可以直接接在主詞後面，不需要「是」，意思是「很……」。</p>
+  <div class="formula"><strong>主詞 ＋ 形容詞</strong><br>Dia cantik ＝ 她（很）漂亮。<br>Kamu ganteng ＝ 你（很）帥。</div>
+  <div id="sent-2"></div>
+</section>
+
+<!-- 3 -->
+<section class="card">
+  <h2>📌 名詞＋-nya＋形容詞</h2>
+  <p>在印尼文中，<strong>-nya</strong> 可以接在名詞後面，用來表示特定的人、事物或對象，相當於中文裡「這個／那個……」的概念。</p>
+  <p>在這個句型中，可以把 -nya 理解成「這個／那個……的狀態」。</p>
+  <div class="formula"><strong>🔹基本句型</strong><br>名詞 ＋ nya ＋ 形容詞<br>這個句型可以用來描述某個人、事物或地方的特徵、狀態或情況。<p>書寫時 -nya 會連在名詞後面，例如：Harga + nya → Harganya。遊戲裡為了方便練習，把 nya 拆開成單獨的字塊。</p></div>
+  <div id="sent-3"></div>
+</section>
+
+<!-- 4 -->
+<section class="card">
+  <h2>📌 gak＋形容詞（不＋形容詞）</h2>
+  <p>在印尼文中，如果要否定形容詞，也就是表示「不……、沒有……的特徵」，只要在形容詞前面加上 <strong>gak</strong> 就可以了。</p>
+  <div class="formula"><strong>🔹基本句型</strong><br>主詞 ＋ gak ＋ 形容詞<br>gak ／ tidak ＝ 不、沒有<br><p>原本是：S ＋ 形容詞<br>要變成否定句，只要：S ＋ gak ＋ 形容詞</p></div>
+  <div class="note">📌 注意：gak 放在形容詞<strong>前面</strong>，不是後面。gak 是日常口語中很常用的說法；比較正式的說法是 tidak。<br>因此可以記成：<strong>gak ＋ 形容詞 ＝ 不＋形容詞</strong></div>
+  <div id="sent-4" style="margin-top:18px"></div>
+</section>
+
+<!-- 5 -->
+<section class="card">
+  <h2>📌 形容詞＋gak？（……嗎？）</h2>
+  <p>在日常口語中，如果想問某個人、事物「……嗎？」，可以把 <strong>gak</strong> 放在句子的最後面。</p>
+  <div class="formula"><strong>🔹基本句型</strong><br>主詞 ＋ 形容詞 ＋ gak？<br><p>這個句型是用來詢問某個人或事物是否具有某種特徵。gak 在這裡是口語疑問詞，可以理解成中文的「嗎？」。</p></div>
+  <div class="examples">
+    <div><b>肯定句</b>　主詞＋形容詞。</div>
+    <div><b>疑問句</b>　主詞＋形容詞＋gak？</div>
+    <div>只要在句子最後面加上 gak，就可以變成日常口語的「……嗎？」問句。</div>
+  </div>
+  <div class="examples">
+    <div><b>Nasi gorengnya pedas.</b>　炒飯很辣。</div>
+    <div><b>Nasi gorengnya pedas gak?</b>　炒飯辣嗎？</div>
+  </div>
+  <div class="note">💡 注意：這裡的 gak 和否定句中的 gak 用法不同。<br>• gak＋形容詞 → 表示「不……」<br>• 形容詞＋gak？ → 表示「……嗎？」</div>
+  <div id="sent-5" style="margin-top:18px"></div>
+</section>
+
+<!-- vocab -->
+<section class="card">
+  <h2>🗂️ 單字卡複習</h2>
+  <p class="section-subtitle">左右滑動，複習這堂課出現的形容詞與名詞。</p>
+  <div class="carousel" id="carousel"></div>
+  <div class="car-nav">
+    <button class="btn btn-soft" id="car-prev" type="button">← 上一張</button>
+    <div class="car-count" id="car-count"></div>
+    <button class="btn btn-soft" id="car-next" type="button">下一張 →</button>
+  </div>
+</section>
+
+<footer class="card footer-card">
+  <div class="footer-brand">☕ Es Teh Break</div>
+  <div>邊喝冰茶邊學印尼語 · 形容詞篇</div>
+</footer>
+
+</main>
+</div>
+
+<script>
+/* ===== helpers ===== */
+const $ = id => document.getElementById(id);
+function shuffle(arr){const r=[...arr];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+function escapeHtml(v){return String(v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#039;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+/* 把 "Harga nya mahal" 顯示成 "Harganya mahal" */
+function fmt(words){return words.join(" ").replace(/ nya\b/g,"nya");}
+
+function playAudio(text, button=null){
+  if(!("speechSynthesis" in window)){alert("這個瀏覽器不支援語音播放功能。");return;}
+  speechSynthesis.cancel();
+  document.querySelectorAll(".playing").forEach(e=>e.classList.remove("playing"));
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="id-ID";u.rate=0.85;u.pitch=1;
+  if(button)button.classList.add("playing");
+  const done=()=>{if(button)button.classList.remove("playing");};
+  u.onend=done;u.onerror=done;
+  speechSynthesis.speak(u);
+}
+
+/* ===== SENTENCE DATA (上：繁體中文／下：打亂的印尼語) ===== */
+const sentSets = {
+  "sent-1":[
+    {w:["Cewek","ini"],zh:"這個女生"},
+    {w:["Cowok","itu"],zh:"那個男生"},
+    {w:["Orang","itu"],zh:"那個人"},
+    {w:["Anak","ini"],zh:"這個小孩"}
+  ],
+  "sent-2":[
+    {w:["Dia","cantik"],zh:"她很漂亮"},
+    {w:["Kamu","ganteng"],zh:"你很帥"},
+    {w:["Cewek","itu","cantik"],zh:"那個女生很漂亮"},
+    {w:["Cowok","itu","ganteng"],zh:"那個男生很帥"},
+    {w:["Orang","ini","rajin"],zh:"這個人很勤勞"},
+    {w:["Anak","ini","lucu"],zh:"這個小孩很可愛"}
+  ],
+  "sent-3":[
+    {w:["Harga","nya","mahal"],zh:"價格很貴"},
+    {w:["Harga","nya","murah"],zh:"價格很便宜"},
+    {w:["Nasi goreng","nya","pedas"],zh:"炒飯很辣"},
+    {w:["Teh","nya","manis"],zh:"茶很甜"},
+    {w:["Makanan","nya","enak"],zh:"食物很好吃"},
+    {w:["Rasa","nya","asin"],zh:"味道很鹹"},
+    {w:["Tempat","nya","jauh"],zh:"那個地方很遠"},
+    {w:["Hotel","nya","dekat"],zh:"飯店很近"}
+  ],
+  "sent-4":[
+    {w:["Orang","itu","gak","rajin"],zh:"那個人不勤勞"},
+    {w:["Harga","nya","gak","mahal"],zh:"價格不貴"},
+    {w:["Nasi goreng","nya","gak","pedas"],zh:"炒飯不辣"},
+    {w:["Makanan","nya","gak","enak"],zh:"食物不好吃"},
+    {w:["Tempat","nya","gak","jauh"],zh:"那個地方不遠"}
+  ],
+  "sent-5":[
+    {w:["Orang","itu","rajin","gak"],zh:"那個人勤勞嗎？",end:"?"},
+    {w:["Harga","nya","mahal","gak"],zh:"價格貴嗎？",end:"?"},
+    {w:["Nasi goreng","nya","pedas","gak"],zh:"炒飯辣嗎？",end:"?"},
+    {w:["Makanan","nya","enak","gak"],zh:"食物好吃嗎？",end:"?"},
+    {w:["Tempat","nya","jauh","gak"],zh:"那個地方遠嗎？",end:"?"}
+  ]
+};
+
+/* ===== SENTENCE QUIZ ENGINE ===== */
+function createSentenceQuiz(containerId,items){
+  const box=$(containerId);
+  let order,idx,tokens,selected,locked;
+
+  function start(){order=shuffle(items);idx=0;render();}
+
+  function render(){
+    if(idx>=order.length){
+      box.innerHTML=`<div class="finished"><div class="finished-icon">🎉</div><h3>全部完成！</h3><p>你已完成全部 ${order.length} 題。</p><button class="btn btn-main" type="button" style="flex:none">🔄 再玩一次</button></div>`;
+      box.querySelector("button").onclick=start;return;
+    }
+    locked=false;selected=[];
+    const q=order[idx];
+    const base=q.w.map((word,i)=>({id:i,word}));
+    tokens=shuffle(base);
+    let tries=0;
+    while(tokens.length>1&&tokens.every((t,i)=>t.id===i)&&tries<20){tokens=shuffle(base);tries++;}
+    const pct=((idx+1)/order.length)*100;
+    box.innerHTML=`
+      <div class="progress-text">第 ${idx+1} 題 / 共 ${order.length} 題</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="q-text">請排出這句話的印尼語：<br><span class="zh">「${q.zh}」</span></div>
+      <div class="word-area-title">單字（點擊會播放發音）：</div>
+      <div class="word-chips" id="${containerId}-chips"></div>
+      <div class="answer-area">
+        <div class="word-area-title">你的答案：</div>
+        <div class="answer-box" id="${containerId}-answer"></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-main check" type="button">✓ 檢查答案</button>
+        <button class="btn btn-soft reset" type="button">↩ 重來</button>
+      </div>
+      <div class="feedback" id="${containerId}-fb"></div>
+      <div class="actions"><button class="btn btn-main next" type="button" disabled>${idx===order.length-1?"✓ 完成":"→ 下一題"}</button></div>`;
+    drawChips();drawAnswer();
+    box.querySelector(".check").onclick=check;
+    box.querySelector(".reset").onclick=()=>{if(locked)return;selected=[];drawChips();drawAnswer();clearFb();};
+    box.querySelector(".next").onclick=()=>{idx++;render();};
+  }
+
+  function drawChips(){
+    const c=$(containerId+"-chips");c.innerHTML="";
+    tokens.forEach(t=>{
+      const b=document.createElement("button");
+      b.type="button";b.className="word-chip";b.textContent=t.word;
+      b.disabled=selected.some(s=>s.id===t.id);
+      b.onclick=()=>{
+        if(locked)return;
+        playAudio(t.word==="nya"?"nya":t.word,b);
+        selected.push(t);drawAnswer();drawChips();clearFb();
+      };
+      c.appendChild(b);
+    });
+  }
+
+  function drawAnswer(){
+    const a=$(containerId+"-answer");a.innerHTML="";
+    if(!selected.length){a.innerHTML='<span class="empty-answer">請點擊上面的單字……</span>';return;}
+    selected.forEach((t,i)=>{
+      const b=document.createElement("button");
+      b.type="button";b.className="answer-chip";b.textContent=t.word;b.title="點擊移除此單字";
+      b.onclick=()=>{if(locked)return;selected.splice(i,1);drawAnswer();drawChips();clearFb();};
+      a.appendChild(b);
+    });
+  }
+
+  function clearFb(){
+    const fb=$(containerId+"-fb");const a=$(containerId+"-answer");
+    if(fb){fb.className="feedback";fb.innerHTML="";}
+    if(a)a.classList.remove("correct","incorrect");
+  }
+
+  function check(){
+    if(locked)return;
+    const q=order[idx];
+    const ok=selected.length===q.w.length&&selected.every((t,i)=>t.word===q.w[i]);
+    const a=$(containerId+"-answer");const fb=$(containerId+"-fb");
+    if(ok){
+      locked=true;
+      a.classList.remove("incorrect");a.classList.add("correct");
+      const sentence=fmt(q.w)+(q.end||"");
+      fb.className="feedback show correct";
+      fb.innerHTML=`🎉 答對了！<div class="correct-sentence">${sentence}<button class="audio-btn" type="button">🔊</button></div><div>${q.zh}</div>`;
+      const ab=fb.querySelector(".audio-btn");
+      ab.onclick=()=>playAudio(fmt(q.w),ab);
+      setTimeout(()=>playAudio(fmt(q.w),ab),100);
+      box.querySelector(".next").disabled=false;
+    }else{
+      a.classList.remove("correct");a.classList.add("incorrect");
+      fb.className="feedback show incorrect";
+      fb.innerHTML="❌ 還不對喔。<br>再試試看單字的順序！";
+    }
+  }
+  start();
+}
+
+/* ===== VOCAB ===== */
+const vocab=[
+  {id:"Anak",zh:"小孩",pic:"🧒",tag:"名詞"},
+  {id:"Cantik",zh:"漂亮／美麗",pic:"💃",tag:"形容詞"},
+  {id:"Ganteng",zh:"帥",pic:"😎",tag:"形容詞"},
+  {id:"Rajin",zh:"勤勞／勤奮",pic:"💪📚",tag:"形容詞"},
+  {id:"Lucu",zh:"可愛／好笑",pic:"🥰",tag:"形容詞"},
+  {id:"Harga",zh:"價格",pic:"🏷️",tag:"名詞"},
+  {id:"Mahal",zh:"貴",pic:"💸",tag:"形容詞"},
+  {id:"Murah",zh:"便宜",pic:"🪙",tag:"形容詞"},
+  {id:"Pedas",zh:"辣",pic:"🌶️🔥",tag:"形容詞"},
+  {id:"Teh",zh:"茶",pic:"🍵",tag:"名詞"},
+  {id:"Manis",zh:"甜",pic:"🍬",tag:"形容詞"},
+  {id:"Makanan",zh:"食物",pic:"🍱",tag:"名詞"},
+  {id:"Enak",zh:"好吃",pic:"😋",tag:"形容詞"},
+  {id:"Rasa",zh:"味道",pic:"👅",tag:"名詞"},
+  {id:"Asin",zh:"鹹",pic:"🧂",tag:"形容詞"},
+  {id:"Tempat",zh:"地方",pic:"📍",tag:"名詞"},
+  {id:"Jauh",zh:"遠",pic:"🛣️",tag:"形容詞"},
+  {id:"Hotel",zh:"飯店",pic:"🏨",tag:"名詞"},
+  {id:"Dekat",zh:"近",pic:"📏",tag:"形容詞"}
+];
+
+function initCarousel(){
+  const car=$("carousel");
+  car.innerHTML=vocab.map(v=>`
+    <div class="vocab-card">
+      <div class="vocab-tag">${v.tag}</div>
+      <div class="vocab-pic">${v.pic}</div>
+      <div class="vocab-id">${v.id}</div>
+      <div class="vocab-zh">${v.zh}</div>
+      <button class="audio-btn" type="button" data-text="${escapeHtml(v.id)}" style="margin:0 auto">🔊</button>
+    </div>`).join("");
+  car.querySelectorAll(".audio-btn").forEach(b=>b.onclick=()=>playAudio(b.dataset.text,b));
+  const count=$("car-count");
+  const cur=()=>Math.round(car.scrollLeft/car.clientWidth);
+  const upd=()=>{count.textContent=`${Math.min(cur()+1,vocab.length)} / ${vocab.length}`;};
+  car.addEventListener("scroll",upd);
+  $("car-prev").onclick=()=>car.scrollBy({left:-car.clientWidth,behavior:"smooth"});
+  $("car-next").onclick=()=>car.scrollBy({left:car.clientWidth,behavior:"smooth"});
+  upd();
+}
+
+/* ===== INIT ===== */
+document.addEventListener("DOMContentLoaded",()=>{
+  Object.entries(sentSets).forEach(([id,items])=>createSentenceQuiz(id,items));
+  initCarousel();
+});
+</script>
+
+<!--
+    Shared template
+    Karena file berada di /lessons/,
+    script.js berada satu folder di atas.
+-->
+<script src="../script.js"></script>
+</body>
+</html>
